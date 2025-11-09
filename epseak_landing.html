@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EPSeak - English for Specific Purpose | Aprende inglés profesional</title>
+    <meta name="description" content="Domina el inglés para tu profesión y trabaja en cualquier parte del mundo con EPSeak">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --azul-petroleo: #0A4E5A;
+            --azul-celeste: #7CC4E0;
+            --rojo-brillante: #E0312D;
+            --blanco: #FFFFFF;
+            --gris-suave: #E8ECEF;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--azul-petroleo);
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: var(--blanco);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--azul-petroleo);
+        }
+
+        .logo span {
+            color: var(--rojo-brillante);
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: var(--azul-petroleo);
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-menu a:hover {
+            color: var(--azul-celeste);
+        }
+
+        .btn-cta {
+            background: var(--rojo-brillante);
+            color: var(--blanco);
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(224, 49, 45, 0.4);
+        }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background: var(--azul-petroleo);
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+
+        /* Hero Section */
+        .hero {
+            margin-top: 80px;
+            height: 90vh;
+            background: linear-gradient(135deg, rgba(10, 78, 90, 0.9), rgba(124, 196, 224, 0.8)), 
+                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><rect fill="%230A4E5A" width="1200" height="600"/><circle cx="200" cy="150" r="100" fill="%237CC4E0" opacity="0.1"/><circle cx="900" cy="400" r="150" fill="%237CC4E0" opacity="0.1"/></svg>');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--blanco);
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            padding: 2rem;
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            font-weight: 300;
+        }
+
+        /* Sections */
+        section {
+            padding: 5rem 2rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+            color: var(--azul-petroleo);
+        }
+
+        /* Testimonios */
+        .testimonios {
+            background: var(--gris-suave);
+        }
+
+        .testimonios-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .testimonio-card {
+            background: var(--blanco);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+            text-align: center;
+        }
+
+        .testimonio-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .testimonio-img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: var(--azul-celeste);
+            margin: 0 auto 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            color: var(--blanco);
+        }
+
+        .testimonio-name {
+            font-weight: 600;
+            color: var(--azul-petroleo);
+            margin-bottom: 0.5rem;
+        }
+
+        .testimonio-role {
+            color: var(--azul-celeste);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .testimonio-text {
+            font-style: italic;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* Quiénes Somos */
+        .quienes-somos {
+            background: var(--blanco);
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            background: var(--azul-celeste);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .video-placeholder {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: var(--blanco);
+        }
+
+        .about-text h3 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--azul-petroleo);
+        }
+
+        .about-text p {
+            line-height: 1.8;
+            color: #666;
+            margin-bottom: 1rem;
+        }
+
+        /* Razones */
+        .razones {
+            background: var(--gris-suave);
+        }
+
+        .razones-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .razon-card {
+            background: var(--blanco);
+            padding: 2.5rem;
+            border-radius: 15px;
+            text-align: center;
+            transition: all 0.3s ease;
+            border-top: 4px solid var(--azul-celeste);
+        }
+
+        .razon-card:nth-child(even) {
+            border-top-color: var(--azul-petroleo);
+        }
+
+        .razon-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        .razon-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--azul-celeste);
+        }
+
+        .razon-card:nth-child(even) .razon-icon {
+            color: var(--azul-petroleo);
+        }
+
+        .razon-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: var(--azul-petroleo);
+        }
+
+        .razon-card p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* Empresas */
+        .empresas {
+            background: var(--blanco);
+            text-align: center;
+        }
+
+        .empresas-slider {
+            display: flex;
+            gap: 3rem;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+
+        .empresa-logo {
+            width: 150px;
+            height: 80px;
+            background: var(--gris-suave);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            color: var(--azul-petroleo);
+            transition: all 0.3s ease;
+        }
+
+        .empresa-logo:hover {
+            transform: scale(1.1);
+            background: var(--azul-celeste);
+            color: var(--blanco);
+        }
+
+        /* Contacto */
+        .contacto {
+            background: var(--gris-suave);
+        }
+
+        .contacto-content {
+            max-width: 600px;
+            margin: 0 auto;
+            background: var(--blanco);
+            padding: 3rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--azul-petroleo);
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid var(--gris-suave);
+            border-radius: 8px;
+            font-family: 'Poppins', sans-serif;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--azul-celeste);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: #25D366;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: var(--blanco);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 999;
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--azul-petroleo);
+            color: var(--blanco);
+            padding: 3rem 2rem 1rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h4 {
+            margin-bottom: 1rem;
+            color: var(--azul-celeste);
+        }
+
+        .footer-section a {
+            color: var(--blanco);
+            text-decoration: none;
+            display: block;
+            margin-bottom: 0.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: var(--azul-celeste);
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .social-icons a {
+            display: inline-block;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.9rem;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            .nav-menu {
+                position: fixed;
+                left: -100%;
+                top: 80px;
+                flex-direction: column;
+                background: var(--blanco);
+                width: 100%;
+                text-align: center;
+                transition: 0.3s;
+                box-shadow: 0 10px 27px rgba(0,0,0,0.05);
+                padding: 2rem 0;
+            }
+
+            .nav-menu.active {
+                left: 0;
+            }
+
+            .menu-toggle {
+                display: flex;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+
+            .razones-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .social-icons {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .testimonios-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <div class="logo">EP<span>Seak</span></div>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="#inicio">Inicio</a></li>
+                <li><a href="#quienes-somos">Quiénes somos</a></li>
+                <li><a href="#experiencia">Experiencia</a></li>
+                <li><a href="#razones">Razones para elegirnos</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+                <li><a href="#contacto" class="btn-cta">Únete ahora</a></li>
+            </ul>
+            <div class="menu-toggle" id="menuToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="inicio">
+        <div class="hero-content">
+            <h1>Aprende inglés para tu profesión</h1>
+            <p>Domina el idioma y trabaja en lo que amas, en cualquier parte del mundo</p>
+            <a href="#quienes-somos" class="btn-cta">Conoce nuestra metodología</a>
+        </div>
+    </section>
+
+    <!-- Testimonios -->
+    <section class="testimonios" id="experiencia">
+        <div class="container">
+            <h2 class="section-title">Experiencia con nosotros</h2>
+            <div class="testimonios-grid">
+                <div class="testimonio-card">
+                    <div class="testimonio-img">👨‍⚕️</div>
+                    <div class="testimonio-name">Dr. Carlos Mendoza</div>
+                    <div class="testimonio-role">Médico Cirujano | Canadá</div>
+                    <p class="testimonio-text">"EPSeak me ayudó a aprobar mi examen médico internacional. Ahora trabajo en Toronto cumpliendo mi sueño."</p>
+                </div>
+                <div class="testimonio-card">
+                    <div class="testimonio-img">👩‍💼</div>
+                    <div class="testimonio-name">María González</div>
+                    <div class="testimonio-role">Contadora | Estados Unidos</div>
+                    <p class="testimonio-text">"La metodología específica para mi profesión hizo toda la diferencia. En 6 meses logré mi objetivo."</p>
+                </div>
+                <div class="testimonio-card">
+                    <div class="testimonio-img">👨‍💻</div>
+                    <div class="testimonio-name">Luis Ramírez</div>
+                    <div class="testimonio-role">Ingeniero de Software | Alemania</div>
+                    <p class="testimonio-text">"El inglés técnico que aprendí me abrió las puertas en empresas europeas. Totalmente recomendado."</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quiénes Somos -->
+    <section class="quienes-somos" id="quienes-somos">
+        <div class="container">
+            <h2 class="section-title">Quiénes somos</h2>
+            <div class="about-content">
+                <div class="video-container">
+                    <div class="video-placeholder">▶</div>
+                </div>
+                <div class="about-text">
+                    <h3>Tu puente hacia oportunidades globales</h3>
+                    <p>En <strong>EPSeak</strong> no solo enseñamos inglés, formamos profesionales preparados para competir en el mercado internacional.</p>
+                    <p>Nuestra metodología se enfoca en el <strong>inglés específico para tu área profesional</strong>, combinando vocabulario técnico, casos reales y situaciones laborales del día a día.</p>
+                    <p>Contamos con instructores certificados y especializados en diferentes campos profesionales: salud, ingeniería, negocios, tecnología y más.</p>
+                    <a href="#contacto" class="btn-cta" style="display: inline-block; margin-top: 1rem;">Empieza hoy</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Razones -->
+    <section class="razones" id="razones">
+        <div class="container">
+            <h2 class="section-title">6 razones para elegirnos</h2>
+            <div class="razones-grid">
+                <div class="razon-card">
+                    <div class="razon-icon">🎯</div>
+                    <h3>Inglés Especializado</h3>
+                    <p>Contenido diseñado específicamente para tu profesión, no inglés genérico.</p>
+                </div>
+                <div class="razon-card">
+                    <div class="razon-icon">👥</div>
+                    <h3>Instructores Expertos</h3>
+                    <p>Profesionales certificados con experiencia internacional en tu área.</p>
+                </div>
+                <div class="razon-card">
+                    <div class="razon-icon">⚡</div>
+                    <h3>Resultados Rápidos</h3>
+                    <p>Metodología intensiva que acelera tu aprendizaje de forma efectiva.</p>
+                </div>
+                <div class="razon-card">
+                    <div class="razon-icon">🌍</div>
+                    <h3>Enfoque Global</h3>
+                    <p>Preparación para certificaciones internacionales reconocidas mundialmente.</p>
+                </div>
+                <div class="razon-card">
+                    <div class="razon-icon">💼</div>
+                    <h3>Casos Reales</h3>
+                    <p>Simulaciones y prácticas basadas en situaciones laborales auténticas.</p>
+                </div>
+                <div class="razon-card">
+                    <div class="razon-icon">📱</div>
+                    <h3>Flexibilidad Total</h3>
+                    <p>Clases online, horarios adaptables y plataforma disponible 24/7.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Empresas -->
+    <section class="empresas">
+        <div class="container">
+            <h2 class="section-title">Confían en EPSeak</h2>
+            <div class="empresas-slider">
+                <div class="empresa-logo">TechCorp</div>
+                <div class="empresa-logo">MedGlobal</div>
+                <div class="empresa-logo">FinanceHub</div>
+                <div class="empresa-logo">EngPro</div>
+                <div class="empresa-logo">EduWorld</div>
+                <div class="empresa-logo">BizConnect</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contacto -->
+    <section class="contacto" id="contacto">
+        <div class="container">
+            <h2 class="section-title">Contáctanos</h2>
+            <div class="contacto-content">
+                <form id="contactForm">
+                    <div class="form-group">
+                        <label for="nombre">Nombre completo</label>
+                        <input type="text" id="nombre" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="profesion">Profesión</label>
+                        <input type="text" id="profesion" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="mensaje">Mensaje</label>
+                        <textarea id="mensaje" required></textarea>
+                    </div>
+                    <button type="submit" class="btn-cta" style="width: 100%;">Enviar mensaje</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- WhatsApp Float -->
+    <div class="whatsapp-float" title="Contáctanos por WhatsApp">
+        💬
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>EPSeak</h4>
+                <p>English for Specific Purpose</p>
+                <p>Formando profesionales para el mundo</p>
+            </div>
+            <div class="footer-section">
+                <h4>Enlaces</h4>
+                <a href="#inicio">Inicio</a>
+                <a href="#quienes-somos">Quiénes somos</a>
+                <a href="#razones">Razones</a>
+                <a href="#contacto">Contacto</a>
+            </div>
+            <div class="footer-section">
+                <h4>Síguenos</h4>
+                <div class="social-icons">
+                    <a href="#">📘</a>
+                    <a href="#">📷</a>
+                    <a href="#">🐦</a>
+                    <a href="#">💼</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 EPSeak. Todos los derechos reservados. | Política de Privacidad | Términos y Condiciones</p>
+        </div>
+    </footer>
+
+    <script>
+        // Menu Toggle
+        const menuToggle = document.getElementById('menuToggle');
+        const navMenu = document.getElementById('navMenu');
+
+        menuToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+
+        // Close menu when clicking on a link
+        document.querySelectorAll('.nav-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+            });
+        });
+
+        // Smooth Scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if(target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if(window.scrollY > 100) {
+                header.style.boxShadow = '0 5px 20px rgba(0,0,0,0.1)';
+            } else {
+                header.style.boxShadow = '0 2px 10px rgba(0,0,0,0.1)';
+            }
+        });
+
+        // Form submission
+        document.getElementById('contactForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('¡Gracias por contactarnos! Te responderemos pronto.');
+            e.target.reset();
+        });
+
+        // WhatsApp Float
+        document.querySelector('.whatsapp-float').addEventListener('click', () => {
+            window.open('https://wa.me/1234567890', '_blank');
+        });
+
+        // Scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting) {
+                    entry.target.style.animation = 'fadeInUp 0.8s ease forwards';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.testimonio-card, .razon-card, .empresa-logo').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>

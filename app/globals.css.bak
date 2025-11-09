@@ -1,0 +1,106 @@
+@import "tailwindcss";
+
+:root {
+  --azul-petroleo: #0A4E5A;
+  --azul-celeste: #7CC4E0;
+  --rojo-brillante: #E0312D;
+  --blanco: #FFFFFF;
+  --gris-suave: #E8ECEF;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  color: var(--azul-petroleo);
+  overflow-x: hidden;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Custom Styles */
+.btn-cta {
+  background: var(--rojo-brillante);
+  color: var(--blanco);
+  padding: 0.8rem 2rem;
+  border-radius: 50px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+  display: inline-block;
+  text-decoration: none;
+}
+
+.btn-cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(224, 49, 45, 0.4);
+}
+
+.section-title {
+  text-align: center;
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 3rem;
+  color: var(--azul-petroleo);
+}
+
+.nav-link {
+  text-decoration: none;
+  color: var(--azul-petroleo);
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+  color: var(--azul-celeste);
+}
+
+/* Utility Classes */
+.bg-azul-petroleo {
+  background-color: var(--azul-petroleo);
+}
+
+.bg-azul-celeste {
+  background-color: var(--azul-celeste);
+}
+
+.bg-rojo-brillante {
+  background-color: var(--rojo-brillante);
+}
+
+.bg-gris-suave {
+  background-color: var(--gris-suave);
+}
+
+.text-azul-petroleo {
+  color: var(--azul-petroleo);
+}
+
+.text-azul-celeste {
+  color: var(--azul-celeste);
+}
+
+.text-rojo-brillante {
+  color: var(--rojo-brillante);
+}
+
+@media (max-width: 768px) {
+  .section-title {
+    font-size: 2rem;
+  }
+}

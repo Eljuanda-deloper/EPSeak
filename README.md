@@ -119,7 +119,7 @@ Para personalizar los colores, edita las variables CSS en `app/globals.css`:
 Para configurar el número de WhatsApp, edita `app/components/shared/WhatsAppFloat.tsx`:
 
 ```typescript
-const whatsappNumber = 'TU_NUMERO_AQUI'; // Formato: 573001234567
+const whatsappNumber = '573113678555'; // Formato: 573113678555
 ```
 
 ## 📄 Licencia
