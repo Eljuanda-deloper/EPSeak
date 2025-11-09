@@ -2,7 +2,7 @@
 
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
 import { useRef, useState } from 'react';
-import { Users, Award, TrendingUp, ArrowRight, CheckCircle, MessageCircle } from 'lucide-react';
+import { Users, Award, TrendingUp, ArrowRight, CheckCircle, MessageCircle, Rocket, Trophy, BarChart3 } from 'lucide-react';
 import ReactPlayer from 'react-player';
 import Button from '../shared/Button';
 import { FadeIn, ScaleIn } from '../shared/Animations';
@@ -39,21 +39,21 @@ const About = () => {
       value: '2.3x',
       label: 'Mayor velocidad',
       detail: 'para lograr certificaciones',
-      icon: TrendingUp,
+      icon: Rocket,
       color: 'text-green-600'
     },
     {
       value: '94%',
       label: 'Ascensos',
       detail: 'de participantes en menos de 9 meses',
-      icon: Award,
+      icon: Trophy,
       color: 'text-yellow-600'
     },
     {
       value: '+45%',
       label: 'Incremento salarial',
       detail: 'promedio después del programa',
-      icon: TrendingUp,
+      icon: BarChart3,
       color: 'text-blue-600'
     }
   ];
@@ -81,7 +81,7 @@ const About = () => {
       ref={sectionRef}
       id="quienes-somos"
       style={{ y: springY, opacity: springOpacity, scale: springScale }}
-      className="relative py-16 overflow-hidden bg-gradient-to-br from-white via-gray-50/50 to-white"
+      className="relative py-8 overflow-hidden bg-gradient-to-br from-white via-gray-50/50 to-white"
     >
       {/* Background Elements */}
       <div className="absolute inset-0">
@@ -243,26 +243,27 @@ const About = () => {
             </FadeIn>
 
             <FadeIn delay={1.0}>
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="mt-16"
-              >
-                <Button
-                  onClick={() => window.location.href = '#contacto'}
-                  className="px-12 py-6 text-xl font-bold shadow-2xl hover:shadow-3xl hover:shadow-rojo-brillante/30 transition-all duration-300 group bg-gradient-to-r from-azul-petroleo to-azul-celeste hover:from-azul-celeste hover:to-rojo-brillante"
+              <div className="flex justify-center mt-16">
+                <motion.div
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
                 >
-                  <span className="flex items-center gap-4">
-                    Empieza hoy
-                    <motion.div
-                      whileHover={{ x: 8 }}
-                      transition={{ duration: 0.3 }}
-                    >
-                      <ArrowRight className="w-7 h-7" />
-                    </motion.div>
-                  </span>
-                </Button>
-              </motion.div>
+                  <Button
+                    onClick={() => window.location.href = '#contacto'}
+                    className="px-12 py-6 text-xl font-bold shadow-2xl hover:shadow-3xl hover:shadow-rojo-brillante/30 transition-all duration-300 group bg-gradient-to-r from-azul-petroleo to-azul-celeste hover:from-azul-celeste hover:to-rojo-brillante"
+                  >
+                    <span className="flex items-center gap-4">
+                      Empieza hoy
+                      <motion.div
+                        whileHover={{ x: 8 }}
+                        transition={{ duration: 0.3 }}
+                      >
+                        <ArrowRight className="w-7 h-7" />
+                      </motion.div>
+                    </span>
+                  </Button>
+                </motion.div>
+              </div>
             </FadeIn>
           </div>
         </div>

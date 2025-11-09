@@ -16,44 +16,54 @@ interface Testimonial {
 
 const testimonials: Testimonial[] = [
   {
-    name: 'Dr. Carlos Mendoza',
+    name: 'Dr. Alejandro Rivera',
     role: 'Cirujano cardiovascular · Canadá',
     quote:
-      '"EPSeak me preparó para homologar mi licencia médica y reportar resultados en comités internacionales sin perder precisión clínica."',
-    result: 'Aprobó MCCQE en 4 meses y lidera equipo bilingüe en Toronto.',
+      '"EPSeak me ayudó a pasar de B2 a C1 en inglés médico. Los asistentes IA corrigieron mi pronunciación en tiempo real durante simulaciones quirúrgicas."',
+    result: 'Aprobó MCCQE en 4 meses. +25% aumento salarial.',
     emoji: '👨‍⚕️',
     gradient: 'from-blue-500 to-cyan-500',
     delay: 0.1
   },
   {
-    name: 'María González',
+    name: 'Sofia Martínez',
     role: 'Controller financiera · Estados Unidos',
     quote:
-      '"La ruta personalizada mezcló sesiones 1:1 y simulaciones de board meetings. Ahora dirijo reportes globales en inglés."',
-    result: 'Ascenso a directora regional en el Q2 2025.',
+      '"Empecé con nivel básico. Las simulaciones de board meetings con IA me dieron confianza. Ahora lidero reportes globales en inglés."',
+    result: 'Ascenso a directora regional. TOEIC: 850 → 950.',
     emoji: '📊',
     gradient: 'from-green-500 to-emerald-500',
     delay: 0.2
   },
   {
-    name: 'Juan Pérez',
+    name: 'Miguel Torres',
     role: 'Engineering Manager · Alemania',
     quote:
-      '"Las prácticas con escenarios DevOps y auditorías externas elevaron la confianza del equipo para negociar con headquarters."',
-    result: 'Incremento del 35% en entregas cross-team sin retrabajos de idioma.',
+      '"El vocabulario técnico en DevOps mejoró un 40%. Las prácticas con IA hicieron que las auditorías fueran naturales."',
+    result: 'Promoción internacional. +30% en entregas cross-team.',
     emoji: '🧑‍💻',
     gradient: 'from-purple-500 to-pink-500',
     delay: 0.3
   },
   {
-    name: 'Ana Silva',
+    name: 'Laura Vargas',
     role: 'Investigadora senior · Reino Unido',
     quote:
-      '"Presentar papers ante la EMA ahora es natural. Las mentorías técnicas me dieron vocabulario y storytelling científico."',
-    result: 'Publicó 2 artículos indexados y ganó financiamiento Horizon Europe.',
+      '"De principiante a presentar papers en inglés. La IA me ayudó con storytelling científico y vocabulario técnico."',
+    result: '2 publicaciones indexadas. Financiamiento Horizon Europe.',
     emoji: '🔬',
     gradient: 'from-orange-500 to-red-500',
     delay: 0.4
+  },
+  {
+    name: 'Carlos Jiménez',
+    role: 'Product Manager · Silicon Valley',
+    quote:
+      '"EPSeak fusionó inglés general con términos tech. Los asistentes IA corrigieron mi pitch en reuniones con inversores."',
+    result: 'Promoción a Senior PM. +35% en cierres de deals.',
+    emoji: '🚀',
+    gradient: 'from-indigo-500 to-purple-500',
+    delay: 0.5
   }
 ];
 
@@ -164,10 +174,13 @@ const TestimonialCard = ({ name, role, quote, result, emoji, gradient, delay }: 
         <motion.div
           whileHover={{ scale: 1.01 }}
           transition={{ duration: 0.1 }}
+          className="relative"
         >
-          <p className="text-base leading-relaxed text-azul-petroleo/80 font-medium italic">
+          <div className="absolute -top-2 -left-2 text-azul-celeste/30 text-4xl font-serif">"</div>
+          <p className="text-base leading-relaxed text-azul-petroleo/80 font-medium italic pl-4">
             {quote}
           </p>
+          <div className="absolute -bottom-2 -right-2 text-azul-celeste/30 text-4xl font-serif">"</div>
         </motion.div>
 
         {/* Result badge */}
@@ -222,7 +235,7 @@ const Testimonials = () => {
       ref={sectionRef}
       id="experiencia"
       style={{ y: springY, opacity: springOpacity, scale: springScale }}
-      className="relative overflow-hidden bg-gradient-to-b from-gray-50/80 via-white to-gray-50/40 py-32"
+      className="relative overflow-hidden bg-gradient-to-b from-gray-50/80 via-white to-gray-50/40 py-16"
     >
       {/* Enhanced background elements */}
       <div className="pointer-events-none absolute inset-0">
@@ -239,6 +252,14 @@ const Testimonials = () => {
         {/* Animated grid */}
         <div
           className="absolute inset-0 bg-[url('/grid.svg')] opacity-[0.03]"
+        />
+
+        {/* Subtle wave pattern */}
+        <div
+          className="absolute inset-0 opacity-[0.02]"
+          style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23000000' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`
+          }}
         />
       </div>
 
@@ -355,7 +376,7 @@ const Testimonials = () => {
 
         {/* Testimonials Grid */}
         <motion.div
-          className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4 mb-20"
+          className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 mb-20"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
