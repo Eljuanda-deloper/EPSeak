@@ -1,36 +1,128 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# EPSeak - English for Specific Purpose
 
-## Getting Started
+Landing page profesional para EPSeak, construida con Next.js, React y TailwindCSS.
 
-First, run the development server:
+## 🎨 Características
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- ✅ Diseño responsive y moderno
+- ✅ Animaciones suaves con Framer Motion
+- ✅ Componentes reutilizables
+- ✅ Paleta de colores personalizada
+- ✅ Formulario de contacto funcional
+- ✅ Botón flotante de WhatsApp
+- ✅ SEO optimizado
+
+## 🎨 Paleta de Colores
+
+```css
+--azul-petroleo: #0A4E5A
+--azul-celeste: #7CC4E0
+--rojo-brillante: #E0312D
+--blanco: #FFFFFF
+--gris-suave: #E8ECEF
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🚀 Inicio Rápido
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Prerrequisitos
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- Node.js 18+ instalado
+- npm o yarn
 
-## Learn More
+### Instalación
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+# Instalar dependencias
+npm install
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Desarrollo
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```bash
+# Ejecutar servidor de desarrollo
+npm run dev
+```
 
-## Deploy on Vercel
+Abre [http://localhost:3000](http://localhost:3000) en tu navegador.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Build de Producción
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+# Crear build optimizado
+npm run build
+
+# Ejecutar build de producción
+npm start
+```
+
+## 📁 Estructura del Proyecto
+
+```
+epseak/
+├── app/
+│   ├── components/
+│   │   ├── layout/
+│   │   │   ├── Header.tsx
+│   │   │   └── Footer.tsx
+│   │   ├── home/
+│   │   │   ├── Hero.tsx
+│   │   │   ├── Testimonials.tsx
+│   │   │   ├── About.tsx
+│   │   │   ├── Reasons.tsx
+│   │   │   ├── Companies.tsx
+│   │   │   └── Contact.tsx
+│   │   └── shared/
+│   │       ├── Button.tsx
+│   │       └── WhatsAppFloat.tsx
+│   ├── globals.css
+│   ├── layout.tsx
+│   └── page.tsx
+├── public/
+└── package.json
+```
+
+## 🛠️ Tecnologías
+
+- **Framework:** Next.js 16
+- **UI Library:** React 19
+- **Styling:** TailwindCSS 4
+- **Animations:** Framer Motion
+- **Icons:** React Icons
+- **Language:** TypeScript
+
+## 📝 Secciones
+
+1. **Hero** - Sección principal con llamado a la acción
+2. **Testimonios** - Experiencias de estudiantes
+3. **Quiénes Somos** - Información sobre EPSeak
+4. **Razones** - 6 razones para elegir EPSeak
+5. **Empresas** - Empresas que confían en EPSeak
+6. **Contacto** - Formulario de contacto
+7. **Footer** - Enlaces y redes sociales
+
+## 🔧 Personalización
+
+Para personalizar los colores, edita las variables CSS en `app/globals.css`:
+
+```css
+:root {
+  --azul-petroleo: #0A4E5A;
+  --azul-celeste: #7CC4E0;
+  --rojo-brillante: #E0312D;
+  --blanco: #FFFFFF;
+  --gris-suave: #E8ECEF;
+}
+```
+
+## 📱 WhatsApp
+
+Para configurar el número de WhatsApp, edita `app/components/shared/WhatsAppFloat.tsx`:
+
+```typescript
+const whatsappNumber = 'TU_NUMERO_AQUI'; // Formato: 573001234567
+```
+
+## 📄 Licencia
+
+© 2025 EPSeak. Todos los derechos reservados.
+# EPSeak
