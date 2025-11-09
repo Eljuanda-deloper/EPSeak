@@ -41,33 +41,33 @@ const Reasons = () => {
   const reasons = [
     {
       icon: "🎯",
-      title: "Inglés Especializado",
-      description: "Contenido diseñado específicamente para tu profesión, no inglés genérico."
+      title: "Contenido Laboral Específico",
+      description: "Contenidos y ejercicios vinculados directamente a tu área laboral, garantizando relevancia y aplicabilidad inmediata."
+    },
+    {
+      icon: "📚",
+      title: "Programa de Autoestudio Único",
+      description: "Único programa de autoestudio que combina inglés general con inglés técnico especializado en profesiones específicas."
+    },
+    {
+      icon: "🤖",
+      title: "Asistentes Virtuales IA",
+      description: "Asistentes virtuales con IA para interacciones directas, corrigiendo pronunciación y estructura de oraciones."
     },
     {
       icon: "👥",
-      title: "Instructores Expertos",
-      description: "Profesionales certificados con experiencia internacional en tu área."
-    },
-    {
-      icon: "⚡",
-      title: "Resultados Rápidos",
-      description: "Metodología intensiva que acelera tu aprendizaje de forma efectiva."
-    },
-    {
-      icon: "🌍",
-      title: "Enfoque Global",
-      description: "Preparación para certificaciones internacionales reconocidas mundialmente."
+      title: "Comunidad Exclusiva",
+      description: "Comunidad exclusiva de estudiantes con perfiles similares, fomentando conexiones valiosas y colaborativas."
     },
     {
       icon: "💼",
-      title: "Casos Reales",
-      description: "Simulaciones y prácticas basadas en situaciones laborales auténticas."
+      title: "Actividades Profesionales Reales",
+      description: "Actividades basadas en situaciones reales del mundo profesional, promoviendo aprendizaje práctico y contextualizado."
     },
     {
-      icon: "📱",
-      title: "Flexibilidad Total",
-      description: "Clases online, horarios adaptables y plataforma disponible 24/7."
+      icon: "📺",
+      title: "Biblioteca Audiovisual",
+      description: "Biblioteca rica en materiales técnicos audiovisuales en inglés para practicar y evaluar habilidades en lectura, comprensión, escritura, escucha y habla."
     }
   ];
 
