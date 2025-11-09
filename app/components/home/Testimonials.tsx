@@ -12,6 +12,7 @@ interface Testimonial {
   emoji: string;
   gradient: string;
   delay: number;
+  gender: 'male' | 'female';
 }
 
 const testimonials: Testimonial[] = [
@@ -23,7 +24,8 @@ const testimonials: Testimonial[] = [
     result: 'Aprobó MCCQE en 4 meses. +25% aumento salarial.',
     emoji: '👨‍⚕️',
     gradient: 'from-blue-500 to-cyan-500',
-    delay: 0.1
+    delay: 0.1,
+    gender: 'male'
   },
   {
     name: 'Sofia Martínez',
@@ -33,7 +35,8 @@ const testimonials: Testimonial[] = [
     result: 'Ascenso a directora regional. TOEIC: 850 → 950.',
     emoji: '📊',
     gradient: 'from-green-500 to-emerald-500',
-    delay: 0.2
+    delay: 0.2,
+    gender: 'female'
   },
   {
     name: 'Miguel Torres',
@@ -43,27 +46,8 @@ const testimonials: Testimonial[] = [
     result: 'Promoción internacional. +30% en entregas cross-team.',
     emoji: '🧑‍💻',
     gradient: 'from-purple-500 to-pink-500',
-    delay: 0.3
-  },
-  {
-    name: 'Laura Vargas',
-    role: 'Investigadora senior · Reino Unido',
-    quote:
-      '"De principiante a presentar papers en inglés. La IA me ayudó con storytelling científico y vocabulario técnico."',
-    result: '2 publicaciones indexadas. Financiamiento Horizon Europe.',
-    emoji: '🔬',
-    gradient: 'from-orange-500 to-red-500',
-    delay: 0.4
-  },
-  {
-    name: 'Carlos Jiménez',
-    role: 'Product Manager · Silicon Valley',
-    quote:
-      '"EPSeak fusionó inglés general con términos tech. Los asistentes IA corrigieron mi pitch en reuniones con inversores."',
-    result: 'Promoción a Senior PM. +35% en cierres de deals.',
-    emoji: '🚀',
-    gradient: 'from-indigo-500 to-purple-500',
-    delay: 0.5
+    delay: 0.3,
+    gender: 'male'
   }
 ];
 
@@ -91,7 +75,7 @@ const stats = [
   }
 ];
 
-const TestimonialCard = ({ name, role, quote, result, emoji, gradient, delay }: Testimonial) => {
+const TestimonialCard = ({ name, role, quote, result, emoji, gradient, delay, gender }: Testimonial) => {
   const cardRef = useRef<HTMLDivElement>(null);
 
   return (
@@ -142,8 +126,18 @@ const TestimonialCard = ({ name, role, quote, result, emoji, gradient, delay }: 
             transition={{ duration: 0.15 }}
           >
             <div className={`absolute inset-0 bg-gradient-to-br ${gradient} rounded-2xl blur-lg opacity-30 group-hover:opacity-50 transition-opacity duration-300`} />
-            <div className="relative flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-white to-gray-50 text-3xl shadow-lg border border-white/50">
-              {emoji}
+            <div className="relative">
+              <img
+                src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${name.replace(' ', '')}&gender=${gender}&style=circle&backgroundColor=b6e3f4,c0aede,d1d4f9`}
+                alt={`${name} avatar`}
+                className="h-14 w-14 rounded-2xl bg-gradient-to-br from-white to-gray-50 shadow-lg border border-white/50 object-cover"
+                onError={(e) => {
+                  e.currentTarget.src = `https://api.dicebear.com/7.x/initials/svg?seed=${name}&backgroundColor=b6e3f4`;
+                }}
+              />
+              <div className="absolute -bottom-1 -right-1 bg-azul-celeste rounded-full p-1">
+                <div className="text-white text-xs">{emoji}</div>
+              </div>
             </div>
           </motion.div>
 
@@ -196,7 +190,7 @@ const TestimonialCard = ({ name, role, quote, result, emoji, gradient, delay }: 
             <ArrowUpRight className="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" />
           </motion.div>
           <div className="inline-flex items-center gap-2 rounded-full border border-green-200 bg-green-50 px-4 py-2 text-sm font-semibold text-green-700 shadow-sm">
-            {result}
+            <span className="font-bold">Resultado:</span> {result}
           </div>
         </motion.div>
       </div>
@@ -376,7 +370,7 @@ const Testimonials = () => {
 
         {/* Testimonials Grid */}
         <motion.div
-          className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 mb-20"
+          className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 mb-20"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
