@@ -128,7 +128,13 @@ const TestimonialCard = ({ name, role, quote, result, emoji, gradient, delay, ge
             <div className={`absolute inset-0 bg-gradient-to-br ${gradient} rounded-2xl blur-lg opacity-30 group-hover:opacity-50 transition-opacity duration-300`} />
             <div className="relative">
               <img
-                src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${name.replace(' ', '')}&gender=${gender}&style=circle&backgroundColor=b6e3f4,c0aede,d1d4f9`}
+                src={
+                  name === 'Dr. Alejandro Rivera'
+                    ? 'https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=150&h=150&fit=crop&crop=face'
+                    : name === 'Sofia Martínez'
+                    ? 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=150&h=150&fit=crop&crop=face'
+                    : 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face'
+                }
                 alt={`${name} avatar`}
                 className="h-14 w-14 rounded-2xl bg-gradient-to-br from-white to-gray-50 shadow-lg border border-white/50 object-cover"
                 onError={(e) => {
@@ -227,7 +233,7 @@ const Testimonials = () => {
   return (
     <motion.section
       ref={sectionRef}
-      id="experiencia"
+      id="testimonios"
       style={{ y: springY, opacity: springOpacity, scale: springScale }}
       className="relative overflow-hidden bg-gradient-to-b from-gray-50/80 via-white to-gray-50/40 py-16"
     >
