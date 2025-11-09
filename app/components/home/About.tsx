@@ -137,6 +137,8 @@ const About = () => {
               className="relative aspect-video bg-gradient-to-br from-azul-celeste via-azul-petroleo to-rojo-brillante rounded-3xl overflow-hidden shadow-2xl group"
               whileHover={{ scale: 1.02 }}
               transition={{ duration: 0.15 }}
+              role="region"
+              aria-label="Video explicativo de EPSeak"
             >
               {/* Video player with ReactPlayer - responsive and optimized */}
               <ReactPlayer
@@ -191,6 +193,7 @@ const About = () => {
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     className="inline-flex items-center gap-3 bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-full font-semibold transition-colors duration-300 shadow-lg hover:shadow-xl"
+                    aria-label="Contactar por WhatsApp para consultas sobre metodología EPSeak"
                   >
                     <MessageCircle className="w-5 h-5" />
                     Contactar por WhatsApp

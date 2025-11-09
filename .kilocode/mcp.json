@@ -27,6 +27,15 @@
         "GITHUB_TOOLSETS": "",
         "GITHUB_READ_ONLY": ""
       }
+    },
+    "supabase": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@supabase/mcp-server-supabase@0.5.5",
+        "--access-token",
+        "sbp_ac1dd066fe706a7226e09cc7c9486c6ef2ccd8ee"
+      ]
     }
   }
 }

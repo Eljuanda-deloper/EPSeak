@@ -1,0 +1,18 @@
+User-agent: *
+Allow: /
+
+# Block access to admin areas
+Disallow: /admin/
+Disallow: /api/
+Disallow: /.next/
+Disallow: /_next/
+
+# Allow crawling of main content
+Allow: /quienes-somos
+Allow: /testimonios
+Allow: /razones
+Allow: /empresas
+Allow: /contacto
+
+# Sitemap
+Sitemap: https://epseak.com/sitemap.xml
