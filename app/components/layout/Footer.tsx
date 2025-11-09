@@ -139,47 +139,18 @@ const Footer: FC<FooterProps> = () => {
       >
         {/* Enhanced background effects */}
         <div className="pointer-events-none absolute inset-0 overflow-hidden">
-          <motion.div
+          <div
             className="absolute -top-24 -left-24 h-80 w-80 rounded-full bg-azul-celeste/15 blur-[120px]"
-            animate={{
-              scale: [1, 1.2, 1],
-              opacity: [0.3, 0.6, 0.3]
-            }}
-            transition={{
-              duration: 8,
-              repeat: Infinity,
-              ease: "easeInOut"
-            }}
           />
-          <motion.div
+          <div
             className="absolute top-1/3 right-[-120px] h-96 w-96 rounded-full bg-azul-celeste/8 blur-[140px]"
-            animate={{
-              scale: [1.1, 0.9, 1.1],
-              opacity: [0.2, 0.5, 0.2]
-            }}
-            transition={{
-              duration: 6,
-              repeat: Infinity,
-              ease: "easeInOut",
-              delay: 2
-            }}
           />
-          <motion.div
+          <div
             className="absolute bottom-[-160px] left-1/4 h-96 w-96 rounded-full bg-rojo-brillante/10 blur-[160px]"
-            animate={{
-              scale: [0.8, 1.3, 0.8],
-              opacity: [0.1, 0.4, 0.1]
-            }}
-            transition={{
-              duration: 10,
-              repeat: Infinity,
-              ease: "easeInOut",
-              delay: 4
-            }}
           />
 
           {/* Floating particles */}
-          {[...Array(8)].map((_, i) => (
+          {[...Array(5)].map((_, i) => (
             <motion.div
               key={i}
               className="absolute w-2 h-2 bg-white/10 rounded-full"
@@ -193,7 +164,7 @@ const Footer: FC<FooterProps> = () => {
                 scale: [0.5, 1.5, 0.5]
               }}
               transition={{
-                duration: 4 + i * 0.5,
+                duration: 1 + i * 0.5,
                 repeat: Infinity,
                 delay: i * 0.3,
               }}
@@ -202,16 +173,8 @@ const Footer: FC<FooterProps> = () => {
         </div>
 
         {/* Animated grid pattern */}
-        <motion.div
+        <div
           className="absolute inset-0 bg-[url('/grid.svg')] bg-center opacity-[0.03]"
-          animate={{
-            backgroundPosition: ["0px 0px", "30px 30px"],
-          }}
-          transition={{
-            duration: 20,
-            repeat: Infinity,
-            ease: "linear"
-          }}
           style={{
             maskImage: 'linear-gradient(180deg, white, rgba(255,255,255,0))'
           }}
@@ -224,47 +187,20 @@ const Footer: FC<FooterProps> = () => {
           initial={{ opacity: 0, y: 50, scale: 0.95 }}
           whileInView={{ opacity: 1, y: 0, scale: 1 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.1 }}
+          transition={{ duration: 0.2, delay: 0.1 }}
           className="mb-20 overflow-hidden rounded-[32px] border border-white/20 bg-gradient-to-br from-white/15 to-white/5 shadow-[0_45px_90px_-30px_rgba(15,23,42,0.55)] backdrop-blur-xl"
         >
           <div className="relative px-8 py-12 sm:px-12 sm:py-16">
             {/* Animated background elements */}
-            <motion.div
+            <div
               className="pointer-events-none absolute -left-24 top-10 h-64 w-64 rounded-full bg-azul-celeste/20 blur-[140px]"
-              animate={{
-                scale: [1, 1.3, 1],
-                opacity: [0.2, 0.5, 0.2]
-              }}
-              transition={{
-                duration: 6,
-                repeat: Infinity,
-                ease: "easeInOut"
-              }}
             />
-            <motion.div
+            <div
               className="pointer-events-none absolute right-[-60px] bottom-0 h-72 w-72 rounded-full bg-rojo-brillante/15 blur-[160px]"
-              animate={{
-                scale: [1.2, 0.8, 1.2],
-                opacity: [0.1, 0.4, 0.1]
-              }}
-              transition={{
-                duration: 8,
-                repeat: Infinity,
-                ease: "easeInOut",
-                delay: 2
-              }}
             />
 
-            <motion.div
+            <div
               className="pointer-events-none absolute inset-0 bg-[url('/grid.svg')] opacity-10"
-              animate={{
-                backgroundPosition: ["0px 0px", "20px 20px"],
-              }}
-              transition={{
-                duration: 15,
-                repeat: Infinity,
-                ease: "linear"
-              }}
               style={{
                 maskImage: 'linear-gradient(120deg, rgba(255,255,255,0.8), transparent 65%)'
               }}
@@ -278,7 +214,7 @@ const Footer: FC<FooterProps> = () => {
                 >
                   <motion.div
                     animate={{ rotate: 360 }}
-                    transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+                    transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
                   >
                     <Heart className="w-4 h-4 text-rojo-brillante" />
                   </motion.div>
@@ -291,14 +227,14 @@ const Footer: FC<FooterProps> = () => {
                   <motion.h3
                     className="text-3xl font-bold sm:text-4xl leading-tight"
                     whileHover={{ scale: 1.02 }}
-                    transition={{ duration: 0.2 }}
+                    transition={{ duration: 0.1 }}
                   >
                     ¿Listo para llevar a tu equipo al siguiente nivel global?
                   </motion.h3>
                   <motion.p
                     className="text-lg text-white/80 leading-relaxed"
                     whileHover={{ x: 5 }}
-                    transition={{ duration: 0.2 }}
+                    transition={{ duration: 0.1 }}
                   >
                     Nuestros consultores diseñan un roadmap de inglés aplicado con metas claras, mentores certificados y reportes accionables para talento directivo y operativo.
                   </motion.p>
@@ -450,12 +386,12 @@ const Footer: FC<FooterProps> = () => {
             initial={{ opacity: 0, x: 50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ delay: 0.6, duration: 0.6 }}
+            transition={{ delay: 0.6, duration: 0.15 }}
           >
             <motion.h5
               className="text-lg font-semibold text-azul-celeste mb-6"
               whileHover={{ scale: 1.05, x: 5 }}
-              transition={{ duration: 0.2 }}
+              transition={{ duration: 0.1 }}
             >
               Contacto
             </motion.h5>
@@ -466,7 +402,7 @@ const Footer: FC<FooterProps> = () => {
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{ delay: 0.7 + index * 0.1, duration: 0.5 }}
+                  transition={{ delay: 0.7 + index * 0.1, duration: 0.15 }}
                 >
                   <motion.a
                     href={item.href}
@@ -483,7 +419,7 @@ const Footer: FC<FooterProps> = () => {
                     <div className="relative flex items-center gap-3">
                       <motion.div
                         whileHover={{ scale: 1.1, rotate: 5 }}
-                        transition={{ duration: 0.2 }}
+                        transition={{ duration: 0.1 }}
                       >
                         {item.label === 'Email' && <Mail className="w-5 h-5 text-azul-celeste/70 group-hover:text-azul-celeste" />}
                         {item.label === 'WhatsApp' && <Phone className="w-5 h-5 text-green-400/70 group-hover:text-green-400" />}
@@ -532,7 +468,7 @@ const Footer: FC<FooterProps> = () => {
               <motion.div
                 className="flex-1"
                 whileHover={{ scale: 1.02 }}
-                transition={{ duration: 0.2 }}
+                transition={{ duration: 0.1 }}
               >
                 <input
                   name="email"
@@ -563,7 +499,7 @@ const Footer: FC<FooterProps> = () => {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: 1.0, duration: 0.6 }}
+              transition={{ delay: 1.0, duration: 0.15 }}
             >
               {socialLinks.map((item, index) => (
                 <motion.a
@@ -575,7 +511,7 @@ const Footer: FC<FooterProps> = () => {
                   viewport={{ once: true }}
                   transition={{
                     delay: 1.1 + index * 0.1,
-                    duration: 0.5,
+                    duration: 0.15,
                     type: "spring",
                     bounce: 0.4
                   }}
@@ -592,13 +528,13 @@ const Footer: FC<FooterProps> = () => {
                     className="absolute inset-0 bg-gradient-to-r from-azul-celeste/0 via-azul-celeste/0 to-azul-celeste/0 transition-all duration-500 group-hover:from-azul-celeste/20 group-hover:via-azul-celeste/10 group-hover:to-azul-celeste/20 rounded-full"
                     initial={{ scale: 0 }}
                     whileHover={{ scale: 1.5, opacity: 0 }}
-                    transition={{ duration: 0.6 }}
+                    transition={{ duration: 0.15 }}
                   />
 
                   <motion.div
                     className="relative z-10"
                     whileHover={{ scale: 1.2, rotate: 10 }}
-                    transition={{ duration: 0.2 }}
+                    transition={{ duration: 0.1 }}
                   >
                     <item.icon className="text-xl text-white/80 transition-all duration-300 group-hover:text-white group-hover:scale-110" />
                   </motion.div>
@@ -608,7 +544,7 @@ const Footer: FC<FooterProps> = () => {
                     className="absolute inset-0 rounded-full border border-white/30"
                     initial={{ scale: 1, opacity: 0 }}
                     whileHover={{ scale: 1.5, opacity: 0.6 }}
-                    transition={{ duration: 0.4 }}
+                    transition={{ duration: 0.2 }}
                   />
                 </motion.a>
               ))}
@@ -621,7 +557,7 @@ const Footer: FC<FooterProps> = () => {
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ delay: 0.8, duration: 0.6 }}
+          transition={{ delay: 0.8, duration: 0.15 }}
           className="mt-16 sm:mt-20 flex flex-col items-center justify-between gap-6 border-t border-white/10 pt-8 text-sm text-white/60 sm:flex-row"
         >
           <motion.div
@@ -664,7 +600,7 @@ const Footer: FC<FooterProps> = () => {
                     className="absolute bottom-0 left-0 h-0.5 bg-azul-celeste rounded-full"
                     initial={{ width: 0 }}
                     whileHover={{ width: '100%' }}
-                    transition={{ duration: 0.3 }}
+                    transition={{ duration: 0.15 }}
                   />
                 </Link>
               </motion.div>

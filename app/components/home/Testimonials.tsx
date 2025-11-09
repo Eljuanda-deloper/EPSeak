@@ -91,14 +91,14 @@ const TestimonialCard = ({ name, role, quote, result, emoji, gradient, delay }: 
       whileInView={{ opacity: 1, y: 0, scale: 1 }}
       viewport={{ once: true, amount: 0.3 }}
       transition={{
-        duration: 0.8,
+        duration: 0.4,
         delay,
         ease: [0.25, 0.1, 0.25, 1]
       }}
       whileHover={{
         translateY: -12,
         scale: 1.02,
-        transition: { duration: 0.3 }
+        transition: { duration: 0.15 }
       }}
       className="group relative overflow-hidden rounded-3xl border border-white/20 bg-white/90 p-8 shadow-[0_25px_50px_-12px_rgba(0,0,0,0.15)] backdrop-blur-xl hover:shadow-[0_35px_80px_-20px_rgba(0,0,0,0.25)] transition-all duration-500"
     >
@@ -107,35 +107,16 @@ const TestimonialCard = ({ name, role, quote, result, emoji, gradient, delay }: 
         className={`absolute inset-0 bg-gradient-to-br ${gradient} opacity-0 group-hover:opacity-5 transition-opacity duration-500`}
         initial={{ scale: 0 }}
         whileInView={{ scale: 1 }}
-        transition={{ delay: delay + 0.2, duration: 0.6 }}
+        transition={{ delay: delay + 0.2, duration: 0.15 }}
       />
 
       {/* Floating orbs */}
-      <motion.div
+      <div
         className="absolute -top-8 -right-8 w-24 h-24 rounded-full bg-gradient-to-br from-azul-celeste/20 to-transparent blur-xl"
-        animate={{
-          scale: [1, 1.2, 1],
-          opacity: [0.3, 0.6, 0.3]
-        }}
-        transition={{
-          duration: 4,
-          repeat: Infinity,
-          ease: "easeInOut"
-        }}
       />
 
-      <motion.div
+      <div
         className="absolute -bottom-6 -left-6 w-20 h-20 rounded-full bg-gradient-to-tr from-rojo-brillante/15 to-transparent blur-lg"
-        animate={{
-          scale: [1.1, 0.9, 1.1],
-          opacity: [0.2, 0.5, 0.2]
-        }}
-        transition={{
-          duration: 3,
-          repeat: Infinity,
-          ease: "easeInOut",
-          delay: 1
-        }}
       />
 
       <div className="relative space-y-6">
@@ -143,12 +124,12 @@ const TestimonialCard = ({ name, role, quote, result, emoji, gradient, delay }: 
         <motion.div
           className="flex items-center gap-4"
           whileHover={{ x: 5 }}
-          transition={{ duration: 0.2 }}
+          transition={{ duration: 0.1 }}
         >
           <motion.div
             className="relative"
             whileHover={{ scale: 1.1, rotate: 5 }}
-            transition={{ duration: 0.3 }}
+            transition={{ duration: 0.15 }}
           >
             <div className={`absolute inset-0 bg-gradient-to-br ${gradient} rounded-2xl blur-lg opacity-30 group-hover:opacity-50 transition-opacity duration-300`} />
             <div className="relative flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-white to-gray-50 text-3xl shadow-lg border border-white/50">
@@ -173,7 +154,7 @@ const TestimonialCard = ({ name, role, quote, result, emoji, gradient, delay }: 
 
           <motion.div
             whileHover={{ rotate: 12, scale: 1.1 }}
-            transition={{ duration: 0.2 }}
+            transition={{ duration: 0.1 }}
           >
             <Quote className="w-6 h-6 text-azul-celeste/40 group-hover:text-azul-celeste/60 transition-colors duration-300" />
           </motion.div>
@@ -182,7 +163,7 @@ const TestimonialCard = ({ name, role, quote, result, emoji, gradient, delay }: 
         {/* Quote */}
         <motion.div
           whileHover={{ scale: 1.01 }}
-          transition={{ duration: 0.2 }}
+          transition={{ duration: 0.1 }}
         >
           <p className="text-base leading-relaxed text-azul-petroleo/80 font-medium italic">
             {quote}
@@ -193,11 +174,11 @@ const TestimonialCard = ({ name, role, quote, result, emoji, gradient, delay }: 
         <motion.div
           className="flex items-start gap-3"
           whileHover={{ x: 5 }}
-          transition={{ duration: 0.2 }}
+          transition={{ duration: 0.1 }}
         >
           <motion.div
             whileHover={{ scale: 1.1, rotate: 5 }}
-            transition={{ duration: 0.2 }}
+            transition={{ duration: 0.1 }}
           >
             <ArrowUpRight className="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" />
           </motion.div>
@@ -245,56 +226,19 @@ const Testimonials = () => {
     >
       {/* Enhanced background elements */}
       <div className="pointer-events-none absolute inset-0">
-        <motion.div
+        <div
           className="absolute -top-40 left-1/2 h-96 w-96 -translate-x-1/2 rounded-full bg-gradient-to-r from-azul-celeste/10 via-transparent to-rojo-brillante/10 blur-[180px]"
-          animate={{
-            scale: [1, 1.2, 1],
-            opacity: [0.3, 0.6, 0.3]
-          }}
-          transition={{
-            duration: 8,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
         />
-        <motion.div
+        <div
           className="absolute -bottom-36 right-12 h-80 w-80 rounded-full bg-gradient-to-l from-rojo-brillante/8 to-azul-petroleo/8 blur-[160px]"
-          animate={{
-            scale: [1.1, 0.9, 1.1],
-            opacity: [0.2, 0.5, 0.2]
-          }}
-          transition={{
-            duration: 6,
-            repeat: Infinity,
-            ease: "easeInOut",
-            delay: 2
-          }}
         />
-        <motion.div
+        <div
           className="absolute top-1/2 left-1/4 h-64 w-64 rounded-full bg-gradient-to-br from-azul-petroleo/5 to-azul-celeste/5 blur-[140px]"
-          animate={{
-            scale: [0.8, 1.3, 0.8],
-            opacity: [0.1, 0.4, 0.1]
-          }}
-          transition={{
-            duration: 10,
-            repeat: Infinity,
-            ease: "easeInOut",
-            delay: 4
-          }}
         />
 
         {/* Animated grid */}
-        <motion.div
+        <div
           className="absolute inset-0 bg-[url('/grid.svg')] opacity-[0.03]"
-          animate={{
-            backgroundPosition: ["0px 0px", "40px 40px"],
-          }}
-          transition={{
-            duration: 25,
-            repeat: Infinity,
-            ease: "linear"
-          }}
         />
       </div>
 
@@ -304,7 +248,7 @@ const Testimonials = () => {
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
+          transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
           className="mx-auto max-w-4xl text-center mb-20"
         >
           <motion.div
@@ -320,7 +264,7 @@ const Testimonials = () => {
           <motion.h2
             className="text-5xl md:text-6xl font-bold mb-8 bg-gradient-to-r from-azul-petroleo via-azul-celeste to-rojo-brillante bg-clip-text text-transparent leading-tight"
             whileHover={{ scale: 1.01 }}
-            transition={{ duration: 0.3 }}
+            transition={{ duration: 0.15 }}
           >
             Talento global que escala con EPSeak
           </motion.h2>
@@ -328,7 +272,7 @@ const Testimonials = () => {
           <motion.p
             className="text-xl text-azul-petroleo/80 leading-relaxed max-w-3xl mx-auto"
             whileHover={{ y: -2 }}
-            transition={{ duration: 0.2 }}
+            transition={{ duration: 0.1 }}
           >
             Nuestro acompañamiento combina feedback técnico y coaching intercultural. Así, equipos y líderes llevan su comunicación profesional al nivel que exigen proyectos internacionales.
           </motion.p>
@@ -339,7 +283,7 @@ const Testimonials = () => {
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.2 }}
+          transition={{ duration: 0.4, delay: 0.2 }}
           className="grid gap-6 sm:grid-cols-3 mb-20"
         >
           {stats.map(({ value, label, descriptor, icon: Icon, color }, index) => (
@@ -348,7 +292,7 @@ const Testimonials = () => {
               initial={{ opacity: 0, scale: 0.8, y: 20 }}
               whileInView={{ opacity: 1, scale: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.3 + index * 0.1 }}
+              transition={{ duration: 0.15, delay: 0.3 + index * 0.1 }}
               whileHover={{
                 y: -8,
                 scale: 1.05,
@@ -361,13 +305,13 @@ const Testimonials = () => {
                 className="absolute inset-0 bg-gradient-to-br from-white/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"
                 initial={{ scale: 0 }}
                 whileInView={{ scale: 1 }}
-                transition={{ delay: 0.5 + index * 0.1, duration: 0.6 }}
+                transition={{ delay: 0.5 + index * 0.1, duration: 0.15 }}
               />
 
               <div className="relative">
                 <motion.div
                   whileHover={{ scale: 1.1, rotate: 5 }}
-                  transition={{ duration: 0.3 }}
+                  transition={{ duration: 0.15 }}
                   className="flex justify-center mb-4"
                 >
                   <Icon className={`w-12 h-12 ${color}`} />
@@ -415,7 +359,7 @@ const Testimonials = () => {
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.4 }}
+          transition={{ duration: 0.15, delay: 0.4 }}
         >
           {testimonials.map((testimonial) => (
             <TestimonialCard key={testimonial.name} {...testimonial} />
@@ -427,20 +371,12 @@ const Testimonials = () => {
           initial={{ opacity: 0, y: 30, scale: 0.95 }}
           whileInView={{ opacity: 1, y: 0, scale: 1 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.6 }}
+          transition={{ duration: 0.4, delay: 0.6 }}
           className="relative overflow-hidden rounded-3xl border border-white/30 bg-gradient-to-br from-white/95 to-white/80 px-8 py-12 text-center shadow-2xl backdrop-blur-xl"
         >
           {/* Animated background */}
-          <motion.div
+          <div
             className="absolute inset-0 bg-gradient-to-r from-azul-celeste/5 via-transparent to-rojo-brillante/5"
-            animate={{
-              backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
-            }}
-            transition={{
-              duration: 8,
-              repeat: Infinity,
-              ease: "easeInOut"
-            }}
           />
 
           <div className="relative">
@@ -457,7 +393,7 @@ const Testimonials = () => {
             <motion.p
               className="max-w-3xl text-xl text-azul-petroleo/80 leading-relaxed mx-auto mb-8"
               whileHover={{ y: -2 }}
-              transition={{ duration: 0.2 }}
+              transition={{ duration: 0.1 }}
             >
               8 de cada 10 compañías reportan mejoras medibles en cierres comerciales, auditorías y satisfacción de clientes globales tras 90 días de programa.
             </motion.p>

@@ -38,7 +38,7 @@ const Hero = () => {
       y: [0, -20, 0],
       rotate: [0, 5, 0],
       transition: {
-        duration: 6,
+        duration: 3,
         repeat: Infinity,
         ease: [0.4, 0, 0.6, 1]
       }
@@ -83,7 +83,7 @@ const Hero = () => {
             backgroundPosition: ["0px 0px", "20px 20px"],
           }}
           transition={{
-            duration: 20,
+            duration: 10,
             repeat: Infinity,
             ease: "linear"
           }}
@@ -97,7 +97,7 @@ const Hero = () => {
             rotate: [0, 5, 0],
           }}
           transition={{
-            duration: 6,
+            duration: 3,
             repeat: Infinity,
             ease: [0.4, 0, 0.6, 1]
           }}
@@ -109,7 +109,7 @@ const Hero = () => {
             rotate: [0, -3, 0],
           }}
           transition={{
-            duration: 5,
+            duration: 1.5,
             repeat: Infinity,
             ease: [0.4, 0, 0.6, 1],
             delay: 2
@@ -122,7 +122,7 @@ const Hero = () => {
             scale: [1, 1.1, 1],
           }}
           transition={{
-            duration: 4,
+            duration: 1,
             repeat: Infinity,
             ease: [0.4, 0, 0.6, 1],
             delay: 4
@@ -231,13 +231,13 @@ const Hero = () => {
       <motion.div
         className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
         animate={{ y: [0, 10, 0] }}
-        transition={{ duration: 2, repeat: Infinity }}
+        transition={{ duration: 1, repeat: Infinity }}
       >
         <div className="w-6 h-10 border-2 border-white/30 rounded-full flex justify-center">
           <motion.div
             className="w-1 h-3 bg-white/60 rounded-full mt-2"
             animate={{ y: [0, 12, 0] }}
-            transition={{ duration: 2, repeat: Infinity }}
+            transition={{ duration: 1, repeat: Infinity }}
           />
         </div>
       </motion.div>

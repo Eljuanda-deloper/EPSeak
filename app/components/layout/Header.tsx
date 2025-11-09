@@ -52,7 +52,7 @@ const Header = () => {
       opacity: 0,
       scale: 0.95,
       transition: {
-        duration: 0.2,
+        duration: 0.1,
         ease: [0.4, 0, 0.2, 1]
       }
     },
@@ -60,7 +60,7 @@ const Header = () => {
       opacity: 1,
       scale: 1,
       transition: {
-        duration: 0.3,
+        duration: 0.15,
         ease: [0.4, 0, 0.2, 1]
       }
     }
@@ -96,7 +96,7 @@ const Header = () => {
             <Link href="/" className="flex items-center gap-2 text-azul-petroleo group">
               <motion.div
                 whileHover={{ rotate: [0, -10, 10, 0] }}
-                transition={{ duration: 0.5 }}
+                transition={{ duration: 0.25 }}
               >
                 <Image
                   src={Logo}
@@ -118,7 +118,7 @@ const Header = () => {
                 key={link.name}
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1, duration: 0.5 }}
+                transition={{ delay: index * 0.1, duration: 0.25 }}
               >
                 <Link
                   href={link.href}
@@ -149,7 +149,7 @@ const Header = () => {
                     <motion.div
                       layoutId="activeTab"
                       className="absolute inset-0 bg-azul-petroleo/10 rounded-full -z-10"
-                      transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+                      transition={{ type: "spring", bounce: 0.2, duration: 0.3 }}
                     />
                   )}
                 </Link>
@@ -158,7 +158,7 @@ const Header = () => {
             <motion.div
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.5, duration: 0.5 }}
+              transition={{ delay: 0.5, duration: 0.25 }}
               className="ml-4"
             >
               <Button
@@ -190,7 +190,7 @@ const Header = () => {
           >
             <motion.div
               animate={{ rotate: isMenuOpen ? 180 : 0 }}
-              transition={{ duration: 0.3 }}
+              transition={{ duration: 0.15 }}
             >
               {isMenuOpen ? (
                 <X className="w-6 h-6 text-azul-petroleo" />
@@ -209,7 +209,7 @@ const Header = () => {
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.95 }}
               transition={{
-                duration: 0.2,
+                duration: 0.1,
                 ease: [0.4, 0, 0.2, 1]
               }}
               className="lg:hidden absolute top-full left-0 right-0 bg-white/95 backdrop-blur-xl border-t border-gray-100 shadow-xl"

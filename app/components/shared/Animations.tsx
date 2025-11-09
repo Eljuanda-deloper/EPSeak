@@ -15,7 +15,7 @@ interface AnimatedElementProps extends MotionDivProps {
 export const FadeIn = forwardRef<HTMLDivElement, AnimatedElementProps>(({
   children,
   delay = 0,
-  duration = 0.5,
+  duration = 0.25,
   direction = 'up',
   distance = 20,
   className = '',
@@ -57,7 +57,7 @@ export const FadeIn = forwardRef<HTMLDivElement, AnimatedElementProps>(({
 export const OptimizedFadeIn = forwardRef<HTMLDivElement, AnimatedElementProps>(({
   children,
   delay = 0,
-  duration = 0.5,
+  duration = 0.25,
   direction = 'up',
   distance = 20,
   className = '',
@@ -101,7 +101,7 @@ FadeIn.displayName = 'FadeIn';
 export const ScaleIn = forwardRef<HTMLDivElement, AnimatedElementProps>(({
   children,
   delay = 0,
-  duration = 0.5,
+  duration = 0.25,
   className = '',
   ...props
 }, ref) => {
@@ -130,7 +130,7 @@ OptimizedFadeIn.displayName = 'OptimizedFadeIn';
 export const SlideIn = forwardRef<HTMLDivElement, AnimatedElementProps>(({
   children,
   delay = 0,
-  duration = 0.5,
+  duration = 0.25,
   direction = 'left',
   distance = 100,
   className = '',

@@ -24,7 +24,7 @@ const WhatsAppFloat = () => {
       <motion.div
         initial={{ opacity: 0, scale: 0.9, y: 5 }}
         animate={isHovered ? { opacity: 1, scale: 1, y: 0 } : { opacity: 0, scale: 0.9, y: 5 }}
-        transition={{ duration: 0.2, ease: "easeOut" }}
+        transition={{ duration: 0.1, ease: "easeOut" }}
         className="absolute bottom-full right-0 mb-3 px-4 py-2 bg-gray-900 text-white text-sm font-medium rounded-xl shadow-xl whitespace-nowrap"
       >
         <div className="flex items-center gap-2">
@@ -48,7 +48,7 @@ const WhatsAppFloat = () => {
             scale: [1, 1.2, 1],
             opacity: [0.3, 0.6, 0.3]
           } : {}}
-          transition={{ duration: 1.5, ease: "easeInOut" }}
+          transition={{ duration: 0.75, ease: "easeInOut" }}
         />
 
         {/* Button */}
@@ -68,14 +68,14 @@ const WhatsAppFloat = () => {
               rotate: [0, 90, 180, 270, 360],
               scale: [1, 1.05, 1]
             } : {}}
-            transition={{ duration: 0.8, ease: "easeInOut" }}
+            transition={{ duration: 0.4, ease: "easeInOut" }}
           />
 
           {/* Icon */}
           <motion.div
             className="relative z-10"
             animate={isHovered ? { rotate: [0, -10, 10, 0] } : {}}
-            transition={{ duration: 0.5, ease: "easeInOut" }}
+            transition={{ duration: 0.25, ease: "easeInOut" }}
           >
             <MessageCircle className="w-7 h-7 drop-shadow-sm" />
           </motion.div>
@@ -92,7 +92,7 @@ const WhatsAppFloat = () => {
               ]
             }}
             transition={{
-              duration: 2,
+              duration: 1,
               repeat: Infinity,
               ease: "easeInOut"
             }}
@@ -105,7 +105,7 @@ const WhatsAppFloat = () => {
             className="absolute inset-0 rounded-full border-2 border-white/30"
             initial={{ scale: 0, opacity: 0 }}
             animate={isHovered ? { scale: 1.2, opacity: [0, 0.5, 0] } : {}}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.3 }}
           />
         </motion.a>
       </motion.div>

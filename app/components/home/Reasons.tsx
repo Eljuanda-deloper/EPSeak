@@ -16,7 +16,7 @@ const ReasonCard = ({ icon, title, description, index }: ReasonCardProps) => {
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      transition={{ duration: 0.6, delay: index * 0.1 }}
+      transition={{ duration: 0.3, delay: index * 0.1 }}
       whileHover={{ y: -10 }}
       className={`
         bg-white p-10 rounded-2xl text-center transition-all duration-300

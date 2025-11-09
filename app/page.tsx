@@ -20,7 +20,7 @@ const pageVariants = {
 
 const pageTransition = {
   ease: "easeInOut",
-  duration: 0.5
+  duration: 0.25
 };
 
 export default function Home() {
@@ -48,18 +48,18 @@ export default function Home() {
         <motion.div
           initial={{ scale: 0.8, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: 0.25 }}
           className="text-center"
         >
           <motion.div
             animate={{ rotate: 360 }}
-            transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+            transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
             className="w-20 h-20 border-4 border-azul-celeste border-t-transparent rounded-full mx-auto mb-6"
           />
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3, duration: 0.5 }}
+            transition={{ delay: 0.3, duration: 0.25 }}
             className="text-2xl font-bold text-azul-petroleo mb-2"
           >
             EPSeak
@@ -67,7 +67,7 @@ export default function Home() {
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5, duration: 0.5 }}
+            transition={{ delay: 0.5, duration: 0.25 }}
             className="text-azul-petroleo/70"
           >
             Preparándote para el éxito global...

@@ -82,43 +82,14 @@ const About = () => {
     >
       {/* Background Elements */}
       <div className="absolute inset-0">
-        <motion.div
+        <div
           className="absolute -top-40 -right-40 w-96 h-96 bg-azul-celeste/8 rounded-full blur-3xl"
-          animate={{
-            scale: [1, 1.1, 1],
-            opacity: [0.3, 0.5, 0.3]
-          }}
-          transition={{
-            duration: 8,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
         />
-        <motion.div
+        <div
           className="absolute -bottom-20 -left-20 w-72 h-72 bg-rojo-brillante/6 rounded-full blur-2xl"
-          animate={{
-            scale: [1.1, 1, 1.1],
-            opacity: [0.2, 0.4, 0.2]
-          }}
-          transition={{
-            duration: 6,
-            repeat: Infinity,
-            ease: "easeInOut",
-            delay: 2
-          }}
         />
-        <motion.div
+        <div
           className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-azul-petroleo/5 rounded-full blur-3xl"
-          animate={{
-            scale: [0.8, 1.2, 0.8],
-            opacity: [0.1, 0.3, 0.1]
-          }}
-          transition={{
-            duration: 10,
-            repeat: Infinity,
-            ease: "easeInOut",
-            delay: 4
-          }}
         />
       </div>
 
@@ -146,7 +117,7 @@ const About = () => {
               className="w-24 h-1 bg-gradient-to-r from-azul-celeste to-rojo-brillante mx-auto rounded-full mb-8"
               initial={{ scaleX: 0 }}
               whileInView={{ scaleX: 1 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
+              transition={{ duration: 0.4, delay: 0.4 }}
               viewport={{ once: true }}
             />
           </FadeIn>
@@ -164,7 +135,7 @@ const About = () => {
             <motion.div
               className="relative aspect-video bg-gradient-to-br from-azul-celeste via-azul-petroleo to-rojo-brillante rounded-3xl overflow-hidden shadow-2xl group"
               whileHover={{ scale: 1.02 }}
-              transition={{ duration: 0.3 }}
+              transition={{ duration: 0.15 }}
             >
               {/* Animated background */}
               <motion.div
@@ -176,11 +147,11 @@ const About = () => {
                     "linear-gradient(45deg, rgba(124,196,224,0.2), transparent, rgba(224,49,45,0.2))"
                   ]
                 } : {}}
-                transition={{ duration: 3, repeat: Infinity }}
+                transition={{ duration: 1.5, repeat: Infinity }}
               />
 
               {/* Floating particles */}
-              {[...Array(5)].map((_, i) => (
+              {[...Array(3)].map((_, i) => (
                 <motion.div
                   key={i}
                   className="absolute w-2 h-2 bg-white/30 rounded-full"
@@ -193,7 +164,7 @@ const About = () => {
                     opacity: [0.3, 0.8, 0.3],
                   }}
                   transition={{
-                    duration: 3 + i * 0.5,
+                    duration: 1.5 + i * 0.5,
                     repeat: Infinity,
                     delay: i * 0.2,
                   }}
@@ -244,7 +215,7 @@ const About = () => {
               <motion.h3
                 className="text-4xl lg:text-5xl font-bold bg-gradient-to-r from-azul-petroleo via-azul-celeste to-rojo-brillante bg-clip-text text-transparent leading-tight"
                 whileHover={{ scale: 1.02 }}
-                transition={{ duration: 0.3 }}
+                transition={{ duration: 0.15 }}
               >
                 Tu puente hacia oportunidades globales
               </motion.h3>
@@ -252,34 +223,28 @@ const About = () => {
 
             <FadeIn delay={0.5}>
               <div className="space-y-6 text-gray-700">
-                <motion.p
+                <p
                   className="text-lg leading-relaxed"
-                  whileHover={{ x: 5 }}
-                  transition={{ duration: 0.2 }}
                 >
                   En <strong className="text-azul-petroleo font-semibold">EPSeak</strong> no solo enseñamos inglés, formamos
                   profesionales preparados para competir en el mercado internacional con confianza y excelencia.
-                </motion.p>
+                </p>
 
-                <motion.p
+                <p
                   className="text-lg leading-relaxed"
-                  whileHover={{ x: 5 }}
-                  transition={{ duration: 0.2 }}
                 >
                   Nuestra metodología se enfoca en el <strong className="text-azul-petroleo font-semibold">inglés específico
                   para tu área profesional</strong>, combinando vocabulario técnico,
                   casos reales y situaciones laborales del día a día.
-                </motion.p>
+                </p>
 
-                <motion.p
+                <p
                   className="text-lg leading-relaxed"
-                  whileHover={{ x: 5 }}
-                  transition={{ duration: 0.2 }}
                 >
                   Contamos con instructores certificados y especializados en
                   diferentes campos profesionales: salud, ingeniería, negocios,
                   tecnología y más.
-                </motion.p>
+                </p>
               </div>
             </FadeIn>
 
@@ -291,7 +256,7 @@ const About = () => {
                     key={feature.title}
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.7 + index * 0.1, duration: 0.5 }}
+                    transition={{ delay: 0.7 + index * 0.1, duration: 0.25 }}
                     viewport={{ once: true }}
                     whileHover={{ y: -5, scale: 1.02 }}
                     className="bg-white/60 backdrop-blur-sm p-4 rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-all duration-300"
@@ -312,7 +277,7 @@ const About = () => {
                     key={stat.value}
                     initial={{ opacity: 0, scale: 0.8 }}
                     whileInView={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: 0.9 + index * 0.1, duration: 0.5 }}
+                    transition={{ delay: 0.9 + index * 0.1, duration: 0.25 }}
                     viewport={{ once: true }}
                     whileHover={{
                       y: -8,
