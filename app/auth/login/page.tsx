@@ -1,5 +1,5 @@
 'use client'
-import { useEffect } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useAuth } from '@/app/contexts/AuthContext'
 import LoginForm from '@/app/components/auth/LoginForm'
@@ -8,15 +8,46 @@ export default function LoginPage() {
   const { user, loading } = useAuth()
   const router = useRouter()
   const searchParams = useSearchParams()
+  const hasRedirectedRef = useRef(false)
+  const [isRedirecting, setIsRedirecting] = useState(false)
 
-  // ✅ Redirigir si ya está autenticado (solo si no hay sesión activa)
+  // ✅ Redirigir después del login exitoso - solución robusta
   useEffect(() => {
-    if (!loading && user) {
+    // Solo proceder si no estamos cargando, hay usuario, no hemos redirigido antes y no estamos en proceso de redirección
+    if (!loading && user && !hasRedirectedRef.current && !isRedirecting) {
+      hasRedirectedRef.current = true
+      setIsRedirecting(true)
+
       const redirectTo = searchParams.get('redirectTo') || '/dashboard'
-      console.log('✅ User already authenticated, redirecting to:', redirectTo)
-      router.replace(redirectTo)
+      console.log('✅ User authenticated, redirecting to:', redirectTo)
+
+      // Usar requestAnimationFrame + setTimeout para asegurar que el DOM esté completamente renderizado
+      requestAnimationFrame(() => {
+        setTimeout(() => {
+          // Verificar que aún estamos en la página de login antes de redirigir
+          if (window.location.pathname === '/auth/login') {
+            console.log('🚀 Executing redirect to:', redirectTo)
+            router.replace(redirectTo)
+          }
+        }, 100) // Pequeño delay después del render frame
+      })
     }
-  }, [user, loading, router, searchParams])
+  }, [user, loading, router, searchParams, isRedirecting])
+
+  // Reset flags when component unmounts or user logs out
+  useEffect(() => {
+    return () => {
+      hasRedirectedRef.current = false
+      setIsRedirecting(false)
+    }
+  }, [])
+
+  useEffect(() => {
+    if (!user) {
+      hasRedirectedRef.current = false
+      setIsRedirecting(false)
+    }
+  }, [user])
 
   // Mostrar loading mientras verifica la sesión
   if (loading) {

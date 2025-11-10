@@ -1,8 +1,8 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import {
   BookOpen,
   BarChart3,
@@ -16,6 +16,7 @@ import {
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Button from '../components/shared/Button';
+import { useAuth } from '../contexts/AuthContext';
 
 const sidebarItems = [
   {
@@ -57,6 +58,33 @@ export default function DashboardLayout({
 }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const pathname = usePathname();
+  const router = useRouter();
+  const { user, loading } = useAuth();
+
+  // ✅ Protección de ruta: redirigir si no está autenticado
+  useEffect(() => {
+    if (!loading && !user) {
+      console.log('🔒 User not authenticated, redirecting to login')
+      router.replace('/auth/login')
+    }
+  }, [user, loading, router])
+
+  // Mostrar loading mientras verifica la sesión
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+          <p className="text-gray-600">Verificando sesión...</p>
+        </div>
+      </div>
+    )
+  }
+
+  // Redirigir si no está autenticado
+  if (!user) {
+    return null
+  }
 
   const sidebarVariants = {
     closed: {
@@ -169,7 +197,7 @@ export default function DashboardLayout({
 
             <div className="flex items-center gap-4 ml-auto">
               <div className="text-sm text-gray-600">
-                Bienvenido de vuelta!
+                Bienvenido, {user?.email?.split('@')[0]}!
               </div>
               <div className="h-8 w-8 rounded-full bg-azul-petroleo flex items-center justify-center">
                 <User className="h-4 w-4 text-white" />

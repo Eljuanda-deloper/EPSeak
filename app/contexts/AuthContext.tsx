@@ -29,24 +29,18 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     let isSubscribed = true;
-    
+
     // Get initial session
     const getSession = async () => {
       const { data: { session } } = await supabase.auth.getSession()
       if (!isSubscribed) return;
-      
+
       setSession(session)
       setUser(session?.user ?? null)
       setLoading(false)
 
-      // ✅ Redirigir si ya está autenticado y está en página de login
-      if (session && pathname === '/auth/login' && !redirectingRef.current) {
-        redirectingRef.current = true
-        const redirectTo = searchParams.get('redirectTo') || '/dashboard'
-        console.log('✅ Already authenticated, redirecting to:', redirectTo)
-        // Usar replace en lugar de push para evitar agregar a history
-        router.replace(redirectTo)
-      }
+      // ✅ NO redirigir desde AuthContext - dejar que los componentes manejen sus redirecciones
+      console.log('🔄 Session loaded:', !!session, 'Path:', pathname)
     }
 
     getSession()
@@ -68,28 +62,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         setUser(session?.user ?? null)
         setLoading(false)
 
-        // ✅ Redirigir después del login exitoso
-        if (event === 'SIGNED_IN' && session && !redirectingRef.current) {
-          console.log('✅ User signed in successfully')
-          redirectingRef.current = true
-
-          // Check for redirect URL
-          const urlParams = new URLSearchParams(window.location.search)
-          const redirectParam = urlParams.get('redirectTo')
-          const localStorageRedirect = localStorage.getItem('redirectTo')
-          const redirectTo = redirectParam || localStorageRedirect || '/dashboard'
-
-          console.log('🔀 Redirect logic:', {
-            urlParam: redirectParam,
-            localStorage: localStorageRedirect,
-            finalRedirect: redirectTo
-          })
-
-          localStorage.removeItem('redirectTo')
-
-          // ✅ Usar replace y sin setTimeout
-          console.log('🚀 Redirecting to:', redirectTo)
-          router.replace(redirectTo)
+        // ✅ NO redirigir desde AuthContext - dejar que el componente maneje la redirección
+        if (event === 'SIGNED_IN' && session) {
+          console.log('✅ User signed in successfully - letting component handle redirect')
         }
 
         // ✅ Redirigir al login después del logout

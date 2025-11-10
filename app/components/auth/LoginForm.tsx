@@ -55,7 +55,7 @@ export default function LoginForm() {
       } else {
         console.log('✅ Sign in successful')
         logAuthEvent('login_success', undefined, email.substring(0, 3) + '***')
-        // Let the AuthContext handle the redirect
+        // Let the login page handle the redirect
         setLoading(false)
       }
     } catch (err) {

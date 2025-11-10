@@ -81,12 +81,12 @@ const Header = () => {
         top-0 w-full z-50 transition-all duration-300
         ${isScrolled
           ? 'bg-white/95 shadow-sm border-b border-gray-100/50'
-          : 'bg-white/90'
+          : 'bg-transparent'
         }
       `}
     >
       <nav className="max-w-[1200px] mx-auto px-4 lg:px-6">
-        <div className="flex justify-between items-center h-10 lg:h-12">
+        <div className="flex justify-between items-center h-16 lg:h-20">
           {/* Logo */}
           <motion.div
             whileHover={{ scale: 1.02 }}
@@ -103,12 +103,12 @@ const Header = () => {
                   alt="EPSeak logo"
                   width={140}
                   height={35}
-                  className="h-6 w-auto md:h-8 transition-all duration-300 group-hover:brightness-110"
+                  className="h-8 w-auto md:h-10 transition-all duration-300 group-hover:brightness-110"
                   priority
                   suppressHydrationWarning={true}
                 />
               </motion.div>
-              <span className="text-xl font-bold md:text-2xl tracking-tight">
+              <span className="text-2xl font-bold md:text-3xl tracking-tight">
                 EP<span className="text-rojo-brillante group-hover:text-red-600 transition-colors duration-300">Seak</span>
               </span>
             </Link>
