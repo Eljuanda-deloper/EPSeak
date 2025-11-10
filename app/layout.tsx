@@ -29,7 +29,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
         <ClientProviders>
           <div className="relative flex flex-col min-h-screen">
             <Header />
-            <main className="flex-1">
+            <main className="flex-1 pt-16 lg:pt-20">
               {children}
             </main>
             <Footer />

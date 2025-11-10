@@ -63,7 +63,7 @@ export default function DashboardLayout({
 
   // ✅ Protección de ruta: redirigir si no está autenticado
   useEffect(() => {
-    if (!loading && !user) {
+    if (!loading && !user && window.location.pathname.startsWith('/dashboard')) {
       console.log('🔒 User not authenticated, redirecting to login')
       router.replace('/auth/login')
     }
