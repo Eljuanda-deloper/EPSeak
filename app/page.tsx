@@ -5,12 +5,8 @@ import { useEffect, useState } from 'react';
 import Hero from './components/home/Hero';
 import About from './components/home/About';
 import Testimonials from './components/home/Testimonials';
-import Reasons from './components/home/Reasons';
-import Companies from './components/home/Companies';
 import Contact from './components/home/Contact';
 import WhatsAppFloat from './components/shared/WhatsAppFloat';
-import Header from './components/layout/Header';
-import Footer from './components/layout/Footer';
 
 const pageVariants = {
   initial: { opacity: 0, y: 20 },
@@ -85,18 +81,15 @@ export default function Home() {
         animate="in"
         exit="out"
         variants={pageVariants}
+        className="min-h-screen flex flex-col"
       >
-        <Header />
-        <main className="relative">
+        <main className="flex-grow">
           <Hero />
           <About />
           <Testimonials />
-          <Reasons />
-          <Companies />
           <Contact />
           <WhatsAppFloat />
         </main>
-        <Footer />
       </motion.div>
     </AnimatePresence>
   );

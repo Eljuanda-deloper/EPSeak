@@ -13,5 +13,6 @@ export const useInView = (ref: any, options = { once: true, amount: 0.3 }) => {
     }
   }, [isInView, hasAnimated]);
 
-  return { isInView: hasAnimated ? false : isInView, hasAnimated };
+  // Return the original isInView for scroll-based animations
+  return { isInView, hasAnimated };
 };

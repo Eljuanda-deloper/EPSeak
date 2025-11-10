@@ -1,10 +1,11 @@
 "use client";
 
+
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
-import { Menu, X, ChevronDown } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import Button from '../shared/Button';
 import Logo from '@/app/imagenes/logoEPSeak.png';
 
@@ -22,7 +23,7 @@ const Header = () => {
       setIsScrolled(window.scrollY > 50);
 
       // Detect active section
-      const sections = ['inicio', 'quienes-somos', 'testimonios', 'razones', 'empresas', 'contacto'];
+      const sections = ['inicio', 'quienes-somos', 'testimonios', 'contacto'];
       const current = sections.find(section => {
         const element = document.getElementById(section);
         if (element) {
@@ -42,8 +43,6 @@ const Header = () => {
     { name: 'Inicio', href: '#inicio' },
     { name: 'Quiénes somos', href: '#quienes-somos' },
     { name: 'Testimonios', href: '#testimonios' },
-    { name: 'Razones', href: '#razones' },
-    { name: 'Empresas', href: '#empresas' },
     { name: 'Contacto', href: '#contacto' },
   ];
 
@@ -52,7 +51,7 @@ const Header = () => {
       opacity: 0,
       scale: 0.95,
       transition: {
-        duration: 0.1,
+        duration: 0.2,
         ease: [0.4, 0, 0.2, 1]
       }
     },
@@ -60,7 +59,7 @@ const Header = () => {
       opacity: 1,
       scale: 1,
       transition: {
-        duration: 0.15,
+        duration: 0.3,
         ease: [0.4, 0, 0.2, 1]
       }
     }
@@ -75,18 +74,19 @@ const Header = () => {
     <motion.header
       style={{
         backdropFilter: `blur(${headerBlur}px)`,
-        backgroundColor: headerOpacity
+        backgroundColor: headerOpacity,
+        position: 'fixed'
       }}
       className={`
-        fixed top-0 w-full z-50 transition-all duration-500
+        top-0 w-full z-50 transition-all duration-300
         ${isScrolled
-          ? 'bg-white/95 shadow-[0_8px_32px_rgba(0,0,0,0.12)] border-b border-gray-100/50'
-          : 'bg-white/90 shadow-[0_4px_16px_rgba(0,0,0,0.08)]'
+          ? 'bg-white/95 shadow-sm border-b border-gray-100/50'
+          : 'bg-white/90'
         }
       `}
     >
-      <nav className="max-w-[1200px] mx-auto px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16 lg:h-20">
+      <nav className="max-w-[1200px] mx-auto px-4 lg:px-6">
+        <div className="flex justify-between items-center h-10 lg:h-12">
           {/* Logo */}
           <motion.div
             whileHover={{ scale: 1.02 }}
@@ -96,13 +96,16 @@ const Header = () => {
             <Link href="/" className="flex items-center gap-2 text-azul-petroleo group">
               <motion.div
                 whileHover={{ rotate: [0, -10, 10, 0] }}
-                transition={{ duration: 0.25 }}
+                transition={{ duration: 0.5 }}
               >
                 <Image
                   src={Logo}
                   alt="EPSeak logo"
-                  className="h-8 w-auto md:h-10 transition-all duration-300 group-hover:brightness-110"
+                  width={140}
+                  height={35}
+                  className="h-6 w-auto md:h-8 transition-all duration-300 group-hover:brightness-110"
                   priority
+                  suppressHydrationWarning={true}
                 />
               </motion.div>
               <span className="text-xl font-bold md:text-2xl tracking-tight">
@@ -118,7 +121,7 @@ const Header = () => {
                 key={link.name}
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1, duration: 0.25 }}
+                transition={{ delay: index * 0.1, duration: 0.5 }}
               >
                 <Link
                   href={link.href}
@@ -136,7 +139,7 @@ const Header = () => {
                     }
                   }}
                   className={`
-                    relative px-4 py-2 rounded-full text-sm font-medium transition-all duration-300
+                    relative px-3 py-1.5 rounded-full text-sm font-medium transition-all duration-300
                     hover:bg-azul-petroleo/5 hover:text-azul-petroleo hover:scale-105
                     ${activeSection === link.href.slice(1)
                       ? 'text-azul-petroleo bg-azul-petroleo/10'
@@ -149,7 +152,7 @@ const Header = () => {
                     <motion.div
                       layoutId="activeTab"
                       className="absolute inset-0 bg-azul-petroleo/10 rounded-full -z-10"
-                      transition={{ type: "spring", bounce: 0.2, duration: 0.3 }}
+                      transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
                     />
                   )}
                 </Link>
@@ -158,27 +161,24 @@ const Header = () => {
             <motion.div
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.5, duration: 0.25 }}
-              className="ml-4"
+              transition={{ delay: 0.5, duration: 0.5 }}
+              className="ml-4 flex items-center gap-3"
             >
-              <Button
-                onClick={(e) => {
-                  e.preventDefault();
-                  const element = document.getElementById('contacto');
-                  if (element) {
-                    const headerOffset = 80;
-                    const elementPosition = element.getBoundingClientRect().top;
-                    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-                    window.scrollTo({
-                      top: offsetPosition,
-                      behavior: 'smooth'
-                    });
-                  }
-                }}
-                className="shadow-lg hover:shadow-xl hover:shadow-rojo-brillante/20"
-              >
-                Únete ahora
-              </Button>
+              <Link href="/auth/login">
+                <Button
+                  variant="secondary"
+                  className="shadow-lg hover:shadow-xl hover:shadow-azul-petroleo/20 bg-white text-azul-petroleo border border-azul-petroleo/20 hover:bg-azul-petroleo/5 hover:text-azul-petroleo !text-azul-petroleo"
+                >
+                  Iniciar Sesión
+                </Button>
+              </Link>
+              <Link href="/auth/register">
+                <Button
+                  className="shadow-lg hover:shadow-xl hover:shadow-rojo-brillante/20"
+                >
+                  Registrarse
+                </Button>
+              </Link>
             </motion.div>
           </div>
 
@@ -190,7 +190,7 @@ const Header = () => {
           >
             <motion.div
               animate={{ rotate: isMenuOpen ? 180 : 0 }}
-              transition={{ duration: 0.15 }}
+              transition={{ duration: 0.3 }}
             >
               {isMenuOpen ? (
                 <X className="w-6 h-6 text-azul-petroleo" />
@@ -209,7 +209,7 @@ const Header = () => {
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.95 }}
               transition={{
-                duration: 0.1,
+                duration: 0.2,
                 ease: [0.4, 0, 0.2, 1]
               }}
               className="lg:hidden absolute top-full left-0 right-0 bg-white/95 backdrop-blur-xl border-t border-gray-100 shadow-xl"
@@ -253,17 +253,23 @@ const Header = () => {
                 <motion.div
                   variants={itemVariants}
                   transition={{ delay: 0.5 }}
-                  className="pt-4 border-t border-gray-100"
+                  className="pt-4 border-t border-gray-100 space-y-3"
                 >
-                  <Button
-                    onClick={() => {
-                      window.location.href = '#contacto';
-                      setIsMenuOpen(false);
-                    }}
-                    className="w-full"
-                  >
-                    Únete ahora
-                  </Button>
+                  <Link href="/auth/login" onClick={() => setIsMenuOpen(false)}>
+                    <Button
+                      variant="secondary"
+                      className="w-full shadow-lg hover:shadow-xl hover:shadow-azul-petroleo/20 bg-white text-azul-petroleo border border-azul-petroleo/20 hover:bg-azul-petroleo/5 !text-azul-petroleo"
+                    >
+                      Iniciar Sesión
+                    </Button>
+                  </Link>
+                  <Link href="/auth/register" onClick={() => setIsMenuOpen(false)}>
+                    <Button
+                      className="w-full shadow-lg hover:shadow-xl hover:shadow-rojo-brillante/20"
+                    >
+                      Registrarse
+                    </Button>
+                  </Link>
                 </motion.div>
               </div>
             </motion.div>

@@ -63,7 +63,7 @@ const Hero = () => {
       ref={sectionRef}
       id="inicio"
       style={{ y: springY, opacity: springOpacity, scale }}
-      className="relative mt-20 flex min-h-[100vh] items-center justify-center overflow-hidden text-white"
+      className="relative flex min-h-[100vh] items-center justify-center overflow-hidden text-white"
     >
       {/* Background Layers */}
       <div className="pointer-events-none absolute inset-0">

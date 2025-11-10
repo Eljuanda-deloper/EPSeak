@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
+import { ClientProviders } from "./components/providers/ClientProviders";
+import Header from "./components/layout/Header";
+import Footer from "./components/layout/Footer";
 
 const poppins = Poppins({
   weight: ["300", "400", "500", "600", "700"],
@@ -22,11 +25,17 @@ type RootLayoutProps = {
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="es">
-      <body className={`${poppins.variable} relative min-h-screen w-full overflow-x-hidden font-poppins`}>
-        <div className="flex min-h-screen w-full flex-col">
-          {children}
-        </div>
-      </body>
+      <body className={`${poppins.variable} min-h-screen w-full font-poppins bg-white antialiased relative`}>
+        <ClientProviders>
+          <div className="relative flex flex-col min-h-screen">
+            <Header />
+            <main className="flex-1 pt-16 lg:pt-20">
+              {children}
+            </main>
+            <Footer />
+          </div>
+        </ClientProviders>
+    </body>
     </html>
   );
 }
