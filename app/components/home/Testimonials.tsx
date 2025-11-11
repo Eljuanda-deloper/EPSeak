@@ -130,10 +130,10 @@ const TestimonialCard = ({ name, role, quote, result, emoji, gradient, delay, ge
               <img
                 src={
                   name === 'Dr. Alejandro Rivera'
-                    ? 'https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=150&h=150&fit=crop&crop=face'
+                    ? `https://api.dicebear.com/7.x/initials/svg?seed=Alejandro%20Rivera&backgroundColor=b6e3f4&fontFamily=Poppins`
                     : name === 'Sofia Martínez'
-                    ? 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=150&h=150&fit=crop&crop=face'
-                    : 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face'
+                    ? `https://api.dicebear.com/7.x/initials/svg?seed=Sofia%20Martinez&backgroundColor=ffd5dc&fontFamily=Poppins`
+                    : `https://api.dicebear.com/7.x/initials/svg?seed=Miguel%20Torres&backgroundColor=c0aede&fontFamily=Poppins`
                 }
                 alt={`${name} avatar`}
                 className="h-14 w-14 rounded-2xl bg-gradient-to-br from-white to-gray-50 shadow-lg border border-white/50 object-cover"

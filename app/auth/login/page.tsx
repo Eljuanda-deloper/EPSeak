@@ -1,52 +1,12 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
-import { useRouter, useSearchParams } from 'next/navigation'
 import { useAuth } from '@/app/contexts/AuthContext'
 import LoginForm from '@/app/components/auth/LoginForm'
 
 export default function LoginPage() {
   const { user, loading } = useAuth()
-  const router = useRouter()
-  const searchParams = useSearchParams()
-  const hasRedirectedRef = useRef(false)
 
-  useEffect(() => {
-    if (loading) return
-
-    const handleRedirect = async () => {
-      if (user && !hasRedirectedRef.current) {
-        hasRedirectedRef.current = true
-        const redirectTo = searchParams.get('redirectTo') || '/dashboard'
-        console.log('✅ User authenticated, redirecting to:', redirectTo)
-        try {
-          await router.replace(redirectTo)
-          console.log('✅ Redirect successful')
-        } catch (error) {
-          console.error('❌ Error during redirect:', error)
-          hasRedirectedRef.current = false
-        }
-      }
-    }
-
-    handleRedirect()
-  }, [user, loading, router, searchParams])
-
-  // Cleanup on unmount
-  useEffect(() => {
-    return () => {
-      hasRedirectedRef.current = false
-    }
-  }, [])
-
-  // Reset redirect flag when user logs out
-  useEffect(() => {
-    if (!user) {
-      hasRedirectedRef.current = false
-    }
-  }, [user])
-
-  // Mostrar loading mientras verifica la sesión
+  // Show loading state
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-50">
@@ -58,19 +18,18 @@ export default function LoginPage() {
     )
   }
 
-  // Si el usuario está autenticado y estamos redirigiendo, mostrar pantalla de carga
-  if (user && hasRedirectedRef.current) {
+  // Middleware will handle redirect if logged in, just show loading
+  if (user) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-50">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
-          <p className="text-gray-600">Redirigiendo al dashboard...</p>
+          <p className="text-gray-600">Redirigiendo...</p>
         </div>
       </div>
     )
   }
 
-  // Mostrar el formulario de login
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-8">

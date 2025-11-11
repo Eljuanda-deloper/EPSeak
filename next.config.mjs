@@ -1,9 +1,8 @@
-import { NextConfig } from 'next';
-
-const config: NextConfig = {
+const config = {
   reactStrictMode: true,
+  swcMinify: true,
   images: {
-    domains: [],
+    domains: ['img.youtube.com', 'i.ytimg.com'],
   },
   webpack(config) {
     // Configura el manejo de SVG
@@ -13,6 +12,10 @@ const config: NextConfig = {
     });
 
     return config;
+  },
+  // Configuración para evitar warnings de console en producción
+  compiler: {
+    removeConsole: process.env.NODE_ENV === 'production',
   },
 };
 

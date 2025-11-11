@@ -7,7 +7,7 @@ import Image from 'next/image';
 import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
 import Button from '../shared/Button';
-import Logo from '@/app/imagenes/logoEPSeak.png';
+// Removed Logo import - using string path instead
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -99,7 +99,7 @@ const Header = () => {
                 transition={{ duration: 0.5 }}
               >
                 <Image
-                  src={Logo}
+                  src="/logoEPSeak.png"
                   alt="EPSeak logo"
                   width={140}
                   height={35}

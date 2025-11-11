@@ -6,7 +6,7 @@ import { FaFacebookF, FaInstagram, FaLinkedinIn, FaTwitter, FaYoutube } from 're
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
 import { Mail, Phone, MapPin, Send, ArrowUp, Heart } from 'lucide-react';
 import Button from '../shared/Button';
-import Logo from '@/public/logoEPSeak.svg';
+// Removed Logo import - using string path instead
 import { FC, useRef, useEffect, useState } from 'react';
 import { useInView } from '@/app/hooks/useInView';
 import { FadeIn, ScaleIn, SlideIn } from '../shared/Animations';
@@ -325,7 +325,7 @@ const Footer: FC<FooterProps> = () => {
                 <div className="relative">
                   <div className="absolute -inset-1 rounded-lg bg-gradient-to-r from-azul-celeste/20 to-rojo-brillante/20 blur"></div>
                   <Image
-                    src={Logo}
+                    src="/logoEPSeak.svg"
                     alt="EPSeak"
                     width={160}
                     height={40}
