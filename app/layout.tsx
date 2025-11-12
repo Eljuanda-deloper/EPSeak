@@ -28,10 +28,12 @@ export default function RootLayout({ children }: RootLayoutProps) {
       <body className={`${poppins.variable} min-h-screen w-full font-poppins bg-white antialiased relative`}>
         <ClientProviders>
           <div className="relative flex flex-col min-h-screen">
+            {/* Header solo en rutas públicas - se oculta automáticamente en dashboard */}
             <Header />
             <main className="flex-1 pt-16 lg:pt-20">
               {children}
             </main>
+            {/* Footer solo en rutas públicas - se oculta automáticamente en dashboard */}
             <Footer />
           </div>
         </ClientProviders>

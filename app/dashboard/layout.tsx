@@ -1,5 +1,11 @@
 import { redirect } from 'next/navigation'
 import { createClient } from '@/app/utils/supabase/server'
+import DashboardSidebar from '@/app/components/layout/Sidebar'
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Dashboard - EPSeak',
+}
 
 export default async function DashboardLayout({
   children,
@@ -18,29 +24,20 @@ export default async function DashboardLayout({
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <header className="bg-white border-b border-gray-200 px-6 py-4">
-        <div className="flex items-center justify-between">
-          <h1 className="text-xl font-semibold text-gray-900">EPSeak Dashboard</h1>
-          <div className="flex items-center gap-4">
-            <span className="text-sm text-gray-600">
-              Bienvenido, {user.email?.split('@')[0]}
-            </span>
-            <form action="/api/auth/logout" method="POST" className="inline">
-              <button
-                type="submit"
-                className="text-sm text-blue-600 hover:text-blue-800 font-medium"
-              >
-                Cerrar sesión
-              </button>
-            </form>
+    <html lang="es">
+      <body className="min-h-screen w-full font-poppins bg-gray-50 antialiased">
+        <div className="flex h-screen">
+          {/* Sidebar */}
+          <DashboardSidebar />
+
+          {/* Main Content */}
+          <div className="flex-1 flex flex-col overflow-hidden">
+            <main className="flex-1 overflow-auto">
+              {children}
+            </main>
           </div>
         </div>
-      </header>
-
-      <main className="p-6">
-        {children}
-      </main>
-    </div>
+      </body>
+    </html>
   )
 }
