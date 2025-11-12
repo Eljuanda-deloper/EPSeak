@@ -315,7 +315,7 @@ const Contact = () => {
               </div>
 
               <div className="rounded-2xl bg-[var(--gris-suave)]/60 px-5 py-4 text-xs leading-relaxed text-[var(--azul-petroleo)]/70">
-                Al enviar tus datos autorizas a EPSeak a contactarte por correo, WhatsApp o llamada telefónica. Protegemos tu información según nuestra política de privacidad.
+                Al enviar tus datos autorizas a ESPeak a contactarte por correo, WhatsApp o llamada telefónica. Protegemos tu información según nuestra política de privacidad.
               </div>
 
               <button type="submit" className="btn-cta w-full py-4 text-lg">

@@ -11,7 +11,7 @@ export default function RegisterPage() {
             Crear cuenta
           </h2>
           <p className="mt-2 text-sm text-gray-600">
-            Únete a EPSeak y comienza tu aprendizaje
+            Únete a ESPeak y comienza tu aprendizaje
           </p>
         </div>
         <RegisterForm />

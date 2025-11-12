@@ -1,6 +1,7 @@
 'use client';
 import Link from 'next/link';
 import Image from 'next/image';
+import { usePathname } from 'next/navigation';
 import { IconType } from 'react-icons';
 import { FaFacebookF, FaInstagram, FaLinkedinIn, FaTwitter, FaYoutube } from 'react-icons/fa';
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
@@ -51,8 +52,15 @@ const ctaHighlights: CtaHighlight[] = [
 ];
 
 const Footer: FC<FooterProps> = () => {
+  const pathname = usePathname();
   const currentYear = new Date().getFullYear();
   const [showScrollTop, setShowScrollTop] = useState(false);
+
+  // Hide footer in dashboard routes
+  const isInDashboard = pathname.startsWith('/dashboard');
+  if (isInDashboard) {
+    return null;
+  }
 
   // Refs para animaciones
   const footerRef = useRef<HTMLElement>(null);
@@ -325,8 +333,8 @@ const Footer: FC<FooterProps> = () => {
                 <div className="relative">
                   <div className="absolute -inset-1 rounded-lg bg-gradient-to-r from-azul-celeste/20 to-rojo-brillante/20 blur"></div>
                   <Image
-                    src="/logoEPSeak.svg"
-                    alt="EPSeak"
+                    src="/logoESPeak.svg"
+                    alt="ESPeak"
                     width={160}
                     height={40}
                     className="relative h-10 w-auto"
@@ -454,7 +462,7 @@ const Footer: FC<FooterProps> = () => {
                 const form = e.target as HTMLFormElement;
                 const email = (form.elements.namedItem('email') as HTMLInputElement).value;
                 if (email && email.includes('@')) {
-                  alert('¡Gracias por suscribirte! Pronto recibirás novedades de EPSeak.');
+                  alert('¡Gracias por suscribirte! Pronto recibirás novedades de ESPeak.');
                   form.reset();
                 } else {
                   alert('Por favor ingresa un correo electrónico válido.');
@@ -566,7 +574,7 @@ const Footer: FC<FooterProps> = () => {
           >
             <Heart className="w-4 h-4 text-rojo-brillante" />
             <p>
-              &copy; {currentYear} EPSeak. Todos los derechos reservados.
+              &copy; {currentYear} ESPeak. Todos los derechos reservados.
             </p>
           </motion.div>
 

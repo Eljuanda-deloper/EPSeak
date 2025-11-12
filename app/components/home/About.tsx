@@ -138,7 +138,7 @@ const About = () => {
               whileHover={{ scale: 1.02 }}
               transition={{ duration: 0.15 }}
               role="region"
-              aria-label="Video explicativo de EPSeak"
+              aria-label="Video explicativo de ESPeak"
             >
               {/* Video player with ReactPlayer - responsive and optimized */}
               <ReactPlayer
@@ -187,13 +187,13 @@ const About = () => {
                     Contactate con nosotros y agenda tu cita para poder aclarar todo lo relacionado con nuestra metodología.
                   </p>
                   <motion.a
-                    href="https://wa.me/573001234567?text=Hola,%20tengo%20preguntas%20sobre%20la%20metodología%20de%20EPSeak"
+                    href="https://wa.me/573001234567?text=Hola,%20tengo%20preguntas%20sobre%20la%20metodología%20de%20ESPeak"
                     target="_blank"
                     rel="noopener noreferrer"
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     className="inline-flex items-center gap-3 bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-full font-semibold transition-colors duration-300 shadow-lg hover:shadow-xl"
-                    aria-label="Contactar por WhatsApp para consultas sobre metodología EPSeak"
+                    aria-label="Contactar por WhatsApp para consultas sobre metodología ESPeak"
                   >
                     <MessageCircle className="w-5 h-5" />
                     Contactar por WhatsApp

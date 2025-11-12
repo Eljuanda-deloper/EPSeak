@@ -5,7 +5,7 @@ import { MessageCircle, Phone } from 'lucide-react';
 import { useState } from 'react';
 
 const WhatsAppFloat = () => {
-  const whatsappNumber = '573113678555'; // Número real de EPSeak
+  const whatsappNumber = '573113678555'; // Número real de ESPeak
   const [isHovered, setIsHovered] = useState(false);
 
   return (
@@ -53,13 +53,13 @@ const WhatsAppFloat = () => {
 
         {/* Button */}
         <motion.a
-          href={`https://wa.me/${whatsappNumber}?text=${encodeURIComponent('Hola EPSeak, me gustaría obtener más información sobre sus programas de inglés para propósitos específicos. ¿Podrían asesorarme?')}`}
+          href={`https://wa.me/${whatsappNumber}?text=${encodeURIComponent('Hola ESPeak, me gustaría obtener más información sobre sus programas de inglés para propósitos específicos. ¿Podrían asesorarme?')}`}
           target="_blank"
           rel="noopener noreferrer"
           className="relative flex items-center justify-center w-16 h-16 bg-gradient-to-br from-green-500 to-green-600 hover:from-green-400 hover:to-green-500 rounded-full shadow-2xl hover:shadow-green-500/25 transition-all duration-300 text-white overflow-hidden group"
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
-          title="EPSeak - Contacto directo por WhatsApp"
+          title="ESPeak - Contacto directo por WhatsApp"
         >
           {/* Animated background */}
           <motion.div

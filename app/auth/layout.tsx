@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Autenticación - EPSeak",
+  title: "Autenticación - ESPeak",
 };
 
 export default function AuthLayout({

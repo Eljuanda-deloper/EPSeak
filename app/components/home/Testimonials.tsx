@@ -20,7 +20,7 @@ const testimonials: Testimonial[] = [
     name: 'Dr. Alejandro Rivera',
     role: 'Cirujano cardiovascular · Canadá',
     quote:
-      '"EPSeak me ayudó a pasar de B2 a C1 en inglés médico. Los asistentes IA corrigieron mi pronunciación en tiempo real durante simulaciones quirúrgicas."',
+      '"ESPeak me ayudó a pasar de B2 a C1 en inglés médico. Los asistentes IA corrigieron mi pronunciación en tiempo real durante simulaciones quirúrgicas."',
     result: 'Aprobó MCCQE en 4 meses. +25% aumento salarial.',
     emoji: '👨‍⚕️',
     gradient: 'from-blue-500 to-cyan-500',
@@ -62,7 +62,7 @@ const stats = [
   {
     value: '93%',
     label: 'Renuevan programas',
-    descriptor: 'Comités de talento amplían licencias EPSeak.',
+    descriptor: 'Comités de talento amplían licencias ESPeak.',
     icon: Award,
     color: 'text-blue-500'
   },
@@ -287,7 +287,7 @@ const Testimonials = () => {
             whileHover={{ scale: 1.01 }}
             transition={{ duration: 0.15 }}
           >
-            Talento global que escala con EPSeak
+            Talento global que escala con ESPeak
           </motion.h2>
 
           <motion.p

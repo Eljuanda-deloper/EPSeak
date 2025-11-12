@@ -58,7 +58,7 @@ export default function Home() {
             transition={{ delay: 0.3, duration: 0.25 }}
             className="text-2xl font-bold text-azul-petroleo mb-2"
           >
-            EPSeak
+            ESPeak
           </motion.h1>
           <motion.p
             initial={{ opacity: 0, y: 20 }}

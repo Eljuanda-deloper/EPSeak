@@ -4,21 +4,33 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
 import Button from '../shared/Button';
 // Removed Logo import - using string path instead
 
 const Header = () => {
+  const pathname = usePathname();
+  
+  // Todos los hooks DEBEN estar aquí, antes de cualquier condicional
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('inicio');
-
   const { scrollY } = useScroll();
   const headerOpacity = useTransform(scrollY, [0, 100], [0.95, 1]);
   const headerBlur = useTransform(scrollY, [0, 100], [0, 8]);
 
+  // Validar si estamos en dashboard (pero sin hacer early return aún)
+  const isInDashboard = pathname.startsWith('/dashboard');
+
+  // useEffect SIEMPRE se debe ejecutar, incluso si no se usa
   useEffect(() => {
+    // Si estamos en dashboard, no hacer nada
+    if (isInDashboard) {
+      return;
+    }
+
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
 
@@ -37,14 +49,22 @@ const Header = () => {
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [isInDashboard]);
 
-  const navLinks = [
-    { name: 'Inicio', href: '#inicio' },
-    { name: 'Quiénes somos', href: '#quienes-somos' },
-    { name: 'Testimonios', href: '#testimonios' },
-    { name: 'Contacto', href: '#contacto' },
-  ];
+  // Solo mostrar nav links en la página de inicio
+  const isHomePage = pathname === '/' || pathname === '/#' || pathname.startsWith('/#');
+  const isAuthPage = pathname.startsWith('/auth');
+  const navLinks = (isHomePage || isAuthPage) ? [
+    { name: 'Inicio', href: '/#inicio' },
+    { name: 'Quiénes somos', href: '/#quienes-somos' },
+    { name: 'Testimonios', href: '/#testimonios' },
+    { name: 'Contacto', href: '/#contacto' },
+  ] : [];
+
+  // Si estamos en dashboard, no renderizar nada
+  if (isInDashboard) {
+    return null;
+  }
 
   const menuVariants = {
     closed: {
@@ -79,7 +99,9 @@ const Header = () => {
       }}
       className={`
         top-0 w-full z-50 transition-all duration-300
-        ${isScrolled
+        ${isAuthPage 
+          ? 'bg-white shadow-sm border-b border-gray-100/50'
+          : isScrolled
           ? 'bg-white/95 shadow-sm border-b border-gray-100/50'
           : 'bg-transparent'
         }
@@ -99,18 +121,15 @@ const Header = () => {
                 transition={{ duration: 0.5 }}
               >
                 <Image
-                  src="/logoEPSeak.png"
-                  alt="EPSeak logo"
-                  width={140}
-                  height={35}
-                  className="h-8 w-auto md:h-10 transition-all duration-300 group-hover:brightness-110"
+                  src="/logoESPeak.png"
+                  alt="ESPeak logo"
+                  width={280}
+                  height={70}
+                  className="h-16 w-auto md:h-20 transition-all duration-300 group-hover:brightness-110"
                   priority
                   suppressHydrationWarning={true}
                 />
               </motion.div>
-              <span className="text-2xl font-bold md:text-3xl tracking-tight">
-                EP<span className="text-rojo-brillante group-hover:text-red-600 transition-colors duration-300">Seak</span>
-              </span>
             </Link>
           </motion.div>
 
@@ -127,7 +146,17 @@ const Header = () => {
                   href={link.href}
                   onClick={(e) => {
                     e.preventDefault();
-                    const element = document.getElementById(link.href.slice(1));
+                    const sectionId = link.href.replace('/#', '');
+                    
+                    // Si no estamos en home, navegar a home con el hash
+                    if (!isHomePage) {
+                      // Navegar a home primero, luego el browser hará scroll al hash
+                      window.location.href = `/${sectionId ? '#' + sectionId : ''}`;
+                      return;
+                    }
+                    
+                    // Si estamos en home, hacer scroll
+                    const element = document.getElementById(sectionId);
                     if (element) {
                       const headerOffset = 80;
                       const elementPosition = element.getBoundingClientRect().top;
@@ -225,7 +254,18 @@ const Header = () => {
                       href={link.href}
                       onClick={(e) => {
                         e.preventDefault();
-                        const element = document.getElementById(link.href.slice(1));
+                        const sectionId = link.href.replace('/#', '');
+                        
+                        setIsMenuOpen(false);
+                        
+                        // Si no estamos en home, navegar a home con el hash
+                        if (!isHomePage) {
+                          window.location.href = `/${sectionId ? '#' + sectionId : ''}`;
+                          return;
+                        }
+                        
+                        // Si estamos en home, hacer scroll
+                        const element = document.getElementById(sectionId);
                         if (element) {
                           const headerOffset = 80;
                           const elementPosition = element.getBoundingClientRect().top;
@@ -235,7 +275,6 @@ const Header = () => {
                             behavior: 'smooth'
                           });
                         }
-                        setIsMenuOpen(false);
                       }}
                       className={`
                         block px-4 py-3 rounded-xl text-base font-medium transition-all duration-300

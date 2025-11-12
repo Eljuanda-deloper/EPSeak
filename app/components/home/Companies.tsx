@@ -73,7 +73,7 @@ const Companies = () => {
             Programas corporativos
           </span>
           <h2 className="section-title !mb-5 text-4xl sm:text-5xl">
-            Empresas líderes confían su talento a EPSeak
+            Empresas líderes confían su talento a ESPeak
           </h2>
           <p className="text-lg text-[var(--azul-petroleo)]/75">
             Acompañamos a organizaciones globales con soluciones de inglés para propósitos específicos que aceleran la expansión internacional, la certificación técnica y la comunicación de alto impacto.

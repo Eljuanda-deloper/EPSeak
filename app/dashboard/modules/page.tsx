@@ -66,8 +66,8 @@ export default function ModulesPage() {
       <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-50 flex items-center justify-center">
         <div className="text-center">
           <div className="relative">
-            <div className="w-16 h-16 border-4 border-azul-petroleo/20 border-t-azul-petroleo rounded-full animate-spin mx-auto mb-6"></div>
-            <div className="absolute inset-0 w-16 h-16 border-4 border-transparent border-t-azul-celeste rounded-full animate-spin mx-auto" style={{ animationDirection: 'reverse', animationDuration: '1.5s' }}></div>
+            <div className="w-16 h-16 border-4 border-blue-600/20 border-t-blue-600 rounded-full animate-spin mx-auto mb-6"></div>
+            <div className="absolute inset-0 w-16 h-16 border-4 border-transparent border-t-blue-400 rounded-full animate-spin mx-auto" style={{ animationDirection: 'reverse', animationDuration: '1.5s' }}></div>
           </div>
           <h3 className="text-lg font-semibold text-gray-900 mb-2">Cargando módulos</h3>
           <p className="text-gray-600">Preparando tu experiencia de aprendizaje...</p>
@@ -80,14 +80,14 @@ export default function ModulesPage() {
     return (
       <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-50 flex items-center justify-center">
         <div className="text-center max-w-md">
-          <div className="w-20 h-20 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-6">
+          <div className="w-20 h-20 bg-red-600/10 rounded-full flex items-center justify-center mx-auto mb-6">
             <BookOpen className="w-10 h-10 text-red-600" />
           </div>
-          <h3 className="text-xl font-semibold text-gray-900 mb-3">Error al cargar módulos</h3>
-          <p className="text-gray-600 mb-6 leading-relaxed">{error}</p>
+          <h3 className="text-xl font-semibold text-blue-600 mb-3">Error al cargar módulos</h3>
+          <p className="text-blue-400 mb-6 leading-relaxed">{error}</p>
           <Button
             onClick={() => window.location.reload()}
-            className="bg-azul-petroleo hover:bg-azul-petroleo/90 text-white px-6 py-3"
+            className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3"
           >
             Reintentar
           </Button>
@@ -97,9 +97,9 @@ export default function ModulesPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-50">
+    <div className="min-h-screen bg-gris-suave">
       {/* Hero Section */}
-      <div className="bg-gradient-to-r from-azul-petroleo via-azul-celeste to-azul-petroleo/80 text-white">
+      <div className="bg-gradient-to-r from-blue-600 via-blue-400 to-blue-600/80 text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
           <div className="text-center">
             <motion.div
@@ -110,7 +110,7 @@ export default function ModulesPage() {
               <h1 className="text-4xl md:text-5xl font-bold mb-4">
                 Módulos Especializados
               </h1>
-              <p className="text-xl text-white/90 max-w-3xl mx-auto leading-relaxed">
+              <p className="text-xl text-blanco/90 max-w-3xl mx-auto leading-relaxed">
                 Domina el inglés profesional con nuestros cursos especializados.
                 Aprende terminología específica para tu campo laboral.
               </p>
@@ -125,15 +125,15 @@ export default function ModulesPage() {
             >
               <div className="text-center">
                 <div className="text-3xl font-bold mb-2">{modules.length}</div>
-                <div className="text-white/80">Módulos Disponibles</div>
+                <div className="text-blanco/80">Módulos Disponibles</div>
               </div>
               <div className="text-center">
                 <div className="text-3xl font-bold mb-2">6</div>
-                <div className="text-white/80">Áreas Especializadas</div>
+                <div className="text-blanco/80">Áreas Especializadas</div>
               </div>
               <div className="text-center">
                 <div className="text-3xl font-bold mb-2">3</div>
-                <div className="text-white/80">Niveles de Dificultad</div>
+                <div className="text-blanco/80">Niveles de Dificultad</div>
               </div>
             </motion.div>
           </div>
@@ -141,7 +141,7 @@ export default function ModulesPage() {
       </div>
 
       {/* Filters Section */}
-      <div className="bg-white shadow-sm border-b border-gray-100 sticky top-0 z-10">
+      <div className="bg-white shadow-sm border-b border-gray-200 sticky top-0 z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <motion.div
             initial={{ opacity: 0, y: -20 }}
@@ -157,7 +157,7 @@ export default function ModulesPage() {
                   placeholder="Buscar por título o descripción..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full pl-12 pr-4 py-4 border border-gray-200 rounded-xl focus:ring-2 focus:ring-azul-petroleo focus:border-transparent shadow-sm text-gray-900 placeholder-gray-500"
+                  className="w-full pl-12 pr-4 py-4 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-600 focus:border-transparent shadow-sm text-blue-600 placeholder-blue-400"
                 />
               </div>
             </div>
@@ -167,7 +167,7 @@ export default function ModulesPage() {
               <select
                 value={areaFilter}
                 onChange={(e) => setAreaFilter(e.target.value)}
-                className="w-full px-4 py-4 border border-gray-200 rounded-xl focus:ring-2 focus:ring-azul-petroleo focus:border-transparent shadow-sm bg-white text-gray-900"
+                className="w-full px-4 py-4 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-600 focus:border-transparent shadow-sm bg-white text-blue-600"
               >
                 {areaOptions.map(option => (
                   <option key={option} value={option}>
@@ -182,7 +182,7 @@ export default function ModulesPage() {
               <select
                 value={levelFilter}
                 onChange={(e) => setLevelFilter(e.target.value)}
-                className="w-full px-4 py-4 border border-gray-200 rounded-xl focus:ring-2 focus:ring-azul-petroleo focus:border-transparent shadow-sm bg-white text-gray-900"
+                className="w-full px-4 py-4 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-600 focus:border-transparent shadow-sm bg-white text-gray-900"
               >
                 {levelOptions.map(option => (
                   <option key={option} value={option}>
@@ -195,7 +195,7 @@ export default function ModulesPage() {
 
           {/* Results Count */}
           <div className="mt-4 text-center">
-            <span className="text-sm text-gray-600 bg-gray-50 px-3 py-1 rounded-full">
+            <span className="text-sm text-blue-400 bg-gray-100 px-3 py-1 rounded-full">
               {filteredModules.length} módulo{filteredModules.length !== 1 ? 's' : ''} encontrado{filteredModules.length !== 1 ? 's' : ''}
             </span>
           </div>
@@ -220,7 +220,7 @@ export default function ModulesPage() {
                 className="bg-white rounded-2xl shadow-lg border border-gray-100 hover:shadow-2xl transition-all duration-500 overflow-hidden group"
               >
                 {/* Module Header with Gradient */}
-                <div className="relative h-48 bg-gradient-to-br from-azul-petroleo via-azul-celeste to-azul-petroleo/80 flex items-center justify-center">
+                <div className="relative h-48 bg-gradient-to-br from-blue-600 via-blue-400 to-blue-600/80 flex items-center justify-center">
                   <div className="text-center text-white">
                     <div className="text-4xl mb-2">{getAreaIcon(module.area)}</div>
                     <div className="text-sm font-medium opacity-90">{module.area}</div>
@@ -235,10 +235,10 @@ export default function ModulesPage() {
                 {/* Module Content */}
                 <div className="p-6">
                   <div className="mb-4">
-                    <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-azul-petroleo transition-colors line-clamp-2">
+                    <h3 className="text-xl font-bold text-blue-600 mb-2 group-hover:text-blue-700 transition-colors line-clamp-2">
                       {module.title}
                     </h3>
-                    <p className="text-gray-600 text-sm leading-relaxed line-clamp-3">
+                    <p className="text-blue-400 text-sm leading-relaxed line-clamp-3">
                       {module.description}
                     </p>
                   </div>
@@ -246,46 +246,46 @@ export default function ModulesPage() {
                   {/* Module Stats */}
                   <div className="grid grid-cols-2 gap-4 mb-6">
                     <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 bg-azul-petroleo/10 rounded-lg flex items-center justify-center">
-                        <BookOpen className="w-4 h-4 text-azul-petroleo" />
+                      <div className="w-8 h-8 bg-blue-600/10 rounded-lg flex items-center justify-center">
+                        <BookOpen className="w-4 h-4 text-blue-600" />
                       </div>
                       <div>
-                        <div className="text-sm font-semibold text-gray-900">{module.total_lessons}</div>
-                        <div className="text-xs text-gray-500">Lecciones</div>
+                        <div className="text-sm font-semibold text-blue-600">{module.total_lessons}</div>
+                        <div className="text-xs text-gray-600">Lecciones</div>
                       </div>
                     </div>
                     <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 bg-azul-petroleo/10 rounded-lg flex items-center justify-center">
-                        <Clock className="w-4 h-4 text-azul-petroleo" />
+                      <div className="w-8 h-8 bg-blue-600/10 rounded-lg flex items-center justify-center">
+                        <Clock className="w-4 h-4 text-blue-600" />
                       </div>
                       <div>
-                        <div className="text-sm font-semibold text-gray-900">{module.duration_hours}h</div>
-                        <div className="text-xs text-gray-500">Duración</div>
+                        <div className="text-sm font-semibold text-blue-600">{module.duration_hours}h</div>
+                        <div className="text-xs text-gray-600">Duración</div>
                       </div>
                     </div>
                     <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 bg-azul-petroleo/10 rounded-lg flex items-center justify-center">
-                        <Users className="w-4 h-4 text-azul-petroleo" />
+                      <div className="w-8 h-8 bg-blue-600/10 rounded-lg flex items-center justify-center">
+                        <Users className="w-4 h-4 text-blue-600" />
                       </div>
                       <div>
-                        <div className="text-sm font-semibold text-gray-900">{module.enrolled_students || 0}</div>
-                        <div className="text-xs text-gray-500">Inscritos</div>
+                        <div className="text-sm font-semibold text-blue-600">{module.enrolled_students || 0}</div>
+                        <div className="text-xs text-gray-600">Inscritos</div>
                       </div>
                     </div>
                     <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 bg-yellow-50 rounded-lg flex items-center justify-center">
-                        <Star className="w-4 h-4 text-yellow-500 fill-current" />
+                      <div className="w-8 h-8 bg-red-600/10 rounded-lg flex items-center justify-center">
+                        <Star className="w-4 h-4 text-red-600 fill-current" />
                       </div>
                       <div>
-                        <div className="text-sm font-semibold text-gray-900">4.{Math.floor(Math.random() * 5) + 5}</div>
-                        <div className="text-xs text-gray-500">Rating</div>
+                        <div className="text-sm font-semibold text-blue-600">4.{Math.floor(Math.random() * 5) + 5}</div>
+                        <div className="text-xs text-gray-600">Rating</div>
                       </div>
                     </div>
                   </div>
 
                   {/* Action Button */}
                   <Button
-                    className="w-full bg-gradient-to-r from-azul-petroleo to-azul-celeste hover:from-azul-petroleo/90 hover:to-azul-celeste/90 text-white py-3 font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
+                    className="w-full bg-gradient-to-r from-blue-600 to-blue-400 hover:from-blue-700 hover:to-blue-500 text-white py-3 font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
                   >
                     <span className="flex items-center justify-center gap-2">
                       <Target className="w-4 h-4" />
@@ -305,10 +305,10 @@ export default function ModulesPage() {
             <div className="w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6">
               <BookOpen className="w-12 h-12 text-gray-400" />
             </div>
-            <h3 className="text-2xl font-semibold text-gray-900 mb-3">
+            <h3 className="text-2xl font-semibold text-blue-600 mb-3">
               No se encontraron módulos
             </h3>
-            <p className="text-gray-600 mb-8 max-w-md mx-auto">
+            <p className="text-blue-400 mb-8 max-w-md mx-auto">
               No hay módulos que coincidan con tus criterios de búsqueda.
               Intenta ajustar los filtros o busca con otros términos.
             </p>
@@ -318,7 +318,7 @@ export default function ModulesPage() {
                 setAreaFilter('Todas');
                 setLevelFilter('Todos');
               }}
-              className="bg-azul-petroleo hover:bg-azul-petroleo/90 text-white px-6 py-3"
+              className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3"
             >
               Limpiar Filtros
             </Button>

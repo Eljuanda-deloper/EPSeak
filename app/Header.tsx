@@ -6,7 +6,7 @@ import Image from 'next/image';
 import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
 import Button from '@/app/components/shared/Button';
-import Logo from '@/app/imagenes/logoEPSeak.png';
+import Logo from '@/app/imagenes/logoEspeak.png';
 import { useAuth } from '@/app/contexts/AuthContext';
 
 const Header = () => {
@@ -15,15 +15,15 @@ const Header = () => {
   const [activeSection, setActiveSection] = useState('inicio');
   const [mounted, setMounted] = useState(false);
 
+  // ✅ Todos los hooks deben estar aquí, ANTES de cualquier retorno condicional
   const { scrollY } = useScroll();
   const headerOpacity = useTransform(scrollY, [0, 100], [0.95, 1]);
   const headerBlur = useTransform(scrollY, [0, 100], [0, 8]);
+  const { user, signOut, loading } = useAuth();
 
   useEffect(() => {
     setMounted(true);
   }, []);
-
-  const { user, signOut, loading } = useAuth();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -118,7 +118,7 @@ const Header = () => {
             <Link href="/" className="flex items-center gap-2 text-azul-petroleo group">
               <Image
                 src={Logo}
-                alt="EPSeak logo"
+                alt="ESPeak logo"
                 width={160}
                 height={40}
                 className="h-8 w-auto md:h-10"
@@ -185,7 +185,7 @@ const Header = () => {
               >
                 <Image
                   src={Logo}
-                  alt="EPSeak logo"
+                  alt="ESPeak logo"
                   className="h-8 w-auto md:h-10 transition-all duration-300 group-hover:brightness-110"
                   priority
                   suppressHydrationWarning={true}

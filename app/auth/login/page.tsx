@@ -1,42 +1,12 @@
 'use client'
 
 import { useEffect } from 'react'
-import { useRouter } from 'next/navigation'
-import { useAuth } from '@/app/contexts/AuthContext'
+import { useRouter, useSearchParams } from 'next/navigation'
 import LoginForm from '@/app/components/auth/LoginForm'
 
 export default function LoginPage() {
-  const { user, loading } = useAuth()
   const router = useRouter()
-
-  useEffect(() => {
-    // Redirigir si ya está autenticado
-    if (user && !loading) {
-      router.replace('/dashboard')
-    }
-  }, [user, loading, router])
-
-  if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
-          <p className="text-gray-600">Verificando sesión...</p>
-        </div>
-      </div>
-    )
-  }
-
-  if (user) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
-          <p className="text-gray-600">Redirigiendo...</p>
-        </div>
-      </div>
-    )
-  }
+  const searchParams = useSearchParams()
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
@@ -46,7 +16,7 @@ export default function LoginPage() {
             Iniciar sesión
           </h2>
           <p className="mt-2 text-sm text-gray-600">
-            Accede a tu cuenta de EPSeak
+            Accede a tu cuenta de ESPeak
           </p>
         </div>
         <LoginForm />

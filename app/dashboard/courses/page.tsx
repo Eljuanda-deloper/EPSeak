@@ -26,7 +26,7 @@ const mockCourses: Course[] = [
     title: 'Advanced React Patterns',
     description: 'Master advanced React patterns including hooks, suspense, and concurrent features.',
     instructor: 'Sarah Chen',
-    image: 'bg-gradient-to-br from-blue-400 to-blue-600',
+    image: 'bg-gradient-to-br from-blue-600 to-blue-400',
     progress: 65,
     duration: '24 hours',
     students: 2345,
@@ -38,7 +38,7 @@ const mockCourses: Course[] = [
     title: 'TypeScript Mastery',
     description: 'Learn TypeScript from basics to advanced type system techniques.',
     instructor: 'John Smith',
-    image: 'bg-gradient-to-br from-purple-400 to-purple-600',
+    image: 'bg-gradient-to-br from-blue-400 to-blue-600',
     progress: 100,
     duration: '18 hours',
     students: 1876,
@@ -50,7 +50,7 @@ const mockCourses: Course[] = [
     title: 'Next.js 14 Full Stack',
     description: 'Build full-stack applications with Next.js 14, featuring App Router and API Routes.',
     instructor: 'Emma Wilson',
-    image: 'bg-gradient-to-br from-green-400 to-green-600',
+    image: 'bg-gradient-to-br from-red-600 to-blue-600',
     progress: 45,
     duration: '32 hours',
     students: 3456,
@@ -62,7 +62,7 @@ const mockCourses: Course[] = [
     title: 'Web Performance Optimization',
     description: 'Optimize your web applications for speed, SEO, and user experience.',
     instructor: 'Michael Brown',
-    image: 'bg-gradient-to-br from-orange-400 to-orange-600',
+    image: 'bg-gradient-to-br from-blue-600 to-red-600',
     progress: 0,
     duration: '20 hours',
     students: 987,
@@ -74,7 +74,7 @@ const mockCourses: Course[] = [
     title: 'Database Design & SQL',
     description: 'Master relational database design and write efficient SQL queries.',
     instructor: 'Lisa Anderson',
-    image: 'bg-gradient-to-br from-pink-400 to-pink-600',
+    image: 'bg-gradient-to-br from-blue-400 to-red-600',
     progress: 30,
     duration: '28 hours',
     students: 2134,
@@ -86,7 +86,7 @@ const mockCourses: Course[] = [
     title: 'API Design Best Practices',
     description: 'Design and build robust, scalable APIs following industry best practices.',
     instructor: 'David Lee',
-    image: 'bg-gradient-to-br from-teal-400 to-teal-600',
+    image: 'bg-gradient-to-br from-red-600 to-blue-400',
     progress: 80,
     duration: '16 hours',
     students: 1654,
@@ -119,15 +119,15 @@ export default function CoursesPage() {
   ).length
 
   return (
-    <div className="p-8 min-h-screen bg-gray-50">
+    <div className="w-full">
       {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="mb-8"
+        className="mb-4 sm:mb-6"
       >
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">My Courses</h1>
-        <p className="text-gray-600">
+        <h1 className="text-xl md:text-2xl font-bold text-blue-600 mb-2">My Courses</h1>
+        <p className="text-sm text-blue-400">
           Track your learning progress and continue where you left off
         </p>
       </motion.div>
@@ -137,44 +137,44 @@ export default function CoursesPage() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.1 }}
-        className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8"
+        className="grid grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4 mb-4 sm:mb-6"
       >
-        <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-lg p-6 border border-blue-200">
+        <div className="bg-gradient-to-br from-blue-600/10 to-blue-600/20 rounded-lg p-3 sm:p-4 border border-blue-600/30">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-blue-600 text-sm font-medium">Active Courses</p>
-              <p className="text-3xl font-bold text-blue-900 mt-1">
+              <p className="text-blue-600 text-xs font-medium">Active Courses</p>
+              <p className="text-lg md:text-xl font-bold text-blue-600 mt-1 sm:mt-2">
                 {activeCoursesCount}
               </p>
             </div>
-            <BookOpen className="w-10 h-10 text-blue-400" />
+            <BookOpen className="w-6 md:w-8 h-6 md:h-8 text-blue-400 flex-shrink-0" />
           </div>
         </div>
 
-        <div className="bg-gradient-to-br from-green-50 to-green-100 rounded-lg p-6 border border-green-200">
+        <div className="bg-gradient-to-br from-red-600/10 to-red-600/20 rounded-lg p-3 sm:p-4 border border-red-600/30">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-green-600 text-sm font-medium">Completed</p>
-              <p className="text-3xl font-bold text-green-900 mt-1">
+              <p className="text-red-600 text-xs font-medium">Completed</p>
+              <p className="text-lg md:text-xl font-bold text-red-600 mt-1 sm:mt-2">
                 {completedCoursesCount}
               </p>
             </div>
-            <Trophy className="w-10 h-10 text-green-400" />
+            <Trophy className="w-6 md:w-8 h-6 md:h-8 text-red-600/70 flex-shrink-0" />
           </div>
         </div>
 
-        <div className="bg-gradient-to-br from-purple-50 to-purple-100 rounded-lg p-6 border border-purple-200">
+        <div className="bg-gradient-to-br from-blue-400/10 to-blue-400/20 rounded-lg p-3 sm:p-4 border border-blue-400/30">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-purple-600 text-sm font-medium">Total Hours</p>
-              <p className="text-3xl font-bold text-purple-900 mt-1">
+              <p className="text-blue-400 text-xs font-medium">Total Hours</p>
+              <p className="text-lg md:text-xl font-bold text-blue-600 mt-1 sm:mt-2">
                 {mockCourses.reduce(
                   (acc, c) => acc + parseInt(c.duration),
                   0
                 )}h
               </p>
             </div>
-            <Clock className="w-10 h-10 text-purple-400" />
+            <Clock className="w-6 md:w-8 h-6 md:h-8 text-blue-400 flex-shrink-0" />
           </div>
         </div>
       </motion.div>
@@ -184,93 +184,102 @@ export default function CoursesPage() {
         variants={container}
         initial="hidden"
         animate="show"
-        className="grid grid-cols-1 lg:grid-cols-2 gap-6"
+        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-3 sm:gap-4"
       >
         {mockCourses.map((course) => (
           <motion.div
             key={course.id}
             variants={item}
-            className="bg-white rounded-lg border border-gray-200 overflow-hidden hover:shadow-lg transition-shadow duration-300 group cursor-pointer"
+            className="bg-white rounded-lg md:rounded-xl border border-gray-200 overflow-hidden hover:shadow-lg transition-shadow duration-300 group cursor-pointer focus-within:ring-2 focus-within:ring-blue-600"
+            tabIndex={0}
+            role="article"
+            aria-label={`Course: ${course.title} by ${course.instructor}`}
           >
             {/* Course Image */}
-            <div className={`h-32 ${course.image} relative overflow-hidden`}>
+            <div className={`h-20 md:h-24 ${course.image} relative overflow-hidden`}>
               <div className="absolute inset-0 bg-black/10 group-hover:bg-black/20 transition-colors" />
             </div>
 
             {/* Course Content */}
-            <div className="p-6">
+            <div className="p-3 sm:p-4">
               {/* Header */}
               <div className="flex items-start justify-between mb-3">
-                <div>
-                  <h3 className="text-lg font-bold text-gray-900 mb-1">
-                    {course.title}
-                  </h3>
-                  <p className="text-sm text-gray-500">by {course.instructor}</p>
+                <div className="flex-1 min-w-0">
+                  <h3 className="text-sm font-bold text-blue-600 mb-1 line-clamp-2">
+                      {course.title}
+                    </h3>
+                    <p className="text-xs text-blue-400">by {course.instructor}</p>
                 </div>
                 <span
-                  className={`px-3 py-1 rounded-full text-xs font-medium whitespace-nowrap ${
+                  className={`ml-2 px-2 py-1 rounded-full text-xs font-medium whitespace-nowrap flex-shrink-0 ${
                     course.status === 'completed'
-                      ? 'bg-green-100 text-green-700'
+                      ? 'bg-green-100 text-green-800'
                       : course.status === 'in-progress'
-                        ? 'bg-blue-100 text-blue-700'
-                        : 'bg-gray-100 text-gray-600'
+                        ? 'bg-blue-100 text-blue-800'
+                        : 'bg-gray-100 text-gray-700'
                   }`}
+                  aria-label={`Status: ${course.status === 'in-progress' ? 'En progreso' : course.status === 'completed' ? 'Completado' : 'No iniciado'}`}
                 >
                   {course.status === 'in-progress'
-                    ? 'In Progress'
+                    ? 'En progreso'
                     : course.status === 'completed'
-                      ? 'Completed'
-                      : 'Not Started'}
+                      ? 'Completado'
+                      : 'No iniciado'}
                 </span>
               </div>
 
               {/* Description */}
-              <p className="text-sm text-gray-600 mb-4 line-clamp-2">
+              <p className="text-xs text-blue-400 mb-3 line-clamp-2">
                 {course.description}
               </p>
 
               {/* Progress Bar */}
               {course.status !== 'not-started' && (
-                <div className="mb-4">
+                <div className="mb-3">
                   <div className="flex items-center justify-between mb-2">
-                    <span className="text-xs font-medium text-gray-600">
-                      Progress
+                    <span className="text-xs font-medium text-blue-400">
+                      Progreso
                     </span>
-                    <span className="text-xs font-bold text-gray-900">
+                    <span className="text-xs font-bold text-blue-600">
                       {course.progress}%
                     </span>
                   </div>
-                  <div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
+                  <div className="w-full h-2 bg-gray-100 rounded-full overflow-hidden">
                     <motion.div
                       initial={{ width: 0 }}
                       animate={{ width: `${course.progress}%` }}
                       transition={{ delay: 0.2, duration: 0.8 }}
-                      className="h-full bg-gradient-to-r from-azul-petroleo to-azul-celeste"
+                      className="h-full bg-gradient-to-r from-blue-600 to-blue-400"
+                      aria-valuenow={course.progress}
+                      aria-valuemin={0}
+                      aria-valuemax={100}
+                      role="progressbar"
+                      aria-label={`Progress: ${course.progress}%`}
                     />
                   </div>
                 </div>
               )}
 
               {/* Meta Info */}
-              <div className="grid grid-cols-3 gap-3 mb-4 pt-4 border-t border-gray-100">
-                <div className="flex items-center gap-2">
-                  <Clock className="w-4 h-4 text-gray-400" />
-                  <span className="text-xs text-gray-600">{course.duration}</span>
+              <div className="grid grid-cols-3 gap-2 mb-3 pt-3 border-t border-gray-100">
+                <div className="flex items-center gap-1">
+                  <Clock className="w-4 h-4 text-gray-600 flex-shrink-0" aria-hidden="true" />
+                  <span className="text-xs text-blue-400">{course.duration}</span>
                 </div>
-                <div className="flex items-center gap-2">
-                  <Users className="w-4 h-4 text-gray-400" />
-                  <span className="text-xs text-gray-600">
+                <div className="flex items-center gap-1">
+                  <Users className="w-4 h-4 text-gray-600 flex-shrink-0" aria-hidden="true" />
+                  <span className="text-xs text-blue-400">
                     {formatNumber(course.students)}
                   </span>
                 </div>
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-1">
                   <span
                     className={`text-xs font-medium px-2 py-1 rounded ${
                       course.difficulty === 'Beginner'
-                        ? 'bg-green-100 text-green-700'
+                        ? 'bg-green-100 text-green-800'
                         : course.difficulty === 'Intermediate'
-                          ? 'bg-yellow-100 text-yellow-700'
-                          : 'bg-red-100 text-red-700'
+                          ? 'bg-yellow-100 text-yellow-800'
+                          : 'bg-red-100 text-red-800'
                     }`}
                   >
                     {course.difficulty}
@@ -279,13 +288,17 @@ export default function CoursesPage() {
               </div>
 
               {/* CTA Button */}
-              <button className="w-full flex items-center justify-between px-4 py-2 rounded-lg bg-azul-petroleo text-white hover:bg-azul-petroleo/90 transition-colors font-medium text-sm group/btn">
+              <button
+                className="w-full flex items-center justify-between px-3 sm:px-4 py-2 sm:py-3 min-h-11 rounded-lg bg-blue-600 text-white hover:bg-blue-700 active:scale-95 transition-all font-medium text-sm focus:ring-2 focus:ring-blue-600 focus:ring-offset-2 group/btn"
+                onTouchStart={() => navigator.vibrate?.(50)}
+                aria-label={`${course.status === 'not-started' ? 'Start' : course.status === 'completed' ? 'Review' : 'Continue'} course: ${course.title}`}
+              >
                 {course.status === 'not-started'
                   ? 'Start Course'
                   : course.status === 'completed'
                     ? 'Review'
                     : 'Continue Learning'}
-                <ChevronRight className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
+                <ChevronRight className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform flex-shrink-0" aria-hidden="true" />
               </button>
             </div>
           </motion.div>

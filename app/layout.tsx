@@ -4,6 +4,7 @@ import "./globals.css";
 import { ClientProviders } from "./components/providers/ClientProviders";
 import Header from "./components/layout/Header";
 import Footer from "./components/layout/Footer";
+import { ReactNode } from "react";
 
 const poppins = Poppins({
   weight: ["300", "400", "500", "600", "700"],
@@ -13,13 +14,13 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: "EPSeak - English for Specific Purpose | Aprende inglés profesional",
-  description: "Domina el inglés para tu profesión y trabaja en cualquier parte del mundo con EPSeak",
+  title: "ESPeak - English for Specific Purpose | Aprende inglés profesional",
+  description: "Domina el inglés para tu profesión y trabaja en cualquier parte del mundo con ESPeak",
   keywords: "inglés profesional, ESP, English for Specific Purposes, inglés técnico, inglés médico, inglés negocios",
 };
 
 type RootLayoutProps = {
-  children: React.ReactNode;
+  children: ReactNode;
 };
 
 export default function RootLayout({ children }: RootLayoutProps) {
@@ -28,12 +29,11 @@ export default function RootLayout({ children }: RootLayoutProps) {
       <body className={`${poppins.variable} min-h-screen w-full font-poppins bg-white antialiased relative`}>
         <ClientProviders>
           <div className="relative flex flex-col min-h-screen">
-            {/* Header solo en rutas públicas - se oculta automáticamente en dashboard */}
+            {/* Header y Footer se ocultan automáticamente en dashboard */}
             <Header />
-            <main className="flex-1 pt-16 lg:pt-20">
+            <main className="relative flex-1 pt-16 lg:pt-20">
               {children}
             </main>
-            {/* Footer solo en rutas públicas - se oculta automáticamente en dashboard */}
             <Footer />
           </div>
         </ClientProviders>
