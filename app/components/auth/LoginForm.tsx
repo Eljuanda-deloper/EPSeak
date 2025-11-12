@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { useRouter } from 'next/navigation'
 import { useAuth } from '@/app/contexts/AuthContext'
 import Button from '@/app/components/shared/Button'
 
@@ -10,6 +11,7 @@ export default function LoginForm() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   const { signIn } = useAuth()
+  const router = useRouter()
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -21,8 +23,14 @@ export default function LoginForm() {
     if (error) {
       setError(error)
       setLoading(false)
+    } else {
+      // AuthContext detectará el cambio de sesión
+      // y LoginPage lo redirigirá automáticamente
+      // Dar un pequeño delay para asegurar que se actualice el context
+      setTimeout(() => {
+        router.push('/dashboard')
+      }, 500)
     }
-    // Success case handled by AuthContext and page redirect
   }
 
   return (

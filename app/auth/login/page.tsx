@@ -1,12 +1,21 @@
 'use client'
 
+import { useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 import { useAuth } from '@/app/contexts/AuthContext'
 import LoginForm from '@/app/components/auth/LoginForm'
 
 export default function LoginPage() {
   const { user, loading } = useAuth()
+  const router = useRouter()
 
-  // Show loading state
+  useEffect(() => {
+    // Redirigir si ya está autenticado
+    if (user && !loading) {
+      router.replace('/dashboard')
+    }
+  }, [user, loading, router])
+
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-50">
@@ -18,7 +27,6 @@ export default function LoginPage() {
     )
   }
 
-  // Middleware will handle redirect if logged in, just show loading
   if (user) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-50">

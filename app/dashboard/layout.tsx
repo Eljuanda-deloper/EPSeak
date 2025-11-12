@@ -1,43 +1,20 @@
-'use client';
+import { redirect } from 'next/navigation'
+import { createClient } from '@/app/utils/supabase/server'
 
-import { useAuth } from '../contexts/AuthContext';
-import { useRouter } from 'next/navigation';
-
-export default function DashboardLayout({
+export default async function DashboardLayout({
   children,
 }: {
-  children: React.ReactNode;
+  children: React.ReactNode
 }) {
-  const { user, loading, signOut } = useAuth();
-  const router = useRouter();
+  const supabase = await createClient()
 
-  const handleSignOut = async () => {
-    await signOut();
-    router.push('/auth/login');
-  };
+  // Validar sesión en servidor (seguro)
+  const {
+    data: { user },
+  } = await supabase.auth.getUser()
 
-  // Show loading state while checking auth
-  if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
-          <p className="text-gray-600">Verificando sesión...</p>
-        </div>
-      </div>
-    );
-  }
-
-  // Middleware will handle redirect, just show loading if no user
   if (!user) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
-          <p className="text-gray-600">Redirigiendo...</p>
-        </div>
-      </div>
-    );
+    redirect('/auth/login')
   }
 
   return (
@@ -49,12 +26,14 @@ export default function DashboardLayout({
             <span className="text-sm text-gray-600">
               Bienvenido, {user.email?.split('@')[0]}
             </span>
-            <button
-              onClick={handleSignOut}
-              className="text-sm text-blue-600 hover:text-blue-800 font-medium"
-            >
-              Cerrar sesión
-            </button>
+            <form action="/api/auth/logout" method="POST" className="inline">
+              <button
+                type="submit"
+                className="text-sm text-blue-600 hover:text-blue-800 font-medium"
+              >
+                Cerrar sesión
+              </button>
+            </form>
           </div>
         </div>
       </header>
@@ -63,5 +42,5 @@ export default function DashboardLayout({
         {children}
       </main>
     </div>
-  );
+  )
 }
