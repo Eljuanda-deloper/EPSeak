@@ -3,7 +3,6 @@
 import { useState, useEffect } from 'react'
 import { useAuth } from '@/app/contexts/AuthContext'
 import { supabase } from '@/app/utils/supabase'
-import Button from '@/app/components/shared/Button'
 
 interface Profile {
   id: string
@@ -67,7 +66,10 @@ export default function ProfileForm() {
 
   const updateProfile = async (e: React.FormEvent) => {
     e.preventDefault()
-    if (!profile) return
+    if (!profile) {
+      setError('Perfil no disponible')
+      return
+    }
 
     try {
       setSaving(true)
@@ -123,100 +125,112 @@ export default function ProfileForm() {
   }
 
   return (
-    <div className="max-w-2xl mx-auto">
-      <form onSubmit={updateProfile} className="space-y-6">
-        <div className="bg-white shadow rounded-lg p-6">
-          <h2 className="text-xl font-semibold text-gray-900 mb-6">
-            Información del Perfil
-          </h2>
-
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
-            <div>
-              <label htmlFor="username" className="block text-sm font-medium text-gray-700 mb-2">
-                Nombre de usuario
-              </label>
-              <input
-                id="username"
-                type="text"
-                value={profile.username || ''}
-                onChange={(e) => handleInputChange('username', e.target.value)}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
-                placeholder="tu_usuario"
-                minLength={3}
-              />
-              <p className="text-xs text-gray-500 mt-1">Mínimo 3 caracteres</p>
-            </div>
-
-            <div>
-              <label htmlFor="full_name" className="block text-sm font-medium text-gray-700 mb-2">
-                Nombre completo
-              </label>
-              <input
-                id="full_name"
-                type="text"
-                value={profile.full_name || ''}
-                onChange={(e) => handleInputChange('full_name', e.target.value)}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
-                placeholder="Tu nombre completo"
-              />
-            </div>
-
-            <div className="sm:col-span-2">
-              <label htmlFor="website" className="block text-sm font-medium text-gray-700 mb-2">
-                Sitio web
-              </label>
-              <input
-                id="website"
-                type="url"
-                value={profile.website || ''}
-                onChange={(e) => handleInputChange('website', e.target.value)}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
-                placeholder="https://tu-sitio.com"
-              />
-            </div>
-
-            <div className="sm:col-span-2">
-              <label htmlFor="bio" className="block text-sm font-medium text-gray-700 mb-2">
-                Biografía
-              </label>
-              <textarea
-                id="bio"
-                value={profile.bio || ''}
-                onChange={(e) => handleInputChange('bio', e.target.value)}
-                rows={4}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors resize-none"
-                placeholder="Cuéntanos un poco sobre ti..."
-                maxLength={500}
-              />
-              <p className="text-xs text-gray-500 mt-1">
-                {(profile.bio || '').length}/500 caracteres
-              </p>
-            </div>
+    <form onSubmit={updateProfile} className="space-y-6">
+      {error && (
+        <div className="p-4 bg-red-50 border border-red-200 rounded-lg flex items-start gap-3">
+          <div className="flex-shrink-0 mt-0.5">
+            <svg className="h-5 w-5 text-red-600" fill="currentColor" viewBox="0 0 20 20">
+              <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
+            </svg>
           </div>
+          <p className="text-red-600 text-sm font-medium">{error}</p>
+        </div>
+      )}
 
-          {error && (
-            <div className="mt-4 p-3 bg-red-50 border border-red-200 rounded-lg">
-              <p className="text-red-600 text-sm">{error}</p>
-            </div>
-          )}
+      {success && (
+        <div className="p-4 bg-green-50 border border-green-200 rounded-lg flex items-start gap-3">
+          <div className="flex-shrink-0 mt-0.5">
+            <svg className="h-5 w-5 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+              <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+            </svg>
+          </div>
+          <p className="text-green-600 text-sm font-medium">{success}</p>
+        </div>
+      )}
 
-          {success && (
-            <div className="mt-4 p-3 bg-green-50 border border-green-200 rounded-lg">
-              <p className="text-green-600 text-sm">{success}</p>
-            </div>
-          )}
+      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+        {/* Username */}
+        <div>
+          <label htmlFor="username" className="block text-sm font-semibold text-gray-900 mb-2">
+            Username
+          </label>
+          <input
+            id="username"
+            type="text"
+            value={profile.username || ''}
+            onChange={(e) => handleInputChange('username', e.target.value)}
+            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#5da6b8] focus:border-transparent transition-all"
+            placeholder="your_username"
+            minLength={3}
+          />
+          <p className="text-xs text-gray-500 mt-2">Minimum 3 characters</p>
+        </div>
 
-          <div className="mt-6 flex justify-end">
-            <Button
-              type="submit"
-              disabled={saving}
-              className="disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              {saving ? 'Guardando...' : 'Guardar cambios'}
-            </Button>
+        {/* Full Name */}
+        <div>
+          <label htmlFor="full_name" className="block text-sm font-semibold text-gray-900 mb-2">
+            Full Name
+          </label>
+          <input
+            id="full_name"
+            type="text"
+            value={profile.full_name || ''}
+            onChange={(e) => handleInputChange('full_name', e.target.value)}
+            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#5da6b8] focus:border-transparent transition-all"
+            placeholder="Your full name"
+          />
+        </div>
+
+        {/* Website */}
+        <div className="sm:col-span-2">
+          <label htmlFor="website" className="block text-sm font-semibold text-gray-900 mb-2">
+            Website (Optional)
+          </label>
+          <input
+            id="website"
+            type="url"
+            value={profile.website || ''}
+            onChange={(e) => handleInputChange('website', e.target.value)}
+            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#5da6b8] focus:border-transparent transition-all"
+            placeholder="https://your-website.com"
+          />
+          <p className="text-xs text-gray-500 mt-2">Must start with http:// or https://</p>
+        </div>
+
+        {/* Bio */}
+        <div className="sm:col-span-2">
+          <label htmlFor="bio" className="block text-sm font-semibold text-gray-900 mb-2">
+            Bio (Optional)
+          </label>
+          <textarea
+            id="bio"
+            value={profile.bio || ''}
+            onChange={(e) => handleInputChange('bio', e.target.value)}
+            rows={5}
+            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#5da6b8] focus:border-transparent transition-all resize-none"
+            placeholder="Tell us about yourself..."
+            maxLength={500}
+          />
+          <div className="flex items-center justify-between mt-2">
+            <p className="text-xs text-gray-500">
+              {(profile.bio || '').length}/500 characters
+            </p>
           </div>
         </div>
-      </form>
-    </div>
+      </div>
+
+      <div className="flex items-center justify-between pt-6 border-t border-gray-200">
+        <p className="text-sm text-gray-600">
+          {saving ? '⏳ Saving changes...' : '✓ All changes are saved automatically'}
+        </p>
+        <button
+          type="submit"
+          disabled={saving}
+          className="px-6 py-3 bg-gradient-to-r from-[#1a4d5c] to-[#5da6b8] text-white font-semibold rounded-lg hover:shadow-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          {saving ? 'Saving...' : 'Save Changes'}
+        </button>
+      </div>
+    </form>
   )
 }

@@ -1,158 +1,214 @@
-'use client';
+'use client'
 
-import { motion } from 'framer-motion';
-import { BookOpen, ChevronRight } from 'lucide-react';
-import Button from '../components/shared/Button';
-
-// Mock data for continue learning
-const continueLearning = [
-  {
-    id: 1,
-    title: 'English for Business Meetings',
-    description: 'Improve your communication skills in a business context',
-    progress: 75,
-    image: '🏢',
-    completed: '75% Completed',
-  },
-  {
-    id: 2,
-    title: 'English for Software Developers',
-    description: 'Learn the vocabulary and phrases for the tech industry',
-    progress: 60,
-    image: '💻',
-    completed: '60% Completed',
-  },
-];
-
-// Mock data for recommended courses
-const recommendedCourses = [
-  {
-    id: 1,
-    title: 'Advanced Medical Terminology',
-    description: 'Master complex medical terms',
-    icon: '🏥',
-    category: 'Medical',
-  },
-  {
-    id: 2,
-    title: 'Public Speaking Mastery',
-    description: 'Build confidence and improve any audience',
-    icon: '🎤',
-    category: 'Public Speaking',
-  },
-  {
-    id: 3,
-    title: 'English for Legal Professionals',
-    description: 'Strengthen legal contacts with skills',
-    icon: '⚖️',
-    category: 'Legal',
-  },
-  {
-    id: 4,
-    title: 'Aviation English for Pilots',
-    description: 'Essential communication for the skies',
-    icon: '✈️',
-    category: 'Aviation',
-  },
-];
+import { useState, useEffect } from 'react'
+import { useAuth } from '@/app/contexts/AuthContext'
+import { Home, BookOpen, TrendingUp, FolderOpen, Users, Settings, Play, Calendar, Award, Clock, Target, Flame, ChevronRight, Trophy, Star, CheckCircle } from 'lucide-react'
 
 export default function DashboardPage() {
+  const { user } = useAuth()
+  const [notifications] = useState(3)
+  const [userName, setUserName] = useState('Guest')
+
+  useEffect(() => {
+    if (user?.user_metadata?.full_name) {
+      setUserName(user.user_metadata.full_name.split(' ')[0])
+    } else if (user?.email) {
+      setUserName(user.email.split('@')[0])
+    }
+  }, [user])
+
+  const upcomingClasses = [
+    { title: 'Advanced Business English', instructor: 'Prof. Sarah Johnson', date: 'Today', time: '18:00', status: 'live' },
+    { title: 'Technical Writing Workshop', instructor: 'Prof. Michael Brown', date: 'Tomorrow', time: '19:30', status: 'upcoming' },
+    { title: 'IELTS Speaking Practice', instructor: 'Prof. Emma Davis', date: 'Wednesday', time: '17:00', status: 'upcoming' }
+  ]
+
+  const achievements = [
+    { icon: Flame, title: '7 days streak', color: 'from-orange-500 to-red-500' },
+    { icon: Trophy, title: '50 lessons', color: 'from-yellow-400 to-orange-500' },
+    { icon: Star, title: 'B2 Level achieved', color: 'from-[#5da6b8] to-[#1a4d5c]' },
+    { icon: CheckCircle, title: 'Course completed', color: 'from-green-400 to-teal-500' }
+  ]
+
+  const recommendations = [
+    { title: 'Business English', level: 'Intermediate', lessons: 24, image: '💼' },
+    { title: 'Medical English', level: 'Advanced', lessons: 18, image: '🏥' },
+    { title: 'IT & Tech Vocabulary', level: 'All levels', lessons: 32, image: '💻' }
+  ]
+
   return (
-    <div className="space-y-6 md:space-y-8 max-w-7xl mx-auto">
+    <div className="flex-1 overflow-y-auto px-6 pb-6 space-y-6 bg-gray-50">
       {/* Welcome Section */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-      >
-        <h1 className="text-xl sm:text-2xl md:text-4xl font-bold text-blue-600 mb-1 md:mb-2">Welcome back, Jessica!</h1>
-         <p className="text-xs sm:text-sm md:text-base text-blue-400">Let's continue your learning journey.</p>
-      </motion.div>
-
-      {/* Continue Learning Section */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.1, duration: 0.6 }}
-      >
-        <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-blue-600 mb-3 md:mb-6">Continue Learning</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4 md:gap-6">
-          {continueLearning.map((course, index) => (
-            <motion.div
-              key={course.id}
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.15 + index * 0.1, duration: 0.6 }}
-              className="bg-white rounded-lg sm:rounded-xl md:rounded-2xl shadow-sm md:shadow-md border border-gray-100 overflow-hidden hover:shadow-md md:hover:shadow-lg transition-shadow duration-300"
-            >
-              {/* Course Header with Image Placeholder */}
-              <div className="h-20 sm:h-24 md:h-40 bg-gradient-to-br from-blue-600 to-blue-400 flex items-center justify-center text-2xl sm:text-3xl md:text-5xl">
-                {course.image}
+      <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-[#1a4d5c]/10 to-[#ff4757]/10 border border-[#1a4d5c]/20 p-6 mt-0">
+        <div className="relative z-10">
+          <h1 className="text-3xl font-bold mb-2 text-gray-900">Hello, {userName}! 👋</h1>
+          <p className="text-gray-600 mb-4">Let's continue your English learning journey</p>
+          <div className="flex items-center gap-6 flex-wrap">
+            <div className="flex items-center gap-2 bg-white border border-gray-200 px-4 py-2 rounded-xl">
+              <Flame className="text-orange-500" size={20} />
+              <div>
+                <p className="text-2xl font-bold text-gray-900">12</p>
+                <p className="text-xs text-gray-600">day streak</p>
               </div>
+            </div>
+            <div className="flex-1 min-w-[300px]">
+              <p className="text-sm text-gray-700 italic">"Consistency is the key to success. Keep going!"</p>
+            </div>
+          </div>
+        </div>
+        <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-[#1a4d5c] to-[#ff4757] opacity-5 rounded-full blur-3xl"></div>
+      </div>
 
-              {/* Course Content */}
-              <div className="p-3 sm:p-4 md:p-6">
-                <h3 className="text-sm sm:text-base md:text-lg font-semibold text-blue-600 mb-1 md:mb-2">{course.title}</h3>
-                <p className="text-xs sm:text-sm text-blue-400 mb-3 md:mb-4 line-clamp-2">{course.description}</p>
-
-                {/* Progress Bar */}
-                <div className="mb-3 md:mb-4">
-                  <div className="flex justify-between items-center mb-2">
-                    <span className="text-xs font-medium text-blue-400">Progress</span>
-                    <span className="text-xs font-medium text-blue-600">{course.progress}%</span>
-                  </div>
-                  <div className="w-full bg-gray-100 rounded-full h-2">
-                    <div
-                      className="bg-blue-600 h-2 rounded-full transition-all duration-500"
-                      style={{ width: `${course.progress}%` }}
-                    />
-                  </div>
+      {/* Main Grid */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        {/* Current Progress - Spans 2 columns */}
+        <div className="lg:col-span-2 bg-white border border-gray-200 rounded-2xl p-6 hover:border-[#5da6b8] hover:shadow-md transition-all">
+          <h2 className="text-lg font-semibold mb-4 flex items-center gap-2 text-gray-900">
+            <Play className="text-[#5da6b8]" size={20} />
+            Continue where you left off
+          </h2>
+          <div className="flex gap-4 flex-wrap lg:flex-nowrap">
+            <div className="w-32 h-32 rounded-xl bg-gradient-to-br from-[#1a4d5c] to-[#ff4757] flex items-center justify-center text-4xl flex-shrink-0">
+              📚
+            </div>
+            <div className="flex-1">
+              <h3 className="text-xl font-bold mb-2 text-gray-900">Intermediate English - Module 3</h3>
+              <p className="text-sm text-gray-600 mb-4">Business Communication & Professional Skills</p>
+              <div className="space-y-2">
+                <div className="flex justify-between text-sm mb-1">
+                  <span className="text-gray-600">Progress</span>
+                  <span className="font-semibold text-[#5da6b8]">68%</span>
                 </div>
-
-                {/* Status and Button */}
-                <div className="flex items-center justify-between gap-2">
-                  <span className="text-xs text-blue-400">{course.completed}</span>
-                  <Button className="bg-blue-600 hover:bg-blue-700 text-white px-3 sm:px-4 md:px-6 py-2 text-xs md:text-sm font-medium whitespace-nowrap">
+                <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
+                  <div className="h-full bg-gradient-to-r from-[#1a4d5c] to-[#5da6b8] rounded-full transition-all duration-500" style={{width: '68%'}}></div>
+                </div>
+                <div className="flex items-center justify-between mt-4 flex-wrap gap-2">
+                  <div className="flex items-center gap-2 text-sm text-gray-600">
+                    <Clock size={16} />
+                    <span>~2h 30min remaining</span>
+                  </div>
+                  <button className="px-6 py-2 bg-gradient-to-r from-[#1a4d5c] to-[#5da6b8] rounded-xl font-semibold text-white hover:shadow-lg hover:scale-105 transition-all">
                     Continue
-                  </Button>
+                  </button>
                 </div>
               </div>
-            </motion.div>
+            </div>
+          </div>
+        </div>
+
+        {/* Quick Stats */}
+        <div className="space-y-4">
+          {[
+            { icon: Clock, label: 'Hours this week', value: '8.5h', color: 'from-[#1a4d5c] to-[#5da6b8]' },
+            { icon: Target, label: 'Lessons completed', value: '24', color: 'from-[#5da6b8] to-[#1a4d5c]' },
+          ].map((stat, i) => {
+            const Icon = stat.icon
+            return (
+              <div key={i} className="bg-white border border-gray-200 rounded-2xl p-4 hover:border-[#5da6b8] hover:shadow-md transition-all">
+                <div className="flex items-center gap-3">
+                  <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${stat.color} flex items-center justify-center flex-shrink-0`}>
+                    <Icon size={24} className="text-white" />
+                  </div>
+                  <div>
+                    <p className="text-2xl font-bold text-gray-900">{stat.value}</p>
+                    <p className="text-xs text-gray-600">{stat.label}</p>
+                  </div>
+                </div>
+              </div>
+            )
+          })}
+        </div>
+      </div>
+
+      {/* Upcoming Classes */}
+      <div>
+        <h2 className="text-lg font-semibold mb-4 flex items-center gap-2 text-gray-900">
+          <Calendar className="text-[#ff4757]" size={20} />
+          Upcoming live classes
+        </h2>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          {upcomingClasses.map((cls, i) => (
+            <div key={i} className="bg-white border border-gray-200 rounded-2xl p-4 hover:border-[#ff4757] hover:shadow-md transition-all group">
+              <div className="flex justify-between items-start mb-3">
+                <div className="flex-1">
+                  <h3 className="font-semibold mb-1 group-hover:text-[#ff4757] transition-colors text-gray-900">{cls.title}</h3>
+                  <p className="text-sm text-gray-600">{cls.instructor}</p>
+                </div>
+                {cls.status === 'live' && (
+                  <span className="px-2 py-1 bg-red-100 text-red-600 text-xs rounded-lg border border-red-200">
+                    Live now
+                  </span>
+                )}
+              </div>
+              <div className="flex items-center justify-between flex-wrap gap-2">
+                <div className="text-sm text-gray-600">
+                  <p>{cls.date} • {cls.time}</p>
+                </div>
+                <button className="px-4 py-1.5 bg-[#ff4757]/10 hover:bg-[#ff4757] text-[#ff4757] hover:text-white rounded-lg text-sm font-medium transition-all border border-[#ff4757]/30">
+                  {cls.status === 'live' ? 'Join now' : 'Set reminder'}
+                </button>
+              </div>
+            </div>
           ))}
         </div>
-      </motion.div>
+      </div>
 
-      {/* Recommended Section */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.3, duration: 0.6 }}
-      >
-        <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-blue-600 mb-3 md:mb-6">Recommended for you</h2>
-        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3 md:gap-6">
-          {recommendedCourses.map((course, index) => (
-            <motion.div
-              key={course.id}
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.35 + index * 0.08, duration: 0.6 }}
-              className="bg-white rounded-lg sm:rounded-xl md:rounded-2xl shadow-sm md:shadow-md border border-gray-100 overflow-hidden hover:shadow-md md:hover:shadow-lg transition-shadow duration-300"
-            >
-              {/* Course Image Placeholder */}
-              <div className="h-16 sm:h-20 md:h-32 bg-gradient-to-br from-blue-600 to-blue-400 flex items-center justify-center text-lg sm:text-2xl md:text-4xl">
-                {course.icon}
-              </div>
-
-              {/* Course Content */}
-              <div className="p-2 sm:p-3 md:p-5">
-                <h3 className="text-xs sm:text-sm md:text-base font-semibold text-blue-600 mb-1 line-clamp-2">{course.title}</h3>
-                <p className="text-xs text-blue-400 mb-1 md:mb-2 line-clamp-1 md:line-clamp-2">{course.description}</p>
-                <p className="text-xs text-gray-600 font-medium">{course.category}</p>
-              </div>
-            </motion.div>
-          ))}
+      {/* Achievements + Recommendations */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {/* Achievements */}
+        <div>
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="text-lg font-semibold flex items-center gap-2 text-gray-900">
+              <Award className="text-yellow-400" size={20} />
+              Recent achievements
+            </h2>
+            <button className="text-sm text-[#5da6b8] hover:text-[#ff4757] transition-colors">
+              View all →
+            </button>
+          </div>
+          <div className="grid grid-cols-2 gap-3">
+            {achievements.map((achievement, i) => {
+              const Icon = achievement.icon
+              return (
+                <div key={i} className="bg-white border border-gray-200 rounded-2xl p-4 hover:scale-105 hover:shadow-md transition-all cursor-pointer group">
+                  <div className={`w-14 h-14 rounded-xl bg-gradient-to-br ${achievement.color} flex items-center justify-center mb-3 group-hover:scale-110 transition-transform`}>
+                    <Icon size={28} className="text-white" />
+                  </div>
+                  <p className="text-sm font-medium text-gray-900">{achievement.title}</p>
+                </div>
+              )
+            })}
+          </div>
         </div>
-      </motion.div>
+
+        {/* Recommendations */}
+        <div>
+          <h2 className="text-lg font-semibold mb-4 flex items-center gap-2 text-gray-900">
+            <Star className="text-[#5da6b8]" size={20} />
+            Recommended for you
+          </h2>
+          <div className="space-y-3">
+            {recommendations.map((course, i) => (
+              <div key={i} className="bg-white border border-gray-200 rounded-xl p-4 hover:border-[#5da6b8] hover:shadow-md transition-all group cursor-pointer">
+                <div className="flex items-center gap-4">
+                  <div className="w-16 h-16 rounded-lg bg-gradient-to-br from-[#1a4d5c]/10 to-[#ff4757]/10 flex items-center justify-center text-3xl flex-shrink-0">
+                    {course.image}
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="font-semibold mb-1 group-hover:text-[#5da6b8] transition-colors text-gray-900">{course.title}</h3>
+                    <div className="flex items-center gap-3 text-xs text-gray-600">
+                      <span>{course.level}</span>
+                      <span>•</span>
+                      <span>{course.lessons} lessons</span>
+                    </div>
+                  </div>
+                  <ChevronRight className="text-gray-400 group-hover:text-[#5da6b8] transition-colors flex-shrink-0" size={20} />
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
     </div>
-  );
+  )
 }

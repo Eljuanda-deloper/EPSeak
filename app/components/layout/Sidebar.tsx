@@ -1,10 +1,10 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { BookOpen, Settings, LogOut, ChevronLeft, ChevronRight, Menu, X } from 'lucide-react'
+import { Home, BookOpen, TrendingUp, FolderOpen, Users, Settings, Menu, X } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { useSwipeable } from 'react-swipeable'
+import { useAuth } from '@/app/contexts/AuthContext'
 
 interface NavItem {
   id: string
@@ -15,76 +15,80 @@ interface NavItem {
 
 const navItems: NavItem[] = [
   {
+    id: 'home',
+    label: 'Home',
+    icon: <Home className="w-5 h-5" />,
+    href: '/dashboard',
+  },
+  {
     id: 'courses',
     label: 'My Courses',
-    icon: <BookOpen className="w-12 h-12" />,
+    icon: <BookOpen className="w-5 h-5" />,
     href: '/dashboard/courses',
+  },
+  {
+    id: 'progress',
+    label: 'Progress',
+    icon: <TrendingUp className="w-5 h-5" />,
+    href: '/dashboard/progress',
+  },
+  {
+    id: 'resources',
+    label: 'Resources',
+    icon: <FolderOpen className="w-5 h-5" />,
+    href: '/dashboard/resources',
+  },
+  {
+    id: 'community',
+    label: 'Community',
+    icon: <Users className="w-5 h-5" />,
+    href: '/dashboard/community',
   },
   {
     id: 'settings',
     label: 'Settings',
-    icon: <Settings className="w-12 h-12" />,
+    icon: <Settings className="w-5 h-5" />,
     href: '/dashboard/settings',
   },
 ]
 
 export default function DashboardSidebar() {
   const pathname = usePathname()
-  const [isCollapsed, setIsCollapsed] = useState(false)
+  const { user, signOut } = useAuth()
   const [isMobileOpen, setIsMobileOpen] = useState(false)
-  const [orientation, setOrientation] = useState<'portrait' | 'landscape'>('portrait')
+  const [isUserMenuOpen, setIsUserMenuOpen] = useState(false)
+  const [userName, setUserName] = useState('User')
+  const [userInitials, setUserInitials] = useState('U')
 
   useEffect(() => {
-    const handleOrientationChange = () => {
-      setOrientation(window.innerHeight > window.innerWidth ? 'portrait' : 'landscape')
+    if (user?.user_metadata?.full_name) {
+      const fullName = user.user_metadata.full_name
+      setUserName(fullName)
+      const initials = fullName
+        .split(' ')
+        .slice(0, 2)
+        .map((n: string) => n[0])
+        .join('')
+        .toUpperCase()
+      setUserInitials(initials)
+    } else if (user?.email) {
+      setUserName(user.email.split('@')[0])
+      setUserInitials(user.email[0].toUpperCase())
     }
-    handleOrientationChange()
-    window.addEventListener('resize', handleOrientationChange)
-    return () => window.removeEventListener('resize', handleOrientationChange)
-  }, [])
+  }, [user])
 
   const isActive = (href: string) => pathname === href
 
-  const hapticFeedback = () => {
-    if (navigator.vibrate) {
-      navigator.vibrate(50)
-    }
-  }
-
-  const swipeHandlers = useSwipeable({
-    onSwipedLeft: () => {
-      if (window.innerWidth < 768) {
-        setIsMobileOpen(false)
-        hapticFeedback()
-      }
-    },
-    onSwipedRight: () => {
-      if (window.innerWidth < 768) {
-        setIsMobileOpen(true)
-        hapticFeedback()
-      }
-    },
-    preventScrollOnSwipe: true,
-    trackMouse: true,
-  })
-
   return (
     <>
-      {/* Mobile Menu Button - Floating Bottom Right */}
+      {/* Mobile Menu Button - Floating */}
       <button
-        onClick={() => {
-          setIsMobileOpen(!isMobileOpen)
-          hapticFeedback()
-        }}
-        className="fixed bottom-4 right-4 z-50 md:hidden w-11 h-11 flex items-center justify-center bg-blue-400 hover:bg-blue-600 text-white rounded-full shadow-lg transition-colors"
+        onClick={() => setIsMobileOpen(!isMobileOpen)}
+        className="fixed bottom-4 right-4 z-50 md:hidden w-12 h-12 flex items-center justify-center bg-gradient-to-br from-[#1a4d5c] to-[#5da6b8] hover:shadow-lg text-white rounded-xl shadow-lg transition-all active:scale-95"
         aria-label="Toggle menu"
-        style={{ minWidth: '44px', minHeight: '44px' }}
+        style={{ minWidth: '48px', minHeight: '48px' }}
       >
-        {isMobileOpen ? (
-          <X className="w-6 h-6" />
-        ) : (
-          <Menu className="w-6 h-6" />
-        )}
+        {isMobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
       </button>
 
       {/* Mobile Overlay */}
@@ -98,94 +102,91 @@ export default function DashboardSidebar() {
 
       {/* Sidebar */}
       <aside
-        {...swipeHandlers}
         className={`${
-          isCollapsed ? 'md:w-20' : 'md:w-64'
-        } bg-blue-600 border-r border-gray-200/20 transition-all duration-300 ease-in-out flex flex-col h-screen sticky top-0 overflow-hidden ${
           isMobileOpen
             ? 'w-64 translate-x-0 fixed inset-y-0 left-0 z-40'
-            : 'hidden md:flex md:relative md:w-auto'
-        }`}
+            : 'hidden md:flex md:relative md:w-64'
+        } bg-white border-r border-gray-200 flex flex-col h-screen transition-all duration-300 ease-in-out overflow-hidden`}
       >
         {/* Logo */}
-        <div className="p-2 md:p-3 border-b border-gray-200/20 flex-shrink-0">
+        <div className="p-6 border-b border-gray-200 flex-shrink-0">
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 bg-gradient-to-br from-blue-400 to-blue-600 rounded-lg flex items-center justify-center flex-shrink-0">
-              <span className="text-white font-bold text-sm">E</span>
+            <div className="w-10 h-10 bg-gradient-to-br from-[#1a4d5c] to-[#ff4757] rounded-xl flex items-center justify-center font-bold text-lg text-white">
+              ES
             </div>
-            {!isCollapsed && (
-              <h1 className="text-lg font-bold text-white whitespace-nowrap">ESPeak</h1>
-            )}
+            <span className="text-xl font-bold bg-gradient-to-r from-[#5da6b8] to-[#1a4d5c] bg-clip-text text-transparent">
+              ESPeak
+            </span>
           </div>
         </div>
 
         {/* Navigation */}
-        <nav className="flex-1 px-2 md:px-3 py-2 md:py-3 space-y-2 overflow-y-auto">
+        <nav className="flex-1 p-4 space-y-2 overflow-y-auto">
           {navItems.map((item) => (
             <Link
               key={item.id}
               href={item.href}
-              onClick={() => {
-                setIsMobileOpen(false)
-                hapticFeedback()
-              }}
-              className={`flex items-center gap-3 px-3 py-3 rounded-lg transition-colors duration-200 whitespace-nowrap text-sm ${
+              onClick={() => setIsMobileOpen(false)}
+              className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 ${
                 isActive(item.href)
-                  ? 'bg-blue-400 text-white shadow-md'
-                  : 'text-white hover:bg-gray-200/20'
+                  ? 'bg-gradient-to-r from-[#1a4d5c]/10 to-[#5da6b8]/10 border border-[#1a4d5c]/30 text-[#1a4d5c]'
+                  : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900'
               }`}
-              title={item.label}
               style={{ minHeight: '44px' }}
             >
               <span className="flex-shrink-0">{item.icon}</span>
-              {!isCollapsed && (
-                <span className="text-sm font-medium">{item.label}</span>
-              )}
+              <span className="text-sm font-medium">{item.label}</span>
             </Link>
           ))}
         </nav>
 
-        {/* Logout */}
-        <div className="border-t border-gray-200/20 p-2 md:p-3 flex-shrink-0">
-          <button
-            onClick={() => {
-              const form = document.createElement('form')
-              form.method = 'POST'
-              form.action = '/api/auth/logout'
-              document.body.appendChild(form)
-              form.submit()
-              hapticFeedback()
-            }}
-            className="w-full flex items-center gap-3 px-3 py-3 rounded-lg text-white hover:bg-red-600/30 hover:text-white transition-colors duration-200 whitespace-nowrap text-sm"
-            title="Logout"
-            style={{ minHeight: '44px' }}
-          >
-            <LogOut className="w-12 h-12 flex-shrink-0" />
-            {!isCollapsed && (
-              <span className="text-sm font-medium">Logout</span>
-            )}
-          </button>
-        </div>
+        {/* User Avatar - Bottom */}
+        <div className="p-4 border-t border-gray-200 flex-shrink-0">
+          <div className="relative">
+            <button
+              onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
+              className="w-full flex items-center gap-3 p-3 rounded-xl bg-gray-100 hover:bg-gray-200 transition-all cursor-pointer"
+            >
+              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#1a4d5c] to-[#ff4757] flex items-center justify-center font-semibold text-white text-sm flex-shrink-0">
+                {userInitials}
+              </div>
+              <div className="flex-1 min-w-0 text-left">
+                <p className="text-sm font-medium text-gray-900 truncate">{userName}</p>
+                <p className="text-xs text-gray-600 truncate">Level B2</p>
+              </div>
+            </button>
 
-        {/* Collapse Button - Desktop only */}
-        <div className="p-2 md:p-3 border-t border-gray-200/20 flex-shrink-0 hidden md:block">
-          <button
-            onClick={() => {
-              setIsCollapsed(!isCollapsed)
-              hapticFeedback()
-            }}
-            className="w-full flex items-center justify-center px-3 py-2 text-xs text-white hover:text-white hover:bg-gray-200/20 rounded-lg transition-colors"
-            title={isCollapsed ? 'Expand' : 'Collapse'}
-            style={{ minHeight: '44px' }}
-          >
-            {isCollapsed ? (
-              <ChevronRight className="w-4 h-4" />
-            ) : (
-              <ChevronLeft className="w-4 h-4" />
+            {/* User Menu Dropdown */}
+            {isUserMenuOpen && (
+              <div className="absolute bottom-full left-0 right-0 mb-2 bg-white rounded-xl shadow-lg border border-gray-200 z-50 overflow-hidden">
+                <Link
+                  href="/profile"
+                  className="flex items-center gap-3 px-4 py-3 text-gray-700 hover:bg-gray-50 text-sm border-b border-gray-100 transition-colors"
+                  onClick={() => setIsUserMenuOpen(false)}
+                >
+                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                  </svg>
+                  My Profile
+                </Link>
+                <button
+                  onClick={() => {
+                    signOut()
+                    setIsUserMenuOpen(false)
+                  }}
+                  className="w-full flex items-center gap-3 px-4 py-3 text-red-600 hover:bg-red-50 text-sm transition-colors"
+                >
+                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M17 7l-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.58L17 17l5-5zM4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4V5z"/>
+                  </svg>
+                  Sign Out
+                </button>
+              </div>
             )}
-          </button>
+          </div>
         </div>
       </aside>
     </>
   )
 }
+

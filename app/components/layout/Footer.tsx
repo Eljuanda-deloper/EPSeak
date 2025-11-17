@@ -52,56 +52,58 @@ const ctaHighlights: CtaHighlight[] = [
 ];
 
 const Footer: FC<FooterProps> = () => {
-  const pathname = usePathname();
-  const currentYear = new Date().getFullYear();
-  const [showScrollTop, setShowScrollTop] = useState(false);
-
-  // Hide footer in dashboard routes
-  const isInDashboard = pathname.startsWith('/dashboard');
+  const pathname = usePathname()
+  
+  // Hide footer in dashboard routes - CHECK FIRST, BEFORE ANY HOOKS
+  const isInDashboard = pathname.startsWith('/dashboard')
   if (isInDashboard) {
-    return null;
+    return null
   }
 
+  // NOW we can safely call all hooks
+  const currentYear = new Date().getFullYear()
+  const [showScrollTop, setShowScrollTop] = useState(false)
+
   // Refs para animaciones
-  const footerRef = useRef<HTMLElement>(null);
-  const ctaRef = useRef<HTMLDivElement>(null);
-  const brandRef = useRef<HTMLDivElement>(null);
-  const navigationRef = useRef<HTMLDivElement>(null);
-  const contactRef = useRef<HTMLDivElement>(null);
-  const resourcesRef = useRef<HTMLDivElement>(null);
+  const footerRef = useRef<HTMLElement>(null)
+  const ctaRef = useRef<HTMLDivElement>(null)
+  const brandRef = useRef<HTMLDivElement>(null)
+  const navigationRef = useRef<HTMLDivElement>(null)
+  const contactRef = useRef<HTMLDivElement>(null)
+  const resourcesRef = useRef<HTMLDivElement>(null)
 
   // Scroll effects
   const { scrollYProgress } = useScroll({
     target: footerRef,
     offset: ["start end", "end start"]
-  });
+  })
 
-  const y = useTransform(scrollYProgress, [0, 1], [100, 0]);
-  const opacity = useTransform(scrollYProgress, [0, 0.3], [0, 1]);
+  const y = useTransform(scrollYProgress, [0, 1], [100, 0])
+  const opacity = useTransform(scrollYProgress, [0, 0.3], [0, 1])
 
-  const springY = useSpring(y, { stiffness: 300, damping: 30 });
-  const springOpacity = useSpring(opacity, { stiffness: 300, damping: 30 });
+  const springY = useSpring(y, { stiffness: 300, damping: 30 })
+  const springOpacity = useSpring(opacity, { stiffness: 300, damping: 30 })
 
   // Estados de animación
-  const ctaInView = useInView(ctaRef);
-  const brandInView = useInView(brandRef);
-  const navigationInView = useInView(navigationRef);
-  const contactInView = useInView(contactRef);
-  const resourcesInView = useInView(resourcesRef);
+  const ctaInView = useInView(ctaRef)
+  const brandInView = useInView(brandRef)
+  const navigationInView = useInView(navigationRef)
+  const contactInView = useInView(contactRef)
+  const resourcesInView = useInView(resourcesRef)
 
   // Scroll to top functionality
   useEffect(() => {
     const handleScroll = () => {
-      setShowScrollTop(window.scrollY > 500);
-    };
+      setShowScrollTop(window.scrollY > 500)
+    }
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
 
   const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
 
   const navigation: NavigationItem[] = [
     { label: 'Inicio', href: '#inicio' },

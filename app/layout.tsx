@@ -5,6 +5,7 @@ import { ClientProviders } from "./components/providers/ClientProviders";
 import Header from "./components/layout/Header";
 import Footer from "./components/layout/Footer";
 import { ReactNode } from "react";
+import { headers } from "next/headers";
 
 const poppins = Poppins({
   weight: ["300", "400", "500", "600", "700"],
@@ -23,7 +24,11 @@ type RootLayoutProps = {
   children: ReactNode;
 };
 
-export default function RootLayout({ children }: RootLayoutProps) {
+export default async function RootLayout({ children }: RootLayoutProps) {
+  const headersList = await headers()
+  const pathname = headersList.get("x-pathname") || ""
+  const isDashboard = pathname.startsWith("/dashboard")
+
   return (
     <html lang="es">
       <body className={`${poppins.variable} min-h-screen w-full font-poppins bg-white antialiased relative`}>
@@ -31,7 +36,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
           <div className="relative flex flex-col min-h-screen">
             {/* Header y Footer se ocultan automáticamente en dashboard */}
             <Header />
-            <main className="relative flex-1 pt-16 lg:pt-20">
+            <main className={`relative flex-1 ${isDashboard ? "" : "pt-16 lg:pt-20"}`}>
               {children}
             </main>
             <Footer />
