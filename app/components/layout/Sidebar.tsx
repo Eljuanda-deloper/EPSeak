@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import { Home, BookOpen, TrendingUp, FolderOpen, Users, Settings, Menu, X } from 'lucide-react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import { useAuth } from '@/app/contexts/AuthContext'
 
@@ -109,15 +110,17 @@ export default function DashboardSidebar() {
         } bg-white border-r border-gray-200 flex flex-col h-screen transition-all duration-300 ease-in-out overflow-hidden`}
       >
         {/* Logo */}
-        <div className="p-6 border-b border-gray-200 flex-shrink-0">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-gradient-to-br from-[#1a4d5c] to-[#ff4757] rounded-xl flex items-center justify-center font-bold text-lg text-white">
-              ES
-            </div>
-            <span className="text-xl font-bold bg-gradient-to-r from-[#5da6b8] to-[#1a4d5c] bg-clip-text text-transparent">
-              ESPeak
-            </span>
-          </div>
+        <div className="p-8 border-b border-gray-200 flex-shrink-0 flex items-center justify-center">
+          <Link href="/dashboard" className="flex items-center justify-center w-full">
+            <Image
+              src="/logoEspeak.png"
+              alt="ESPeak Logo"
+              width={100}
+              height={100}
+              className="rounded-lg w-auto h-auto"
+              priority
+            />
+          </Link>
         </div>
 
         {/* Navigation */}

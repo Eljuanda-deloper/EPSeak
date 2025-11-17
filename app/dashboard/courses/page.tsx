@@ -23,73 +23,13 @@ interface Course {
 const mockCourses: Course[] = [
   {
     id: '1',
-    title: 'Advanced React Patterns',
-    description: 'Master advanced React patterns including hooks, suspense, and concurrent features.',
-    instructor: 'Sarah Chen',
-    image: 'bg-gradient-to-br from-blue-600 to-blue-400',
-    progress: 65,
+    title: 'Business English - Module 3',
+    description: 'Master advanced business communication, presentations, and professional negotiation skills.',
+    instructor: 'Prof. Sarah Johnson',
+    image: 'bg-gradient-to-br from-[#1a4d5c] to-[#5da6b8]',
+    progress: 68,
     duration: '24 hours',
     students: 2345,
-    difficulty: 'Advanced',
-    status: 'in-progress',
-  },
-  {
-    id: '2',
-    title: 'TypeScript Mastery',
-    description: 'Learn TypeScript from basics to advanced type system techniques.',
-    instructor: 'John Smith',
-    image: 'bg-gradient-to-br from-blue-400 to-blue-600',
-    progress: 100,
-    duration: '18 hours',
-    students: 1876,
-    difficulty: 'Intermediate',
-    status: 'completed',
-  },
-  {
-    id: '3',
-    title: 'Next.js 14 Full Stack',
-    description: 'Build full-stack applications with Next.js 14, featuring App Router and API Routes.',
-    instructor: 'Emma Wilson',
-    image: 'bg-gradient-to-br from-red-600 to-blue-600',
-    progress: 45,
-    duration: '32 hours',
-    students: 3456,
-    difficulty: 'Intermediate',
-    status: 'in-progress',
-  },
-  {
-    id: '4',
-    title: 'Web Performance Optimization',
-    description: 'Optimize your web applications for speed, SEO, and user experience.',
-    instructor: 'Michael Brown',
-    image: 'bg-gradient-to-br from-blue-600 to-red-600',
-    progress: 0,
-    duration: '20 hours',
-    students: 987,
-    difficulty: 'Advanced',
-    status: 'not-started',
-  },
-  {
-    id: '5',
-    title: 'Database Design & SQL',
-    description: 'Master relational database design and write efficient SQL queries.',
-    instructor: 'Lisa Anderson',
-    image: 'bg-gradient-to-br from-blue-400 to-red-600',
-    progress: 30,
-    duration: '28 hours',
-    students: 2134,
-    difficulty: 'Intermediate',
-    status: 'in-progress',
-  },
-  {
-    id: '6',
-    title: 'API Design Best Practices',
-    description: 'Design and build robust, scalable APIs following industry best practices.',
-    instructor: 'David Lee',
-    image: 'bg-gradient-to-br from-red-600 to-blue-400',
-    progress: 80,
-    duration: '16 hours',
-    students: 1654,
     difficulty: 'Intermediate',
     status: 'in-progress',
   },
@@ -184,7 +124,7 @@ export default function CoursesPage() {
         variants={container}
         initial="hidden"
         animate="show"
-        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-3 sm:gap-4"
+        className="grid grid-cols-1 max-w-2xl mx-auto gap-3 sm:gap-4"
       >
         {mockCourses.map((course) => (
           <motion.div
@@ -210,22 +150,22 @@ export default function CoursesPage() {
                     </h3>
                     <p className="text-xs text-blue-400">by {course.instructor}</p>
                 </div>
-                <span
-                  className={`ml-2 px-2 py-1 rounded-full text-xs font-medium whitespace-nowrap flex-shrink-0 ${
-                    course.status === 'completed'
-                      ? 'bg-green-100 text-green-800'
-                      : course.status === 'in-progress'
-                        ? 'bg-blue-100 text-blue-800'
-                        : 'bg-gray-100 text-gray-700'
-                  }`}
-                  aria-label={`Status: ${course.status === 'in-progress' ? 'En progreso' : course.status === 'completed' ? 'Completado' : 'No iniciado'}`}
-                >
-                  {course.status === 'in-progress'
-                    ? 'En progreso'
-                    : course.status === 'completed'
-                      ? 'Completado'
-                      : 'No iniciado'}
-                </span>
+                  <span
+                    className={`ml-2 px-2 py-1 rounded-full text-xs font-medium whitespace-nowrap flex-shrink-0 ${
+                      course.status === 'completed'
+                        ? 'bg-green-100 text-green-800'
+                        : course.status === 'in-progress'
+                          ? 'bg-blue-100 text-blue-800'
+                          : 'bg-gray-100 text-gray-700'
+                    }`}
+                    aria-label={`Status: ${course.status === 'in-progress' ? 'In progress' : course.status === 'completed' ? 'Completed' : 'Not started'}`}
+                  >
+                    {course.status === 'in-progress'
+                      ? 'In Progress'
+                      : course.status === 'completed'
+                        ? 'Completed'
+                        : 'Not Started'}
+                  </span>
               </div>
 
               {/* Description */}
@@ -238,7 +178,7 @@ export default function CoursesPage() {
                 <div className="mb-3">
                   <div className="flex items-center justify-between mb-2">
                     <span className="text-xs font-medium text-blue-400">
-                      Progreso
+                      Progress
                     </span>
                     <span className="text-xs font-bold text-blue-600">
                       {course.progress}%
@@ -296,7 +236,7 @@ export default function CoursesPage() {
                 {course.status === 'not-started'
                   ? 'Start Course'
                   : course.status === 'completed'
-                    ? 'Review'
+                    ? 'Review Course'
                     : 'Continue Learning'}
                 <ChevronRight className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform flex-shrink-0" aria-hidden="true" />
               </button>
