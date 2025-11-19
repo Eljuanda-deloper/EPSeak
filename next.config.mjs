@@ -1,6 +1,7 @@
 const config = {
   reactStrictMode: true,
   swcMinify: true,
+  optimizeFonts: false,
   images: {
     domains: ['img.youtube.com', 'i.ytimg.com'],
   },

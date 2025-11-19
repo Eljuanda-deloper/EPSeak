@@ -335,11 +335,11 @@ const Footer: FC<FooterProps> = () => {
                 <div className="relative">
                   <div className="absolute -inset-1 rounded-lg bg-gradient-to-r from-azul-celeste/20 to-rojo-brillante/20 blur"></div>
                   <Image
-                    src="/logoESPeak.svg"
+                    src="/logoESPeak.png"
                     alt="ESPeak"
-                    width={160}
-                    height={40}
-                    className="relative h-10 w-auto"
+                    width={200}
+                    height={50}
+                    className="relative h-12 w-auto"
                     priority
                   />
                 </div>

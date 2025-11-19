@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import Hero from './components/home/Hero';
 import About from './components/home/About';
+import Careers from './components/home/Careers';
 import Testimonials from './components/home/Testimonials';
 import Contact from './components/home/Contact';
 import WhatsAppFloat from './components/shared/WhatsAppFloat';
@@ -85,6 +86,7 @@ export default function Home() {
       >
         <main className="flex-grow">
           <Hero />
+          <Careers />
           <About />
           <Testimonials />
           <Contact />

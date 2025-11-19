@@ -24,7 +24,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(({
   return (
     <button
       ref={ref}
-      className={`${baseStyle} ${variants[variant]} ${widthStyle} ${className || ''}`}
+      className={`${baseStyle} ${widthStyle} ${className || ''} ${variants[variant]}`}
       {...props}
     >
       {children}

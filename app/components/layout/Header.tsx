@@ -51,14 +51,15 @@ const Header = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [isInDashboard]);
 
-  // Solo mostrar nav links en la página de inicio
+  // Mostrar nav links en la página de inicio, páginas de auth y páginas de carreras
   const isHomePage = pathname === '/' || pathname === '/#' || pathname.startsWith('/#');
   const isAuthPage = pathname.startsWith('/auth');
-  const navLinks = (isHomePage || isAuthPage) ? [
-    { name: 'Inicio', href: '/#inicio' },
-    { name: 'Quiénes somos', href: '/#quienes-somos' },
-    { name: 'Testimonios', href: '/#testimonios' },
-    { name: 'Contacto', href: '/#contacto' },
+  const isCareerPage = pathname.startsWith('/careers');
+  const navLinks = (isHomePage || isAuthPage || isCareerPage) ? [
+    { name: 'Inicio', href: isCareerPage ? '/' : '/#inicio' },
+    { name: 'Quiénes somos', href: isCareerPage ? '/#quienes-somos' : '/#quienes-somos' },
+    { name: 'Testimonios', href: isCareerPage ? '/#testimonios' : '/#testimonios' },
+    { name: 'Contacto', href: isCareerPage ? '/#contacto' : '/#contacto' },
   ] : [];
 
   // Si estamos en dashboard, no renderizar nada
@@ -196,14 +197,14 @@ const Header = () => {
               <Link href="/auth/login">
                 <Button
                   variant="secondary"
-                  className="shadow-lg hover:shadow-xl hover:shadow-azul-petroleo/20 bg-white text-azul-petroleo border border-azul-petroleo/20 hover:bg-azul-petroleo/5 hover:text-azul-petroleo !text-azul-petroleo"
+                  className="!bg-white !text-azul-petroleo border border-azul-petroleo/20 hover:!bg-azul-petroleo/5 !shadow-lg hover:!shadow-xl hover:!shadow-azul-petroleo/20 hover:!translate-y-0"
                 >
                   Iniciar Sesión
                 </Button>
               </Link>
               <Link href="/auth/register">
                 <Button
-                  className="shadow-lg hover:shadow-xl hover:shadow-rojo-brillante/20"
+                  className="!shadow-lg hover:!shadow-xl hover:!shadow-rojo-brillante/20"
                 >
                   Registrarse
                 </Button>
@@ -297,14 +298,14 @@ const Header = () => {
                   <Link href="/auth/login" onClick={() => setIsMenuOpen(false)}>
                     <Button
                       variant="secondary"
-                      className="w-full shadow-lg hover:shadow-xl hover:shadow-azul-petroleo/20 bg-white text-azul-petroleo border border-azul-petroleo/20 hover:bg-azul-petroleo/5 !text-azul-petroleo"
+                      className="w-full !bg-white !text-azul-petroleo border border-azul-petroleo/20 hover:!bg-azul-petroleo/5 !shadow-lg hover:!shadow-xl hover:!shadow-azul-petroleo/20 hover:!translate-y-0"
                     >
                       Iniciar Sesión
                     </Button>
                   </Link>
                   <Link href="/auth/register" onClick={() => setIsMenuOpen(false)}>
                     <Button
-                      className="w-full shadow-lg hover:shadow-xl hover:shadow-rojo-brillante/20"
+                      className="w-full !shadow-lg hover:!shadow-xl hover:!shadow-rojo-brillante/20"
                     >
                       Registrarse
                     </Button>

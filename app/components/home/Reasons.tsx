@@ -1,38 +1,65 @@
 "use client";
 import { motion } from 'framer-motion';
+import { Target, BookOpen, Brain, Users, Briefcase, BarChart3 } from 'lucide-react';
 
 interface ReasonCardProps {
-  icon: string;
+  icon: React.ReactNode;
   title: string;
   description: string;
   index: number;
 }
 
 const ReasonCard = ({ icon, title, description, index }: ReasonCardProps) => {
-  const isEven = index % 2 === 1;
-  
   return (
     <motion.div
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      transition={{ duration: 0.3, delay: index * 0.1 }}
-      whileHover={{ y: -10 }}
-      className={`
-        bg-white p-10 rounded-2xl text-center transition-all duration-300
-        shadow-lg hover:shadow-2xl
-        border-t-4 ${isEven ? 'border-azul-petroleo' : 'border-azul-celeste'}
-      `}
+      transition={{ duration: 0.5, delay: index * 0.12, ease: "easeOut" }}
+      whileHover={{ y: -8, transition: { duration: 0.3 } }}
+      className="group h-full"
     >
-      <div className={`text-5xl mb-4 ${isEven ? 'text-azul-petroleo' : 'text-azul-celeste'}`}>
-        {icon}
+      <div className={`
+        bg-white h-full p-8 rounded-xl transition-all duration-300
+        shadow-md hover:shadow-xl
+        border border-gray-100 hover:border-azul-petroleo/30
+        flex flex-col
+      `}
+      >
+        {/* Icon Container */}
+        <motion.div
+          whileHover={{ scale: 1.1, rotate: 5 }}
+          transition={{ duration: 0.3 }}
+          className="
+            inline-flex items-center justify-center
+            w-16 h-16 mb-6
+            bg-gradient-to-br from-azul-petroleo/10 to-azul-celeste/10
+            rounded-lg
+            text-azul-petroleo
+            group-hover:from-azul-petroleo/20 group-hover:to-azul-celeste/20
+            transition-all duration-300
+          "
+        >
+          {icon}
+        </motion.div>
+
+        {/* Content */}
+        <h3 className="text-lg font-bold text-gray-900 mb-3 leading-tight">
+          {title}
+        </h3>
+        <p className="text-gray-600 text-sm leading-relaxed flex-grow">
+          {description}
+        </p>
+
+        {/* Decorative Bottom Border */}
+        <motion.div
+          initial={{ width: 0 }}
+          whileInView={{ width: "100%" }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: index * 0.12 + 0.2 }}
+          className="h-0.5 bg-gradient-to-r from-azul-petroleo to-azul-celeste mt-6"
+        />
       </div>
-      <h3 className="text-xl font-semibold text-azul-petroleo mb-4">
-        {title}
-      </h3>
-      <p className="text-gray-600 leading-relaxed">
-        {description}
-      </p>
     </motion.div>
   );
 };
@@ -40,32 +67,32 @@ const ReasonCard = ({ icon, title, description, index }: ReasonCardProps) => {
 const Reasons = () => {
   const reasons = [
     {
-      icon: "🎯",
+      icon: <Target className="w-8 h-8" />,
       title: "Contenido Laboral Específico",
       description: "Contenidos y ejercicios vinculados directamente a tu área laboral, garantizando relevancia y aplicabilidad inmediata."
     },
     {
-      icon: "📚",
+      icon: <BookOpen className="w-8 h-8" />,
       title: "Programa de Autoestudio Único",
       description: "Único programa de autoestudio que combina inglés general con inglés técnico especializado en profesiones específicas."
     },
     {
-      icon: "🤖",
+      icon: <Brain className="w-8 h-8" />,
       title: "Asistentes Virtuales IA",
       description: "Asistentes virtuales con IA para interacciones directas, corrigiendo pronunciación y estructura de oraciones."
     },
     {
-      icon: "👥",
+      icon: <Users className="w-8 h-8" />,
       title: "Comunidad Exclusiva",
       description: "Comunidad exclusiva de estudiantes con perfiles similares, fomentando conexiones valiosas y colaborativas."
     },
     {
-      icon: "💼",
+      icon: <Briefcase className="w-8 h-8" />,
       title: "Actividades Profesionales Reales",
       description: "Actividades basadas en situaciones reales del mundo profesional, promoviendo aprendizaje práctico y contextualizado."
     },
     {
-      icon: "📺",
+      icon: <BarChart3 className="w-8 h-8" />,
       title: "Biblioteca Audiovisual",
       description: "Biblioteca rica en materiales técnicos audiovisuales en inglés para practicar y evaluar habilidades en lectura, comprensión, escritura, escucha y habla."
     }

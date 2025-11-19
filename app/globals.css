@@ -22,7 +22,7 @@
   }
 
   body {
-    font-family: "Poppins", sans-serif;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     color: var(--azul-petroleo);
     overflow-x: hidden;
   }
