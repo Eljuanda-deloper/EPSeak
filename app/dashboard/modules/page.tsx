@@ -9,7 +9,7 @@ interface Module {
   title: string
   description: string
   order_index: number
-  estimated_hours: number
+  duration_hours: number
   total_lessons: number
   career_id: string
 }
@@ -127,7 +127,7 @@ export default function ModulesPage() {
             <div className="grid grid-cols-2 gap-3">
               <div className="bg-[#E8ECEF] rounded-lg p-3">
                 <div className="text-xs text-[#7CC4E0] mb-1">Duración</div>
-                <div className="text-sm font-bold text-[#0A4E5A]">{module.estimated_hours}h</div>
+                <div className="text-sm font-bold text-[#0A4E5A]">{module.duration_hours}h</div>
               </div>
               <div className="bg-[#E8ECEF] rounded-lg p-3">
                 <div className="text-xs text-[#7CC4E0] mb-1">Lecciones</div>

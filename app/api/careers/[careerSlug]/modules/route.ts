@@ -43,7 +43,7 @@ export async function GET(
     // Get all modules for this career
     const { data: modules, error: modulesError } = await supabase
       .from('modules')
-      .select('id, title, description, order_index, estimated_hours, total_lessons')
+      .select('id, title, description, order_index, duration_hours, total_lessons')
       .eq('career_id', career.id)
       .eq('is_active', true)
       .order('order_index', { ascending: true })
