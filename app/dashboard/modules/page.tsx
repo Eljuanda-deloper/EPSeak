@@ -37,7 +37,11 @@ export default function ModulesPage() {
         }
 
         const data = await response.json()
-        setModules(data.modules || [])
+        // Filter only English modules
+        const englishModules = (data.modules || []).filter(
+          (m: Module) => m.title.toLowerCase().includes('english')
+        )
+        setModules(englishModules)
       } catch (err) {
         console.error('Error fetching modules:', err)
         setError(err instanceof Error ? err.message : 'Error loading modules')
