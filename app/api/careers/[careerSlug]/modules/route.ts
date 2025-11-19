@@ -4,7 +4,7 @@ import { cookies } from 'next/headers'
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { careerSlug: string; moduleId: string } }
+  { params }: { params: { careerSlug: string } }
 ) {
   try {
     const cookieStore = await cookies()
@@ -25,11 +25,12 @@ export async function GET(
       }
     )
 
-    // First, get the career to verify it exists
+    // Get the career
     const { data: career, error: careerError } = await supabase
       .from('careers')
-      .select('id')
+      .select('id, title, slug')
       .eq('slug', params.careerSlug)
+      .eq('is_active', true)
       .single()
 
     if (careerError || !career) {
@@ -39,43 +40,28 @@ export async function GET(
       )
     }
 
-    // Get module and verify it belongs to this career
-    const { data: module, error: moduleError } = await supabase
+    // Get all modules for this career
+    const { data: modules, error: modulesError } = await supabase
       .from('modules')
-      .select('id, title, description, order_index, estimated_hours, career_id')
-      .eq('id', params.moduleId)
+      .select('id, title, description, order_index, estimated_hours, total_lessons')
       .eq('career_id', career.id)
       .eq('is_active', true)
-      .single()
+      .order('order_index', { ascending: true })
 
-    if (moduleError || !module) {
+    if (modulesError) {
       return NextResponse.json(
-        { error: 'Module not found or does not belong to this career' },
-        { status: 404 }
-      )
-    }
-
-    const { data: lessons, error: lessonsError } = await supabase
-      .from('lessons')
-      .select('id, title, description, order_position, estimated_duration_minutes, content_text')
-      .eq('module_id', params.moduleId)
-      .eq('is_published', true)
-      .order('order_position', { ascending: true })
-
-    if (lessonsError) {
-      return NextResponse.json(
-        { error: 'Failed to fetch lessons' },
+        { error: 'Failed to fetch modules' },
         { status: 500 }
       )
     }
 
     return NextResponse.json({
-      module,
-      lessons,
-      totalLessons: lessons?.length || 0,
+      career,
+      modules: modules || [],
+      totalModules: modules?.length || 0,
     })
   } catch (error) {
-    console.error('Error fetching module:', error)
+    console.error('Error fetching career modules:', error)
     return NextResponse.json(
       { error: 'Internal server error' },
       { status: 500 }
