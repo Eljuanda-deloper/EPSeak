@@ -69,7 +69,7 @@ export async function POST(
         lesson_id: id,
         completed_at: new Date().toISOString(),
         time_spent_minutes,
-      }, {
+      } as any, {
         onConflict: 'student_id,lesson_id',
       })
       .select()

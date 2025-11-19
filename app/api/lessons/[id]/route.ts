@@ -50,7 +50,7 @@ export async function GET(
 
     return NextResponse.json({
       lesson: {
-        ...lesson,
+        ...(lesson as any),
         assets: assets || [],
       },
     })

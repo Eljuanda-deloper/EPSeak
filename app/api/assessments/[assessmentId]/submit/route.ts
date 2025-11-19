@@ -80,7 +80,7 @@ export async function POST(
     let correctAnswers = 0
 
     answers.forEach((answer) => {
-      const question = questions.find((q) => q.id === answer.question_id)
+      const question = (questions as any[]).find((q) => q.id === answer.question_id)
       if (!question) return
 
       if (answer.selected_answer === question.correct_answer ||
@@ -90,7 +90,7 @@ export async function POST(
     })
 
     const score = Math.round((correctAnswers / answers.length) * 100)
-    const passed = score >= (assessment.passing_score || 70)
+    const passed = score >= ((assessment as any).passing_score || 70)
 
     // Save result
     const { data: result, error: resultError } = await supabase
@@ -102,7 +102,7 @@ export async function POST(
         passed,
         attempted_at: new Date().toISOString(),
         completed_at: new Date().toISOString(),
-      })
+      } as any)
       .select()
       .single()
 
@@ -117,7 +117,7 @@ export async function POST(
     return NextResponse.json({
       success: true,
       result: {
-        ...result,
+        ...(result as any),
         score,
         passed,
         correct_answers: correctAnswers,

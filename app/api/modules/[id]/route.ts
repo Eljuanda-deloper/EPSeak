@@ -49,7 +49,7 @@ export async function GET(
 
     // Get assets for each lesson
     const lessonsWithAssets = await Promise.all(
-      (lessons || []).map(async (lesson) => {
+      (lessons || []).map(async (lesson: any) => {
         const { data: assets } = await supabase
           .from('lesson_assets')
           .select('*')
@@ -73,7 +73,7 @@ export async function GET(
 
     return NextResponse.json({
       module: {
-        ...module,
+        ...(module as any),
         lessons: lessonsWithAssets,
         assessment: assessment || null,
       },

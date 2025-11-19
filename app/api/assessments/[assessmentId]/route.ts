@@ -49,7 +49,7 @@ export async function GET(
 
     return NextResponse.json({
       assessment: {
-        ...assessment,
+        ...(assessment as any),
         questions: questions || [],
       },
     })

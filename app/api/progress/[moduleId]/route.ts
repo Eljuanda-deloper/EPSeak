@@ -58,7 +58,7 @@ export async function GET(
       )
     }
 
-    const lessonIds = lessons.map((l) => l.id)
+    const lessonIds = (lessons as any[]).map((l) => l.id)
 
     // Get student progress for all lessons in module
     const { data: progressList, error: progressError } = await supabase
