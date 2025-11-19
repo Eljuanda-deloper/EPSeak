@@ -7,8 +7,18 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
+    "lint:fix": "eslint --fix",
+    "type-check": "tsc --noEmit",
     "test": "jest",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "test:accessibility": "jest --testPathPattern=accessible",
+    "analyze": "ANALYZE=true next build",
+    "analyze:bundle": "ANALYZE=true next build 2>&1 | tee bundle-analysis.txt",
+    "lighthouse": "lhci autorun",
+    "security:audit": "npm audit --audit-level high",
+    "pre-commit": "npm run lint && npm run type-check && npm run test",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@heroicons/react": "^2.2.0",

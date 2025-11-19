@@ -16,40 +16,40 @@ export function TextRenderer({ content, className = '' }: TextRendererProps) {
   const parsed = useMemo(() => parseMarkdown(content), [content])
 
   return (
-    <div className={`prose prose-sm max-w-none ${className}`}>
+    <div className={`prose dark:prose-invert max-w-none ${className}`}>
       {parsed.map((block, idx) => (
         <div key={idx}>
           {block.type === 'paragraph' && (
-            <p className="mb-4 leading-relaxed text-gray-700">
+            <p className="mb-4 lg:mb-5 leading-relaxed text-sm sm:text-base lg:text-lg text-gray-700 dark:text-gray-300">
               {renderInline(block.content || '')}
             </p>
           )}
           {block.type === 'heading2' && (
-            <h2 className="mt-6 mb-3 text-xl font-bold text-gray-900">
+            <h2 className="mt-6 lg:mt-8 mb-3 lg:mb-4 text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900 dark:text-gray-100">
               {renderInline(block.content || '')}
             </h2>
           )}
           {block.type === 'heading3' && (
-            <h3 className="mt-4 mb-2 text-lg font-bold text-gray-800">
+            <h3 className="mt-4 lg:mt-6 mb-2 lg:mb-3 text-lg sm:text-xl lg:text-2xl font-bold text-gray-800 dark:text-gray-200">
               {renderInline(block.content || '')}
             </h3>
           )}
           {block.type === 'list' && (
-            <ul className="mb-4 ml-6 list-disc space-y-1 text-gray-700">
+            <ul className="mb-4 lg:mb-5 ml-4 sm:ml-6 lg:ml-8 list-disc space-y-1 lg:space-y-2 text-gray-700 dark:text-gray-300 text-sm sm:text-base lg:text-lg">
               {(block.items || []).map((item, i) => (
                 <li key={i}>{renderInline(item)}</li>
               ))}
             </ul>
           )}
           {block.type === 'code' && (
-            <pre className="mb-4 overflow-x-auto rounded bg-gray-100 p-3">
-              <code className="text-sm font-mono text-gray-800">
+            <pre className="mb-4 lg:mb-5 overflow-x-auto rounded-lg bg-gray-100 dark:bg-gray-800 p-3 lg:p-4 border border-gray-200 dark:border-gray-700">
+              <code className="text-xs sm:text-sm lg:text-base font-mono text-gray-800 dark:text-gray-200">
                 {block.content}
               </code>
             </pre>
           )}
           {block.type === 'blockquote' && (
-            <blockquote className="mb-4 border-l-4 border-blue-500 bg-blue-50 py-2 pl-4 text-gray-700 italic">
+            <blockquote className="mb-4 lg:mb-5 border-l-4 border-blue-500 bg-blue-50 dark:bg-blue-900/20 py-2 lg:py-3 pl-4 lg:pl-6 text-gray-700 dark:text-gray-300 italic text-sm sm:text-base lg:text-lg">
               {renderInline(block.content || '')}
             </blockquote>
           )}
@@ -212,7 +212,7 @@ function renderInline(content: string) {
         <Link
           key={`link-${match.index}`}
           href={match[3]}
-          className="text-blue-600 hover:underline"
+          className="text-blue-600 dark:text-blue-400 hover:underline hover:text-blue-700 dark:hover:text-blue-300 transition-colors"
           target="_blank"
           rel="noopener noreferrer"
         >
@@ -221,17 +221,17 @@ function renderInline(content: string) {
       )
     } else if (match[1] === 'BOLD') {
       elements.push(
-        <strong key={`bold-${match.index}`}>{match[2]}</strong>
+        <strong key={`bold-${match.index}`} className="font-bold text-gray-900 dark:text-gray-100">{match[2]}</strong>
       )
     } else if (match[1] === 'ITALIC') {
       elements.push(
-        <em key={`italic-${match.index}`}>{match[2]}</em>
+        <em key={`italic-${match.index}`} className="italic text-gray-700 dark:text-gray-300">{match[2]}</em>
       )
     } else if (match[1] === 'CODE') {
       elements.push(
         <code
           key={`code-${match.index}`}
-          className="rounded bg-gray-100 px-1.5 py-0.5 font-mono text-sm"
+          className="rounded px-1.5 py-0.5 font-mono text-xs sm:text-sm lg:text-base bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100"
         >
           {match[2]}
         </code>

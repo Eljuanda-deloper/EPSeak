@@ -61,7 +61,10 @@ export function useModules() {
   const supabase = createClient()
 
   const fetchModules = async () => {
-    if (!user) return
+    if (!user) {
+      setLoading(false)
+      return
+    }
 
     try {
       setLoading(true)
@@ -85,13 +88,12 @@ export function useModules() {
 
       if (modulesError) throw modulesError
 
-      // Fetch student progress separately
+      // Fetch student progress separately - filtered by authenticated user
       const { data: progressData, error: progressError } = await supabase
         .from('student_progress')
         .select('lesson_id, completed_at, time_spent_minutes, score')
         .eq('student_id', user.id)
 
-      if (modulesError) throw modulesError
       if (progressError) throw progressError
 
       // Process the data to determine unlock status and completion
