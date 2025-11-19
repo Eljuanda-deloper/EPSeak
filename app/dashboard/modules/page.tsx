@@ -1,87 +1,56 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
-import ModulesList from '@/app/components/dashboard/ModulesList'
-import { useModules } from '@/app/hooks/useModules'
+import { createClient } from '@/app/utils/supabase/client'
 
-// Mock data - This will be replaced with real data from Supabase
-const mockModules = [
-  {
-    id: '1',
-    title: 'Introducción a la Medicina',
-    description: 'Aprende terminología médica básica y vocabulario esencial para comunicarte en entornos médicos.',
-    area_of_interest: 'Medicina',
-    order_index: 1,
-    is_unlocked: true,
-    completion_percentage: 100,
-    prerequisites: []
-  },
-  {
-    id: '2',
-    title: 'Anatomía y Fisiología',
-    description: 'Domina el vocabulario relacionado con el cuerpo humano, sistemas orgánicos y funciones fisiológicas.',
-    area_of_interest: 'Medicina',
-    order_index: 2,
-    is_unlocked: true,
-    completion_percentage: 75,
-    prerequisites: ['1']
-  },
-  {
-    id: '3',
-    title: 'Diagnóstico y Tratamiento',
-    description: 'Aprende términos médicos avanzados para diagnósticos, tratamientos y procedimientos clínicos.',
-    area_of_interest: 'Medicina',
-    order_index: 3,
-    is_unlocked: false,
-    completion_percentage: 0,
-    prerequisites: ['2']
-  },
-  {
-    id: '4',
-    title: 'Derecho Contractual',
-    description: 'Vocabulario esencial para contratos, acuerdos legales y terminología jurídica básica.',
-    area_of_interest: 'Legal',
-    order_index: 1,
-    is_unlocked: true,
-    completion_percentage: 60,
-    prerequisites: []
-  },
-  {
-    id: '5',
-    title: 'Litigios y Tribunales',
-    description: 'Términos avanzados para procedimientos judiciales, litigios y sistema judicial.',
-    area_of_interest: 'Legal',
-    order_index: 2,
-    is_unlocked: false,
-    completion_percentage: 0,
-    prerequisites: ['4']
-  },
-  {
-    id: '6',
-    title: 'Negocios Internacionales',
-    description: 'Vocabulario para comercio global, importación/exportación y relaciones comerciales.',
-    area_of_interest: 'Negocios',
-    order_index: 1,
-    is_unlocked: true,
-    completion_percentage: 30,
-    prerequisites: []
-  }
-]
+interface Module {
+  id: string
+  title: string
+  description: string
+  order_index: number
+  estimated_hours: number
+  total_lessons: number
+  career_id: string
+}
 
 export default function ModulesPage() {
-  const [searchTerm, setSearchTerm] = useState('')
-  const [areaFilter, setAreaFilter] = useState('')
+  const [modules, setModules] = useState<Module[]>([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
   const router = useRouter()
-  const { modules, loading, error, filterModules } = useModules()
+  const supabase = createClient()
 
-  const englishModules = modules.filter(module => module.area_of_interest === 'english')
-  const filteredModules = filterModules(searchTerm, areaFilter, '').filter(module => englishModules.some(em => em.id === module.id))
+  useEffect(() => {
+    const fetchModules = async () => {
+      try {
+        setLoading(true)
+        setError(null)
 
-  const handleModuleClick = (module: any) => {
-    if (module.is_unlocked) {
-      router.push(`/dashboard/modules/${module.id}`)
+        // Fetch modules for the English Automation career
+        const response = await fetch('/api/careers/english-automation/modules', {
+          method: 'GET',
+        })
+
+        if (!response.ok) {
+          throw new Error('Failed to load modules')
+        }
+
+        const data = await response.json()
+        setModules(data.modules || [])
+      } catch (err) {
+        console.error('Error fetching modules:', err)
+        setError(err instanceof Error ? err.message : 'Error loading modules')
+      } finally {
+        setLoading(false)
+      }
     }
+
+    fetchModules()
+  }, [])
+
+  const handleModuleClick = (moduleId: string) => {
+    router.push(`/dashboard/modules/${moduleId}`)
   }
 
   if (loading) {
@@ -90,8 +59,8 @@ export default function ModulesPage() {
         <div className="bg-white rounded-2xl p-6 border border-[#7CC4E0]/20">
           <div className="text-center py-12">
             <div className="w-16 h-16 border-4 border-[#7CC4E0]/20 border-t-[#7CC4E0] rounded-full animate-spin mx-auto mb-4"></div>
-            <h3 className="text-lg font-semibold text-[#0A4E5A] mb-2">Loading modules</h3>
-            <p className="text-[#7CC4E0]">Preparing your learning experience...</p>
+            <h3 className="text-lg font-semibold text-[#0A4E5A] mb-2">Cargando módulos</h3>
+            <p className="text-[#7CC4E0]">Preparando tu experiencia de aprendizaje...</p>
           </div>
         </div>
       </div>
@@ -101,18 +70,18 @@ export default function ModulesPage() {
   if (error) {
     return (
       <div className="flex-1 overflow-y-auto px-6 pb-6 space-y-6 bg-[#E8ECEF]">
-        <div className="bg-white rounded-2xl p-6 border border-[#E0312D]/20">
+        <div className="bg-white rounded-2xl p-6 border border-red-200">
           <div className="text-center py-12">
-            <div className="w-16 h-16 bg-[#E0312D]/10 rounded-full flex items-center justify-center mx-auto mb-4">
+            <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
               <span className="text-2xl">⚠️</span>
             </div>
-            <h3 className="text-lg font-semibold text-[#0A4E5A] mb-2">Error loading modules</h3>
+            <h3 className="text-lg font-semibold text-[#0A4E5A] mb-2">Error al cargar módulos</h3>
             <p className="text-[#7CC4E0] mb-4">{error}</p>
             <button
               onClick={() => window.location.reload()}
               className="px-6 py-2 bg-[#0A4E5A] text-white rounded-lg hover:bg-[#7CC4E0] transition-colors"
             >
-              Retry
+              Reintentar
             </button>
           </div>
         </div>
@@ -126,41 +95,54 @@ export default function ModulesPage() {
       <div className="bg-white rounded-2xl p-6 border border-[#7CC4E0]/20">
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-2xl font-bold text-[#0A4E5A] mb-2">English Career</h1>
+            <h1 className="text-2xl font-bold text-[#0A4E5A] mb-2">Módulos - English for Automation</h1>
             <p className="text-[#7CC4E0] text-sm">
-              Complete sequential modules of general and specific English to master the language in professional contexts.
+              Completa los módulos secuenciales de inglés general y específico para dominar el idioma en contextos profesionales.
             </p>
           </div>
           <div className="text-right">
-            <div className="text-3xl font-bold text-[#0A4E5A]">{englishModules.filter(m => m.is_unlocked).length}</div>
-            <div className="text-xs text-[#7CC4E0]">Unlocked modules</div>
-          </div>
-        </div>
-
-        {/* Progress Overview */}
-        <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div className="bg-[#E8ECEF] rounded-xl p-4">
-            <div className="text-2xl font-bold text-[#0A4E5A]">{englishModules.filter(m => m.completion_percentage === 100).length}</div>
-            <div className="text-sm text-[#7CC4E0]">Completed</div>
-          </div>
-          <div className="bg-[#E8ECEF] rounded-xl p-4">
-            <div className="text-2xl font-bold text-[#0A4E5A]">{englishModules.filter(m => m.is_unlocked && m.completion_percentage < 100).length}</div>
-            <div className="text-sm text-[#7CC4E0]">In progress</div>
-          </div>
-          <div className="bg-[#E8ECEF] rounded-xl p-4">
-            <div className="text-2xl font-bold text-[#E0312D]">{englishModules.filter(m => !m.is_unlocked).length}</div>
-            <div className="text-sm text-[#7CC4E0]">Locked</div>
+            <div className="text-3xl font-bold text-[#0A4E5A]">{modules.length}</div>
+            <div className="text-xs text-[#7CC4E0]">Módulos disponibles</div>
           </div>
         </div>
       </div>
 
-      {/* Modules List */}
-      <div className="bg-white rounded-2xl p-6 border border-[#7CC4E0]/20">
-        <ModulesList
-          modules={filteredModules}
-          onModuleClick={handleModuleClick}
-        />
+      {/* Modules Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        {modules.map((module) => (
+          <div
+            key={module.id}
+            onClick={() => handleModuleClick(module.id)}
+            className="bg-white rounded-2xl p-6 border border-[#7CC4E0]/20 hover:border-[#7CC4E0] cursor-pointer transition-all hover:shadow-lg"
+          >
+            <div className="flex items-start justify-between mb-4">
+              <h3 className="text-lg font-bold text-[#0A4E5A] flex-1">{module.title}</h3>
+              <span className="text-xs bg-[#7CC4E0]/10 text-[#0A4E5A] px-3 py-1 rounded-full font-semibold">
+                Módulo {module.order_index}
+              </span>
+            </div>
+
+            <p className="text-[#7CC4E0] text-sm mb-4 line-clamp-2">{module.description}</p>
+
+            <div className="grid grid-cols-2 gap-3">
+              <div className="bg-[#E8ECEF] rounded-lg p-3">
+                <div className="text-xs text-[#7CC4E0] mb-1">Duración</div>
+                <div className="text-sm font-bold text-[#0A4E5A]">{module.estimated_hours}h</div>
+              </div>
+              <div className="bg-[#E8ECEF] rounded-lg p-3">
+                <div className="text-xs text-[#7CC4E0] mb-1">Lecciones</div>
+                <div className="text-sm font-bold text-[#0A4E5A]">{module.total_lessons}</div>
+              </div>
+            </div>
+          </div>
+        ))}
       </div>
+
+      {modules.length === 0 && !loading && !error && (
+        <div className="bg-white rounded-2xl p-12 border border-[#7CC4E0]/20 text-center">
+          <p className="text-[#7CC4E0]">No hay módulos disponibles en este momento</p>
+        </div>
+      )}
     </div>
   )
 }
