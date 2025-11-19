@@ -17,8 +17,7 @@
     "analyze:bundle": "ANALYZE=true next build 2>&1 | tee bundle-analysis.txt",
     "lighthouse": "lhci autorun",
     "security:audit": "npm audit --audit-level high",
-    "pre-commit": "npm run lint && npm run type-check && npm run test",
-    "prepare": "husky install"
+    "pre-commit": "npm run lint && npm run type-check && npm run test"
   },
   "dependencies": {
     "@heroicons/react": "^2.2.0",
