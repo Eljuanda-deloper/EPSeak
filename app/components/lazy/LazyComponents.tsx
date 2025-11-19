@@ -1,6 +1,6 @@
 'use client'
 
-import { lazy, Suspense, ComponentType } from 'react'
+import { lazy, Suspense } from 'react'
 import { Skeleton } from '@/app/components/ui/Skeleton'
 
 /**
@@ -17,17 +17,9 @@ export const LazyTextRenderer = lazy(() =>
 
 // Lazy load VideoPlayer
 export const LazyVideoPlayer = lazy(() =>
-  import('@/app/components/renderers/VideoPlayer')
-)
-
-// Lazy load AssessmentView
-export const LazyAssessmentView = lazy(() =>
-  import('@/app/components/assessments/AssessmentView')
-)
-
-// Lazy load ModuleCompletionModal
-export const LazyModuleCompletionModal = lazy(() =>
-  import('@/app/components/modules/ModuleCompletionModal')
+  import('@/app/components/renderers/VideoPlayer').then(mod => ({
+    default: mod.VideoPlayer
+  }))
 )
 
 /**

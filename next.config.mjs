@@ -2,7 +2,7 @@ const config = {
   reactStrictMode: true,
   swcMinify: true,
   optimizeFonts: false,
-  compress: true, // Habilitar compresión GZIP
+  compress: true,
   
   // Optimización de imágenes
   images: {
@@ -20,51 +20,6 @@ const config = {
       test: /\.svg$/,
       use: ['@svgr/webpack']
     });
-
-    // Optimización de code splitting
-    config.optimization.splitChunks = {
-      chunks: 'all',
-      cacheGroups: {
-        default: false,
-        vendors: false,
-
-        // Vendor chunk para node_modules
-        vendor: {
-          filename: 'chunks/vendor.js',
-          test: /node_modules/,
-          name: 'vendors',
-          priority: 10,
-          reuseExistingChunk: true,
-        },
-
-        // Common chunk para código compartido
-        common: {
-          filename: 'chunks/common.js',
-          minChunks: 2,
-          priority: 5,
-          reuseExistingChunk: true,
-          enforce: true,
-        },
-
-        // Chunk para componentes
-        components: {
-          filename: 'chunks/components.js',
-          test: /[\\/]components[\\/]/,
-          name: 'components',
-          priority: 20,
-          reuseExistingChunk: true,
-        },
-
-        // Chunk para hooks
-        hooks: {
-          filename: 'chunks/hooks.js',
-          test: /[\\/]hooks[\\/]/,
-          name: 'hooks',
-          priority: 15,
-          reuseExistingChunk: true,
-        },
-      },
-    }
 
     return config;
   },
@@ -105,16 +60,6 @@ const config = {
         ],
       },
     ];
-  },
-
-  // Experimental optimizations
-  experimental: {
-    optimizePackageImports: [
-      '@chakra-ui/react',
-      'framer-motion',
-      'react-icons',
-      'lucide-react',
-    ],
   },
 };
 

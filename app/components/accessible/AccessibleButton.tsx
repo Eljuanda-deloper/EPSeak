@@ -1,9 +1,9 @@
 'use client'
 
-import React, { ButtonHTMLAttributes } from 'react'
+import React from 'react'
 import { motion } from 'framer-motion'
 
-interface AccessibleButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+interface AccessibleButtonProps {
   children: React.ReactNode
   variant?: 'primary' | 'secondary' | 'danger'
   size?: 'sm' | 'md' | 'lg'
@@ -11,6 +11,11 @@ interface AccessibleButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> 
   ariaLabel?: string
   ariaDescribedBy?: string
   className?: string
+  disabled?: boolean
+  onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void
+  type?: 'button' | 'submit' | 'reset'
+  id?: string
+  name?: string
 }
 
 /**
@@ -28,6 +33,9 @@ export const AccessibleButton = React.forwardRef<HTMLButtonElement, AccessibleBu
       className = '',
       disabled = false,
       onClick,
+      type = 'button',
+      id,
+      name,
       ...props
     },
     ref
@@ -54,8 +62,8 @@ export const AccessibleButton = React.forwardRef<HTMLButtonElement, AccessibleBu
 
     return (
       <motion.button
-        ref={ref}
-        type="button"
+        ref={ref as any}
+        type={type}
         whileHover={disabled || loading ? {} : { y: -2 }}
         whileTap={disabled || loading ? {} : { y: 0 }}
         className={`
@@ -69,7 +77,8 @@ export const AccessibleButton = React.forwardRef<HTMLButtonElement, AccessibleBu
         aria-describedby={ariaDescribedBy}
         aria-disabled={disabled || loading}
         onClick={handleClick}
-        {...props}
+        id={id}
+        name={name}
       >
         {loading && (
           <svg
