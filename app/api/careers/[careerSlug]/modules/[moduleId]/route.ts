@@ -42,7 +42,7 @@ export async function GET(
     // Get module and verify it belongs to this career
     const { data: module, error: moduleError } = await supabase
       .from('modules')
-      .select('id, title, description, order_index, estimated_hours, career_id')
+      .select('id, title, description, order_index, duration_hours, career_id')
       .eq('id', params.moduleId)
       .eq('career_id', career.id)
       .eq('is_active', true)
@@ -57,10 +57,10 @@ export async function GET(
 
     const { data: lessons, error: lessonsError } = await supabase
       .from('lessons')
-      .select('id, title, description, order_position, estimated_duration_minutes, content_text')
+      .select('id, title, description, order_index, duration_minutes, content_text')
       .eq('module_id', params.moduleId)
-      .eq('is_published', true)
-      .order('order_position', { ascending: true })
+      .eq('is_active', true)
+      .order('order_index', { ascending: true })
 
     if (lessonsError) {
       return NextResponse.json(

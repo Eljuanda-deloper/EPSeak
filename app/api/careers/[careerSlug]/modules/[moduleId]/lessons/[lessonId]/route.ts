@@ -35,7 +35,7 @@ export async function GET(
       .select('*')
       .eq('id', params.lessonId)
       .eq('module_id', params.moduleId)
-      .eq('is_published', true)
+      .eq('is_active', true)
       .single()
 
     if (lessonError || !lesson) {
