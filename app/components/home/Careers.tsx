@@ -128,7 +128,10 @@ const Careers = () => {
           >
             <div className="grid md:grid-cols-2 gap-0">
               {/* Image Section */}
-              <div className="relative h-96 md:h-full bg-gradient-to-br from-azul-petroleo to-azul-celeste flex items-center justify-center overflow-hidden">
+              <div 
+                className="relative h-96 md:h-full bg-gradient-to-br from-azul-petroleo to-azul-celeste flex items-center justify-center overflow-hidden cursor-pointer hover:opacity-80 transition-opacity duration-300"
+                onClick={() => window.location.href = `/careers/${currentCareer.slug}`}
+              >
                 {currentCareer.image ? (
                   <div className="relative w-full h-full">
                     <img
