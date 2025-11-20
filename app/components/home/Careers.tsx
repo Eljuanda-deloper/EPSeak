@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { useState, useEffect, useCallback, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight, ArrowRight } from 'lucide-react';
 import Button from '../shared/Button';
 import Image from 'next/image';
@@ -67,57 +67,37 @@ const careers: Career[] = [
 const Careers = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
-  const autoPlayTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-  // Advance to next slide
-  const advanceSlide = useCallback(() => {
-    setCurrentIndex((prevIndex) =>
-      prevIndex === careers.length - 1 ? 0 : prevIndex + 1
-    );
-  }, []);
-
-  // Set up auto-play interval
   useEffect(() => {
-    if (!isAutoPlaying) {
-      if (autoPlayTimeoutRef.current) {
-        clearTimeout(autoPlayTimeoutRef.current);
-      }
-      return;
-    }
+    if (!isAutoPlaying) return;
 
     const interval = setInterval(() => {
-      advanceSlide();
+      setCurrentIndex((prevIndex) =>
+        prevIndex === careers.length - 1 ? 0 : prevIndex + 1
+      );
     }, 5000);
 
     return () => clearInterval(interval);
-  }, [isAutoPlaying, advanceSlide]);
+  }, [isAutoPlaying]);
 
-  const goToPrevious = useCallback(() => {
-    setCurrentIndex((prevIndex) =>
-      prevIndex === 0 ? careers.length - 1 : prevIndex - 1
+  const goToPrevious = () => {
+    setCurrentIndex((prev) =>
+      prev === 0 ? careers.length - 1 : prev - 1
     );
     setIsAutoPlaying(false);
-  }, []);
+  };
 
-  const goToNext = useCallback(() => {
-    setCurrentIndex((prevIndex) =>
-      prevIndex === careers.length - 1 ? 0 : prevIndex + 1
+  const goToNext = () => {
+    setCurrentIndex((prev) =>
+      prev === careers.length - 1 ? 0 : prev + 1
     );
     setIsAutoPlaying(false);
-  }, []);
+  };
 
-  const goToSlide = useCallback((index: number) => {
+  const goToSlide = (index: number) => {
     setCurrentIndex(index);
     setIsAutoPlaying(false);
-    
-    // Re-enable auto-play after 5 seconds of inactivity
-    if (autoPlayTimeoutRef.current) {
-      clearTimeout(autoPlayTimeoutRef.current);
-    }
-    autoPlayTimeoutRef.current = setTimeout(() => {
-      setIsAutoPlaying(true);
-    }, 5000);
-  }, []);
+  };
 
   const currentCareer = careers[currentIndex];
 
