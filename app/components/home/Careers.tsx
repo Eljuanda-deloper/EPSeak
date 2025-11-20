@@ -72,19 +72,19 @@ const Careers = () => {
   useEffect(() => {
     if (!isAutoPlaying) {
       if (intervalRef.current) {
-        clearTimeout(intervalRef.current);
+        clearInterval(intervalRef.current);
         intervalRef.current = null;
       }
       return;
     }
 
-    // Clear any existing timer
+    // Clear any existing interval
     if (intervalRef.current) {
-      clearTimeout(intervalRef.current);
+      clearInterval(intervalRef.current);
     }
 
-    // Set new timer
-    intervalRef.current = setTimeout(() => {
+    // Set new interval
+    intervalRef.current = setInterval(() => {
       setCurrentIndex((prevIndex) => {
         const nextIndex = prevIndex === careers.length - 1 ? 0 : prevIndex + 1;
         return nextIndex;
@@ -93,7 +93,7 @@ const Careers = () => {
 
     return () => {
       if (intervalRef.current) {
-        clearTimeout(intervalRef.current);
+        clearInterval(intervalRef.current);
       }
     };
   }, [isAutoPlaying]);
