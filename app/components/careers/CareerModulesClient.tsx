@@ -69,8 +69,19 @@ export default function CareerModulesClient({ careerSlug }: CareerModulesClientP
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
-          <h1 className="text-2xl font-bold text-red-600 mb-2">Error</h1>
-          <p className="text-gray-600">{error}</p>
+          <h1 className="text-2xl font-bold text-gray-600 mb-2">Módulos no disponibles</h1>
+          <p className="text-gray-500">Los módulos para esta carrera no están disponibles aún</p>
+        </div>
+      </div>
+    )
+  }
+
+  if (!modules || modules.length === 0) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <h1 className="text-2xl font-bold text-gray-600 mb-2">Módulos no disponibles</h1>
+          <p className="text-gray-500">Los módulos para esta carrera no están disponibles aún</p>
         </div>
       </div>
     )
