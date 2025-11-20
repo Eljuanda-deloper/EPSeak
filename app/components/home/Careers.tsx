@@ -23,7 +23,7 @@ const careers: Career[] = [
     description: 'Master English in automation contexts with sequential modules',
     icon: '🤖',
     targetRole: 'Automation Professional',
-    image: '/imagenes/Carreras/English%20with%20an%20emphasis%20on%20automation.png',
+    image: '/imagenes/Carreras/English%20with%20an%20emphasis%20on%20automation.webp',
     slug: 'automation'
   },
   {
@@ -32,7 +32,7 @@ const careers: Career[] = [
     description: 'Master English for international business communication, negotiations, and corporate environments',
     icon: '💼',
     targetRole: 'Business Professional',
-    image: '/imagenes/Carreras/Business%20English%20Professional.png',
+    image: '/imagenes/Carreras/Business%20English%20Professional.webp',
     slug: 'business'
   },
   {
@@ -41,7 +41,7 @@ const careers: Career[] = [
     description: 'Develop English proficiency for healthcare professionals, medical terminology, and patient communication',
     icon: '🏥',
     targetRole: 'Healthcare Professional',
-    image: '/imagenes/Carreras/Medical%20English%20Professional.png',
+    image: '/imagenes/Carreras/Medical%20English%20Professional.webp',
     slug: 'medical'
   },
   {
@@ -50,7 +50,7 @@ const careers: Career[] = [
     description: 'Acquire specialized English for legal professionals, contracts, and international law practice',
     icon: '⚖️',
     targetRole: 'Legal Professional',
-    image: '/imagenes/Carreras/Legal%20English%20Professional.png',
+    image: '/imagenes/Carreras/Legal%20English%20Professional.webp',
     slug: 'legal'
   },
   {
@@ -59,7 +59,7 @@ const careers: Career[] = [
     description: 'Build English skills for technology professionals, technical documentation, and global tech teams',
     icon: '💻',
     targetRole: 'Technology Professional',
-    image: '/imagenes/Carreras/Tech%20English%20Professional.png',
+    image: '/imagenes/Carreras/Tech%20English%20Professional.webp',
     slug: 'tech'
   }
 ];

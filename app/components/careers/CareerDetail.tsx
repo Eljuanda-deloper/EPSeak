@@ -236,11 +236,16 @@ const CareerDetail = ({ career }: CareerDetailProps) => {
             viewport={{ once: true }}
             className="text-center mb-20"
           >
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+            <div className="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-gradient-to-r from-azul-celeste/10 to-azul-petroleo/10 border border-azul-celeste/20 mb-8">
+              <Target className="w-6 h-6 text-azul-celeste" />
+              <span className="text-azul-petroleo font-semibold text-sm uppercase tracking-wide">Programa Especializado</span>
+            </div>
+
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6 leading-tight">
               ¿Qué aprenderás?
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-              Domina las habilidades específicas que necesitas para destacar en tu campo profesional
+              Desarrolla las competencias especializadas que te posicionarán como líder en tu campo profesional
             </p>
           </motion.div>
 
