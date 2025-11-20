@@ -23,13 +23,21 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     let mounted = true
 
     const getInitialSession = async () => {
-      const {
-        data: { session },
-      } = await supabase.auth.getSession()
+      try {
+        const {
+          data: { session },
+        } = await supabase.auth.getSession()
 
-      if (mounted) {
-        setUser(session?.user ?? null)
-        setLoading(false)
+        if (mounted) {
+          setUser(session?.user ?? null)
+          setLoading(false)
+        }
+      } catch (error) {
+        // Silenciosamente ignorar errores de token no encontrado
+        if (mounted) {
+          setUser(null)
+          setLoading(false)
+        }
       }
     }
 
