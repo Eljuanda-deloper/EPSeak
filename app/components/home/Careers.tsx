@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { ChevronLeft, ChevronRight, ArrowRight } from 'lucide-react';
 import Button from '../shared/Button';
 import Image from 'next/image';
@@ -67,39 +67,60 @@ const careers: Career[] = [
 const Careers = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
+  const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
-    if (!isAutoPlaying) return;
+    if (!isAutoPlaying) {
+      if (intervalRef.current) {
+        clearTimeout(intervalRef.current);
+        intervalRef.current = null;
+      }
+      return;
+    }
 
-    const interval = setInterval(() => {
-      setCurrentIndex((prevIndex) =>
-        prevIndex === careers.length - 1 ? 0 : prevIndex + 1
-      );
+    // Clear any existing timer
+    if (intervalRef.current) {
+      clearTimeout(intervalRef.current);
+    }
+
+    // Set new timer
+    intervalRef.current = setTimeout(() => {
+      setCurrentIndex((prevIndex) => {
+        const nextIndex = prevIndex === careers.length - 1 ? 0 : prevIndex + 1;
+        return nextIndex;
+      });
     }, 5000);
 
-    return () => clearInterval(interval);
+    return () => {
+      if (intervalRef.current) {
+        clearTimeout(intervalRef.current);
+      }
+    };
   }, [isAutoPlaying]);
 
   const goToPrevious = () => {
-    setCurrentIndex((prev) =>
-      prev === 0 ? careers.length - 1 : prev - 1
-    );
+    setCurrentIndex((prev) => {
+      const newIndex = prev === 0 ? careers.length - 1 : prev - 1;
+      return newIndex;
+    });
     setIsAutoPlaying(false);
   };
 
   const goToNext = () => {
-    setCurrentIndex((prev) =>
-      prev === careers.length - 1 ? 0 : prev + 1
-    );
+    setCurrentIndex((prev) => {
+      const newIndex = prev === careers.length - 1 ? 0 : prev + 1;
+      return newIndex;
+    });
     setIsAutoPlaying(false);
   };
 
   const goToSlide = (index: number) => {
-    setCurrentIndex(index);
+    const validIndex = Math.max(0, Math.min(index, careers.length - 1));
+    setCurrentIndex(validIndex);
     setIsAutoPlaying(false);
   };
 
-  const currentCareer = careers[currentIndex];
+  const currentCareer = careers[Math.max(0, Math.min(currentIndex, careers.length - 1))];
 
   return (
     <section id="careers" className="py-16 bg-gradient-to-br from-azul-petroleo via-azul-celeste to-white">
@@ -139,7 +160,6 @@ const Careers = () => {
                 {currentCareer.image ? (
                   <div className="relative w-full h-full">
                     <img
-                      key={currentCareer.id}
                       src={currentCareer.image}
                       alt={currentCareer.title}
                       className="w-full h-full object-cover"
