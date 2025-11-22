@@ -215,27 +215,27 @@ const Careers = () => {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="text-center mb-12 sm:mb-16"
+          className="text-center mb-8 sm:mb-12 md:mb-16"
         >
-          <div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full mb-6">
-            <Sparkles className="w-4 h-4 text-white" />
-            <span className="text-white text-sm font-medium">Programas Especializados</span>
+          <div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm px-3 py-1.5 sm:px-4 sm:py-2 rounded-full mb-4 sm:mb-6">
+            <Sparkles className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white" />
+            <span className="text-white text-xs sm:text-sm font-medium">Programas Especializados</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4 sm:mb-6">
+          <h2 className="text-2xl sm:text-4xl md:text-5xl font-bold text-white mb-3 sm:mb-6 px-2">
             Carreras Profesionales
           </h2>
-          <p className="text-base sm:text-lg text-white/90 max-w-3xl mx-auto leading-relaxed px-4 sm:px-0">
+          <p className="text-sm sm:text-lg text-white/90 max-w-3xl mx-auto leading-relaxed px-4 sm:px-0">
             Elige el programa que se adapte a tu profesión y domina el inglés especializado
             para trabajar en cualquier parte del mundo
           </p>
         </motion.div>
 
         {/* Modern Carousel */}
-        <div className="relative">
+        <div className="relative px-0 sm:px-8 md:px-12">
           {/* Cards Container */}
-          <div className="overflow-hidden">
+          <div className="overflow-hidden py-4 -my-4">
             <motion.div
-              className="flex gap-3 sm:gap-4 md:gap-6"
+              className="flex gap-4 sm:gap-4 md:gap-6"
               animate={{
                 x: `-${currentIndex * (100 / cardsPerView)}%`,
               }}
@@ -249,15 +249,17 @@ const Careers = () => {
                 <motion.div
                   key={career.id}
                   className="flex-shrink-0"
-                  style={{ width: `calc(${100 / cardsPerView}% - ${(cardsPerView - 1) * (cardsPerView === 1 ? 0 : cardsPerView === 2 ? 16 : 18) / cardsPerView}px)` }}
+                  style={{
+                    width: `calc(${100 / cardsPerView}% - ${(cardsPerView - 1) * (cardsPerView === 1 ? 0 : cardsPerView === 2 ? 16 : 24) / cardsPerView}px)`
+                  }}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
                   viewport={{ once: true }}
                 >
-                  <div className="group bg-white rounded-xl sm:rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-500 h-full flex flex-col">
+                  <div className="group bg-white rounded-xl sm:rounded-2xl shadow-lg sm:shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-500 h-full flex flex-col border border-white/10">
                     {/* Image Section */}
-                    <div className="relative h-40 sm:h-48 md:h-56 overflow-hidden bg-gradient-to-br from-azul-petroleo to-azul-celeste">
+                    <div className="relative h-48 sm:h-48 md:h-56 overflow-hidden bg-gradient-to-br from-azul-petroleo to-azul-celeste">
                       <div
                         className="absolute inset-0 cursor-pointer"
                         style={{
@@ -276,40 +278,40 @@ const Careers = () => {
                         onClick={() => window.location.href = `/careers/${career.slug}`}
                       />
                       {/* Gradient Overlay */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent pointer-events-none"></div>
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent pointer-events-none"></div>
 
                       {/* Icon Badge */}
-                      <div className="absolute top-2 right-2 sm:top-4 sm:right-4 w-10 h-10 sm:w-14 sm:h-14 bg-white/95 backdrop-blur-sm rounded-xl sm:rounded-2xl flex items-center justify-center text-2xl sm:text-3xl shadow-lg transform group-hover:scale-110 transition-transform duration-300 pointer-events-none">
+                      <div className="absolute top-3 right-3 sm:top-4 sm:right-4 w-10 h-10 sm:w-14 sm:h-14 bg-white/95 backdrop-blur-sm rounded-xl sm:rounded-2xl flex items-center justify-center text-xl sm:text-3xl shadow-lg transform group-hover:scale-110 transition-transform duration-300 pointer-events-none z-10">
                         {career.icon}
                       </div>
 
                       {/* Target Role Badge */}
-                      <div className="absolute bottom-2 left-2 sm:bottom-4 sm:left-4 bg-white/95 backdrop-blur-sm px-2 py-1 sm:px-4 sm:py-2 rounded-full pointer-events-none">
-                        <span className="text-xs font-semibold text-azul-petroleo">{career.targetRole}</span>
+                      <div className="absolute bottom-3 left-3 sm:bottom-4 sm:left-4 bg-white/95 backdrop-blur-sm px-3 py-1.5 sm:px-4 sm:py-2 rounded-full pointer-events-none z-10 max-w-[85%]">
+                        <span className="text-[10px] sm:text-xs font-bold text-azul-petroleo truncate block">{career.targetRole}</span>
                       </div>
                     </div>
 
                     {/* Content Section */}
-                    <div className="p-4 sm:p-6 flex flex-col flex-grow">
-                      <h3 className="text-lg sm:text-xl font-bold text-azul-petroleo mb-2 sm:mb-3 line-clamp-2 min-h-[2.5rem] sm:min-h-[3.5rem]">
+                    <div className="p-5 sm:p-6 flex flex-col flex-grow">
+                      <h3 className="text-lg sm:text-xl font-bold text-azul-petroleo mb-2 sm:mb-3 line-clamp-2 min-h-[3.5rem] leading-tight">
                         {career.title}
                       </h3>
-                      <p className="text-gray-600 text-xs sm:text-sm mb-4 sm:mb-6 leading-relaxed line-clamp-3 flex-grow">
+                      <p className="text-gray-600 text-sm mb-4 sm:mb-6 leading-relaxed line-clamp-3 flex-grow">
                         {career.description}
                       </p>
 
                       {/* Features */}
-                      <div className="space-y-1 sm:space-y-2 mb-4 sm:mb-6">
+                      <div className="space-y-2 mb-5 sm:mb-6">
                         <div className="flex items-center gap-2">
-                          <div className="w-1.5 h-1.5 bg-azul-celeste rounded-full"></div>
+                          <div className="w-1.5 h-1.5 bg-azul-celeste rounded-full flex-shrink-0"></div>
                           <span className="text-gray-700 text-xs">Módulos especializados</span>
                         </div>
                         <div className="flex items-center gap-2">
-                          <div className="w-1.5 h-1.5 bg-azul-celeste rounded-full"></div>
+                          <div className="w-1.5 h-1.5 bg-azul-celeste rounded-full flex-shrink-0"></div>
                           <span className="text-gray-700 text-xs">Profesores nativos</span>
                         </div>
                         <div className="flex items-center gap-2">
-                          <div className="w-1.5 h-1.5 bg-azul-celeste rounded-full"></div>
+                          <div className="w-1.5 h-1.5 bg-azul-celeste rounded-full flex-shrink-0"></div>
                           <span className="text-gray-700 text-xs">Certificación internacional</span>
                         </div>
                       </div>
@@ -317,7 +319,7 @@ const Careers = () => {
                       {/* CTA Button */}
                       <Button
                         onClick={() => window.location.href = `/careers/${career.slug}`}
-                        className="w-full group/btn"
+                        className="w-full group/btn text-sm sm:text-base py-2.5"
                       >
                         <span className="flex items-center justify-center gap-2">
                           Explorar programa
@@ -331,37 +333,39 @@ const Careers = () => {
             </motion.div>
           </div>
 
-          {/* Navigation Arrows */}
+          {/* Navigation Arrows - Optimized for mobile */}
           <button
             onClick={goToPrevious}
             disabled={currentIndex === 0}
-            className={`absolute left-0 top-1/2 -translate-y-1/2 -translate-x-2 sm:-translate-x-4 w-10 h-10 sm:w-14 sm:h-14 bg-white rounded-full shadow-2xl flex items-center justify-center transition-all duration-300 z-20 ${currentIndex === 0
-              ? 'opacity-50 cursor-not-allowed'
-              : 'hover:scale-110 hover:shadow-xl cursor-pointer'
+            className={`absolute left-0 sm:-left-4 top-1/2 -translate-y-1/2 w-8 h-8 sm:w-12 sm:h-12 bg-white/90 backdrop-blur-sm rounded-full shadow-lg flex items-center justify-center transition-all duration-300 z-20 border border-gray-100 ${currentIndex === 0
+              ? 'opacity-0 pointer-events-none'
+              : 'opacity-100 hover:scale-110 hover:shadow-xl cursor-pointer'
               }`}
+            aria-label="Anterior"
           >
-            <ChevronLeft className="w-5 h-5 sm:w-7 sm:h-7 text-azul-petroleo" />
+            <ChevronLeft className="w-4 h-4 sm:w-6 sm:h-6 text-azul-petroleo" />
           </button>
 
           <button
             onClick={goToNext}
             disabled={currentIndex >= maxIndex}
-            className={`absolute right-0 top-1/2 -translate-y-1/2 translate-x-2 sm:translate-x-4 w-10 h-10 sm:w-14 sm:h-14 bg-white rounded-full shadow-2xl flex items-center justify-center transition-all duration-300 z-20 ${currentIndex >= maxIndex
-              ? 'opacity-50 cursor-not-allowed'
-              : 'hover:scale-110 hover:shadow-xl cursor-pointer'
+            className={`absolute right-0 sm:-right-4 top-1/2 -translate-y-1/2 w-8 h-8 sm:w-12 sm:h-12 bg-white/90 backdrop-blur-sm rounded-full shadow-lg flex items-center justify-center transition-all duration-300 z-20 border border-gray-100 ${currentIndex >= maxIndex
+              ? 'opacity-0 pointer-events-none'
+              : 'opacity-100 hover:scale-110 hover:shadow-xl cursor-pointer'
               }`}
+            aria-label="Siguiente"
           >
-            <ChevronRight className="w-5 h-5 sm:w-7 sm:h-7 text-azul-petroleo" />
+            <ChevronRight className="w-4 h-4 sm:w-6 sm:h-6 text-azul-petroleo" />
           </button>
         </div>
 
         {/* Progress Bar */}
-        <div className="mt-8 sm:mt-12 max-w-md mx-auto px-4 sm:px-0">
-          <div className="flex items-center gap-4">
-            <span className="text-white/80 text-sm font-medium">
+        <div className="mt-6 sm:mt-12 max-w-xs sm:max-w-md mx-auto px-4 sm:px-0">
+          <div className="flex items-center gap-3 sm:gap-4">
+            <span className="text-white/80 text-xs sm:text-sm font-medium w-8 text-right">
               {currentIndex + 1} / {maxIndex + 1}
             </span>
-            <div className="flex-grow h-2 bg-white/20 rounded-full overflow-hidden">
+            <div className="flex-grow h-1.5 sm:h-2 bg-white/20 rounded-full overflow-hidden">
               <motion.div
                 className="h-full bg-white rounded-full"
                 initial={{ width: 0 }}
@@ -369,7 +373,7 @@ const Careers = () => {
                 transition={{ duration: 0.5, ease: "easeOut" }}
               />
             </div>
-            <span className="text-white/80 text-sm font-medium">
+            <span className="text-white/80 text-xs sm:text-sm font-medium whitespace-nowrap">
               {careers.length} programas
             </span>
           </div>

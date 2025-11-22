@@ -41,7 +41,7 @@ export default function HeaderNew() {
           className={cn(
             'mx-auto mt-2 max-w-6xl px-6 transition-all duration-300 lg:px-12',
             shouldBeScrolled &&
-            'bg-white/50 dark:bg-slate-900/50 max-w-4xl rounded-2xl border border-slate-200 backdrop-blur-lg lg:px-5'
+            'bg-white/10 dark:bg-black/20 max-w-4xl rounded-2xl border border-white/20 dark:border-white/10 backdrop-blur-xl shadow-sm lg:px-5'
           )}
         >
           <div className="flex items-center justify-between w-full h-14">
