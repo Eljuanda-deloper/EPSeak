@@ -1,8 +1,8 @@
 'use client';
 
-import { motion } from 'framer-motion';
-import { useState, useEffect, useRef } from 'react';
-import { ChevronLeft, ChevronRight, ArrowRight } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { useState, useEffect, useRef, memo } from 'react';
+import { ChevronLeft, ChevronRight, ArrowRight, Sparkles } from 'lucide-react';
 import Button from '../shared/Button';
 import Image from 'next/image';
 
@@ -23,7 +23,7 @@ const careers: Career[] = [
     description: 'Master English in automation contexts with sequential modules',
     icon: '🤖',
     targetRole: 'Automation Professional',
-    image: '/imagenes/Carreras/English%20with%20an%20emphasis%20on%20automation.webp',
+    image: '/imagenes/Carreras/English with an emphasis on automation.webp',
     slug: 'automation'
   },
   {
@@ -32,7 +32,7 @@ const careers: Career[] = [
     description: 'Master English for international business communication, negotiations, and corporate environments',
     icon: '💼',
     targetRole: 'Business Professional',
-    image: '/imagenes/Carreras/Business%20English%20Professional.webp',
+    image: '/imagenes/Carreras/Business English Professional.webp',
     slug: 'business'
   },
   {
@@ -41,7 +41,7 @@ const careers: Career[] = [
     description: 'Develop English proficiency for healthcare professionals, medical terminology, and patient communication',
     icon: '🏥',
     targetRole: 'Healthcare Professional',
-    image: '/imagenes/Carreras/Medical%20English%20Professional.webp',
+    image: '/imagenes/Carreras/Medical English Professional.webp',
     slug: 'medical'
   },
   {
@@ -50,232 +50,331 @@ const careers: Career[] = [
     description: 'Acquire specialized English for legal professionals, contracts, and international law practice',
     icon: '⚖️',
     targetRole: 'Legal Professional',
-    image: '/imagenes/Carreras/Legal%20English%20Professional.webp',
+    image: '/imagenes/Carreras/Legal English Professional.webp',
     slug: 'legal'
   },
   {
     id: '5',
     title: 'Tech English Professional',
-    description: 'Build English skills for technology professionals, technical documentation, and global tech teams',
+    description: 'Master English for technology professionals, software development, and tech industry communication',
     icon: '💻',
-    targetRole: 'Technology Professional',
-    image: '/imagenes/Carreras/Tech%20English%20Professional.webp',
+    targetRole: 'Tech Professional',
+    image: '/imagenes/Carreras/Tech English Professional.webp',
     slug: 'tech'
-  }
+  },
+
 ];
+
+// Memoized image component to prevent re-renders
+const CareerImage = memo(({
+  src,
+  alt,
+  careerId,
+  onError,
+  isPriority
+}: {
+  src: string;
+  alt: string;
+  careerId: string;
+  onError: (id: string) => void;
+  isPriority: boolean;
+}) => {
+  const [hasError, setHasError] = useState(false);
+
+  const handleError = () => {
+    setHasError(true);
+    onError(careerId);
+  };
+
+  if (hasError) {
+    return null;
+  }
+
+  return (
+    <Image
+      src={src}
+      alt={alt}
+      fill
+      sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+      className="object-cover transition-transform duration-700 group-hover:scale-110"
+      onError={handleError}
+      priority={isPriority}
+      loading={isPriority ? "eager" : "lazy"}
+      unoptimized={src.includes('Tech English Professional')}
+    />
+  );
+}, (prevProps, nextProps) => {
+  // Only re-render if src or careerId changes
+  return prevProps.src === nextProps.src && prevProps.careerId === nextProps.careerId;
+});
+
+CareerImage.displayName = 'CareerImage';
 
 const Careers = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
-  const intervalRef = useRef<NodeJS.Timeout | null>(null);
+  const [cardsPerView, setCardsPerView] = useState(3);
+  const [imageErrors, setImageErrors] = useState<Set<string>>(new Set());
+  const intervalRef = useRef<number | null>(null);
+  const autoplayResetRef = useRef<number | null>(null);
 
+  const handleImageError = (careerId: string) => {
+    setImageErrors(prev => new Set(prev).add(careerId));
+  };
+
+  // Responsive cards per view
   useEffect(() => {
-    if (!isAutoPlaying) {
-      if (intervalRef.current) {
-        clearInterval(intervalRef.current);
+    const updateCardsPerView = () => {
+      if (window.innerWidth < 768) {
+        setCardsPerView(1);
+      } else if (window.innerWidth < 1024) {
+        setCardsPerView(2);
+      } else {
+        setCardsPerView(3);
+      }
+    };
+
+    updateCardsPerView();
+    window.addEventListener('resize', updateCardsPerView);
+    return () => window.removeEventListener('resize', updateCardsPerView);
+  }, []);
+
+  // Calculate max index based on cards per view
+  const maxIndex = Math.max(0, careers.length - cardsPerView);
+
+  // Autoplay logic
+  useEffect(() => {
+    if (!isAutoPlaying || maxIndex === 0) {
+      if (intervalRef.current !== null) {
+        clearTimeout(intervalRef.current);
         intervalRef.current = null;
       }
       return;
     }
 
-    // Clear any existing interval
-    if (intervalRef.current) {
-      clearInterval(intervalRef.current);
+    if (intervalRef.current !== null) {
+      clearTimeout(intervalRef.current);
+      intervalRef.current = null;
     }
 
-    // Set new interval
-    intervalRef.current = setInterval(() => {
+    const delay = 5000;
+    intervalRef.current = window.setTimeout(() => {
       setCurrentIndex((prevIndex) => {
-        const nextIndex = prevIndex === careers.length - 1 ? 0 : prevIndex + 1;
-        return nextIndex;
+        // Loop back to start when reaching the end
+        return (prevIndex + 1) % (maxIndex + 1);
       });
-    }, 5000);
+      intervalRef.current = null;
+    }, delay);
 
     return () => {
-      if (intervalRef.current) {
-        clearInterval(intervalRef.current);
+      if (intervalRef.current !== null) {
+        clearTimeout(intervalRef.current);
+        intervalRef.current = null;
       }
     };
-  }, [isAutoPlaying]);
+  }, [isAutoPlaying, currentIndex, maxIndex]);
 
   const goToPrevious = () => {
-    setCurrentIndex((prev) => {
-      const newIndex = prev === 0 ? careers.length - 1 : prev - 1;
-      return newIndex;
-    });
+    setCurrentIndex((prev) => Math.max(0, prev - 1));
     setIsAutoPlaying(false);
+    resetAutoplayTimer();
   };
 
   const goToNext = () => {
-    setCurrentIndex((prev) => {
-      const newIndex = prev === careers.length - 1 ? 0 : prev + 1;
-      return newIndex;
-    });
+    setCurrentIndex((prev) => Math.min(maxIndex, prev + 1));
     setIsAutoPlaying(false);
+    resetAutoplayTimer();
   };
 
-  const goToSlide = (index: number) => {
-    const validIndex = Math.max(0, Math.min(index, careers.length - 1));
-    setCurrentIndex(validIndex);
-    setIsAutoPlaying(false);
+  const resetAutoplayTimer = () => {
+    if (autoplayResetRef.current !== null) {
+      clearTimeout(autoplayResetRef.current);
+      autoplayResetRef.current = null;
+    }
+    autoplayResetRef.current = window.setTimeout(() => {
+      setIsAutoPlaying(true);
+      autoplayResetRef.current = null;
+    }, 10000);
   };
 
-  const currentCareer = careers[Math.max(0, Math.min(currentIndex, careers.length - 1))];
+  // Calculate progress percentage
+  const progressPercentage = maxIndex > 0 ? (currentIndex / maxIndex) * 100 : 0;
 
   return (
-    <section id="careers" className="py-16 bg-gradient-to-br from-azul-petroleo via-azul-celeste to-white">
-      <div className="max-w-7xl mx-auto px-6">
+    <section id="careers" className="py-20 bg-gradient-to-br from-azul-petroleo via-azul-celeste to-white relative overflow-hidden">
+      {/* Background decorative elements */}
+      <div className="absolute inset-0 opacity-10">
+        <div className="absolute top-20 left-10 w-72 h-72 bg-white rounded-full blur-3xl"></div>
+        <div className="absolute bottom-20 right-10 w-96 h-96 bg-white rounded-full blur-3xl"></div>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-6 relative z-10">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="text-center mb-12"
+          className="text-center mb-16"
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-            Programas de Carrera
+          <div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full mb-6">
+            <Sparkles className="w-4 h-4 text-white" />
+            <span className="text-white text-sm font-medium">Programas Especializados</span>
+          </div>
+          <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+            Carreras Profesionales
           </h2>
-          <p className="text-lg text-white/90 max-w-3xl mx-auto">
+          <p className="text-lg text-white/90 max-w-3xl mx-auto leading-relaxed">
             Elige el programa que se adapte a tu profesión y domina el inglés especializado
             para trabajar en cualquier parte del mundo
           </p>
         </motion.div>
 
-        {/* Carousel */}
+        {/* Modern Carousel */}
         <div className="relative">
-          <motion.div
-            key={currentIndex}
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5 }}
-            className="bg-white rounded-3xl shadow-2xl overflow-hidden"
-          >
-            <div className="grid md:grid-cols-2 gap-0">
-              {/* Image Section */}
-              <div 
-                className="relative h-96 md:h-full bg-gradient-to-br from-azul-petroleo to-azul-celeste flex items-center justify-center overflow-hidden cursor-pointer hover:opacity-80 transition-opacity duration-300"
-                onClick={() => window.location.href = `/careers/${currentCareer.slug}`}
-              >
-                {currentCareer.image ? (
-                  <div className="relative w-full h-full">
-                    <img
-                      src={currentCareer.image}
-                      alt={currentCareer.title}
-                      className="w-full h-full object-cover"
-                      onError={(e) => {
-                        (e.target as HTMLImageElement).style.display = 'none'
-                      }}
-                    />
-                  </div>
-                ) : null}
-                <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                  <div className="text-center text-white mix-blend-overlay">
-                    <div className="text-6xl mb-4">{currentCareer.icon}</div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Content Section */}
-              <div className="p-8 md:p-12 flex flex-col justify-center">
-                <div className="text-4xl mb-4">{currentCareer.icon}</div>
-                <h3 className="text-3xl font-bold text-azul-petroleo mb-4">
-                  {currentCareer.title}
-                </h3>
-                <p className="text-gray-600 text-lg mb-8 leading-relaxed">
-                  {currentCareer.description}
-                </p>
-
-                <div className="space-y-4 mb-8">
-                  <div className="flex items-center gap-3">
-                    <div className="w-2 h-2 bg-azul-celeste rounded-full"></div>
-                    <span className="text-gray-700">Módulos especializados</span>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <div className="w-2 h-2 bg-azul-celeste rounded-full"></div>
-                    <span className="text-gray-700">Profesores nativos</span>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <div className="w-2 h-2 bg-azul-celeste rounded-full"></div>
-                    <span className="text-gray-700">Certificación internacional</span>
-                  </div>
-                </div>
-
-                <Button
-                  onClick={() => window.location.href = `/careers/${currentCareer.slug}`}
-                  className="w-full md:w-auto"
+          {/* Cards Container */}
+          <div className="overflow-hidden">
+            <motion.div
+              className="flex gap-6"
+              animate={{
+                x: `-${currentIndex * (100 / cardsPerView)}%`,
+              }}
+              transition={{
+                type: "spring",
+                stiffness: 300,
+                damping: 30,
+              }}
+            >
+              {careers.map((career, index) => (
+                <motion.div
+                  key={career.id}
+                  className="flex-shrink-0"
+                  style={{ width: `calc(${100 / cardsPerView}% - ${(cardsPerView - 1) * 24 / cardsPerView}px)` }}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  viewport={{ once: true }}
                 >
-                  <span className="flex items-center gap-2">
-                    Explorar Programa
-                    <ArrowRight className="w-5 h-5" />
-                  </span>
-                </Button>
-              </div>
-            </div>
-          </motion.div>
+                  <div className="group bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-500 h-full flex flex-col">
+                    {/* Image Section */}
+                    <div className="relative h-56 overflow-hidden bg-gradient-to-br from-azul-petroleo to-azul-celeste">
+                      <div
+                        className="absolute inset-0 cursor-pointer"
+                        style={{
+                          backgroundImage: career.image && !imageErrors.has(career.id) ? `url("${career.image}")` : 'none',
+                          backgroundSize: 'cover',
+                          backgroundPosition: 'center',
+                          backgroundRepeat: 'no-repeat',
+                          transition: 'transform 0.7s',
+                        }}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.transform = 'scale(1.1)';
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.transform = 'scale(1)';
+                        }}
+                        onClick={() => window.location.href = `/careers/${career.slug}`}
+                      />
+                      {/* Gradient Overlay */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
+
+                      {/* Icon Badge */}
+                      <div className="absolute top-4 right-4 w-14 h-14 bg-white/95 backdrop-blur-sm rounded-2xl flex items-center justify-center text-3xl shadow-lg transform group-hover:scale-110 transition-transform duration-300">
+                        {career.icon}
+                      </div>
+
+                      {/* Target Role Badge */}
+                      <div className="absolute bottom-4 left-4 bg-white/95 backdrop-blur-sm px-4 py-2 rounded-full">
+                        <span className="text-xs font-semibold text-azul-petroleo">{career.targetRole}</span>
+                      </div>
+                    </div>
+
+                    {/* Content Section */}
+                    <div className="p-6 flex flex-col flex-grow">
+                      <h3 className="text-xl font-bold text-azul-petroleo mb-3 line-clamp-2 min-h-[3.5rem]">
+                        {career.title}
+                      </h3>
+                      <p className="text-gray-600 text-sm mb-6 leading-relaxed line-clamp-3 flex-grow">
+                        {career.description}
+                      </p>
+
+                      {/* Features */}
+                      <div className="space-y-2 mb-6">
+                        <div className="flex items-center gap-2">
+                          <div className="w-1.5 h-1.5 bg-azul-celeste rounded-full"></div>
+                          <span className="text-gray-700 text-xs">Módulos especializados</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <div className="w-1.5 h-1.5 bg-azul-celeste rounded-full"></div>
+                          <span className="text-gray-700 text-xs">Profesores nativos</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <div className="w-1.5 h-1.5 bg-azul-celeste rounded-full"></div>
+                          <span className="text-gray-700 text-xs">Certificación internacional</span>
+                        </div>
+                      </div>
+
+                      {/* CTA Button */}
+                      <Button
+                        onClick={() => window.location.href = `/careers/${career.slug}`}
+                        className="w-full group/btn"
+                      >
+                        <span className="flex items-center justify-center gap-2">
+                          Explorar programa
+                          <ArrowRight className="w-4 h-4 transition-transform group-hover/btn:translate-x-1" />
+                        </span>
+                      </Button>
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </motion.div>
+          </div>
 
           {/* Navigation Arrows */}
           <button
             onClick={goToPrevious}
-            className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/90 hover:bg-white rounded-full shadow-lg flex items-center justify-center transition-all duration-300 hover:scale-110"
+            disabled={currentIndex === 0}
+            className={`absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 w-14 h-14 bg-white rounded-full shadow-2xl flex items-center justify-center transition-all duration-300 z-20 ${currentIndex === 0
+              ? 'opacity-50 cursor-not-allowed'
+              : 'hover:scale-110 hover:shadow-xl cursor-pointer'
+              }`}
           >
-            <ChevronLeft className="w-6 h-6 text-azul-petroleo" />
+            <ChevronLeft className="w-7 h-7 text-azul-petroleo" />
           </button>
 
           <button
             onClick={goToNext}
-            className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/90 hover:bg-white rounded-full shadow-lg flex items-center justify-center transition-all duration-300 hover:scale-110"
+            disabled={currentIndex >= maxIndex}
+            className={`absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 w-14 h-14 bg-white rounded-full shadow-2xl flex items-center justify-center transition-all duration-300 z-20 ${currentIndex >= maxIndex
+              ? 'opacity-50 cursor-not-allowed'
+              : 'hover:scale-110 hover:shadow-xl cursor-pointer'
+              }`}
           >
-            <ChevronRight className="w-6 h-6 text-azul-petroleo" />
+            <ChevronRight className="w-7 h-7 text-azul-petroleo" />
           </button>
+        </div>
 
-          {/* Dots Indicator */}
-          <div className="flex justify-center gap-3 mt-6">
-            {careers.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => goToSlide(index)}
-                className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                  index === currentIndex
-                    ? 'bg-azul-celeste scale-125'
-                    : 'bg-white/50 hover:bg-white/80'
-                }`}
+        {/* Progress Bar */}
+        <div className="mt-12 max-w-md mx-auto">
+          <div className="flex items-center gap-4">
+            <span className="text-white/80 text-sm font-medium">
+              {currentIndex + 1} / {maxIndex + 1}
+            </span>
+            <div className="flex-grow h-2 bg-white/20 rounded-full overflow-hidden">
+              <motion.div
+                className="h-full bg-white rounded-full"
+                initial={{ width: 0 }}
+                animate={{ width: `${progressPercentage}%` }}
+                transition={{ duration: 0.5, ease: "easeOut" }}
               />
-            ))}
+            </div>
+            <span className="text-white/80 text-sm font-medium">
+              {careers.length} programas
+            </span>
           </div>
         </div>
 
-        {/* All Careers Grid */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          viewport={{ once: true }}
-          className="mt-12 grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4"
-        >
-          {careers.map((career, index) => (
-            <motion.div
-              key={career.id}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              viewport={{ once: true }}
-              whileHover={{ y: -5, scale: 1.02 }}
-              className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 border border-white/20 hover:border-white/40 transition-all duration-300 cursor-pointer group"
-              onClick={() => window.location.href = `/careers/${career.slug}`}
-            >
-              <div className="text-3xl mb-3 group-hover:scale-110 transition-transform duration-300">
-                {career.icon}
-              </div>
-              <h4 className="text-base font-semibold text-white mb-2 group-hover:text-azul-celeste transition-colors">
-                {career.title.split(' ').slice(0, 2).join(' ')}
-              </h4>
-              <p className="text-white/70 text-xs leading-relaxed">
-                {career.description.substring(0, 70)}...
-              </p>
-            </motion.div>
-          ))}
-        </motion.div>
       </div>
     </section>
   );

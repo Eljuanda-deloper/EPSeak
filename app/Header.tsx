@@ -52,6 +52,7 @@ const Header = () => {
     { name: 'Inicio', href: '#inicio' },
     { name: 'Quiénes somos', href: '#quienes-somos' },
     { name: 'Testimonios', href: '#testimonios' },
+    { name: 'Componentes', href: '#componentes' },
     { name: 'Contacto', href: '#contacto' },
   ];
 
@@ -145,6 +146,9 @@ const Header = () => {
                 <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-azul-petroleo" />
               ) : user ? (
                 <>
+                  <Link href="/components-demo">
+                    <Button variant="secondary" size="sm">Componentes</Button>
+                  </Link>
                   <Link href="/dashboard">
                     <Button variant="secondary">Dashboard</Button>
                   </Link>
@@ -152,6 +156,9 @@ const Header = () => {
                 </>
               ) : (
                 <>
+                  <Link href="/components-demo">
+                    <Button variant="secondary" size="sm">Componentes</Button>
+                  </Link>
                   <Link href="/auth/login">
                     <Button variant="secondary">Iniciar Sesión</Button>
                   </Link>
@@ -251,10 +258,18 @@ const Header = () => {
                 <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-azul-petroleo"></div>
               ) : user ? (
                 <div className="flex items-center gap-3">
+                  <Link href="/components-demo">
+                    <Button
+                      variant="secondary"
+                      className="shadow-lg hover:shadow-xl hover:shadow-azul-petroleo/20 bg-white text-azul-petroleo border border-azul-petroleo/20 hover:bg-azul-petroleo/5 hover:text-azul-petroleo w-full"
+                    >
+                      Componentes
+                    </Button>
+                  </Link>
                   <Link href="/dashboard">
                     <Button
                       variant="secondary"
-                      className="shadow-lg hover:shadow-xl hover:shadow-azul-petroleo/20 bg-white text-azul-petroleo border border-azul-petroleo/20 hover:bg-azul-petroleo/5 hover:text-azul-petroleo"
+                      className="shadow-lg hover:shadow-xl hover:shadow-azul-petroleo/20 bg-white text-azul-petroleo border border-azul-petroleo/20 hover:bg-azul-petroleo/5 hover:text-azul-petroleo w-full"
                     >
                       Dashboard
                     </Button>
@@ -262,31 +277,39 @@ const Header = () => {
                   <Link href="/profile">
                     <Button
                       variant="secondary"
-                      className="shadow-lg hover:shadow-xl hover:shadow-azul-petroleo/20 bg-white text-azul-petroleo border border-azul-petroleo/20 hover:bg-azul-petroleo/5 hover:text-azul-petroleo"
+                      className="shadow-lg hover:shadow-xl hover:shadow-azul-petroleo/20 bg-white text-azul-petroleo border border-azul-petroleo/20 hover:bg-azul-petroleo/5 hover:text-azul-petroleo w-full"
                     >
                       Perfil
                     </Button>
                   </Link>
                   <Button
                     onClick={() => signOut()}
-                    className="shadow-lg hover:shadow-xl hover:shadow-gray-400/20 bg-gray-600 hover:bg-gray-700 text-white"
+                    className="shadow-lg hover:shadow-xl hover:shadow-gray-400/20 bg-gray-600 hover:bg-gray-700 text-white w-full"
                   >
                     Cerrar Sesión
                   </Button>
                 </div>
               ) : (
                 <>
+                  <Link href="/components-demo">
+                    <Button
+                      variant="secondary"
+                      className="shadow-lg hover:shadow-xl hover:shadow-azul-petroleo/20 bg-white text-azul-petroleo border border-azul-petroleo/20 hover:bg-azul-petroleo/5 hover:text-azul-petroleo w-full"
+                    >
+                      Componentes
+                    </Button>
+                  </Link>
                   <Link href="/auth/login">
                     <Button
                       variant="secondary"
-                      className="shadow-lg hover:shadow-xl hover:shadow-azul-petroleo/20 bg-white text-azul-petroleo border border-azul-petroleo/20 hover:bg-azul-petroleo/5 hover:text-azul-petroleo"
+                      className="shadow-lg hover:shadow-xl hover:shadow-azul-petroleo/20 bg-white text-azul-petroleo border border-azul-petroleo/20 hover:bg-azul-petroleo/5 hover:text-azul-petroleo w-full"
                     >
                       Iniciar Sesión
                     </Button>
                   </Link>
                   <Link href="/auth/register">
                     <Button
-                      className="shadow-lg hover:shadow-xl hover:shadow-rojo-brillante/20"
+                      className="shadow-lg hover:shadow-xl hover:shadow-rojo-brillante/20 w-full"
                     >
                       Registrarse
                     </Button>

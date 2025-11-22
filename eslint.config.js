@@ -7,6 +7,9 @@ import reactHooks from 'eslint-plugin-react-hooks'
 export default [
   js.configs.recommended,
   {
+    ignores: ['.next/**', 'node_modules/**', '.git/**', 'dist/**', 'build/**'],
+  },
+  {
     files: ['**/*.{js,jsx,ts,tsx}'],
     languageOptions: {
       ecmaVersion: 'latest',
@@ -25,6 +28,20 @@ export default [
         Buffer: 'readonly',
         __dirname: 'readonly',
         __filename: 'readonly',
+        describe: 'readonly',
+        it: 'readonly',
+        expect: 'readonly',
+        jest: 'readonly',
+        beforeEach: 'readonly',
+        afterEach: 'readonly',
+        beforeAll: 'readonly',
+        afterAll: 'readonly',
+        test: 'readonly',
+        setTimeout: 'readonly',
+        HTMLSelectElement: 'readonly',
+        global: 'readonly',
+        cy: 'readonly',
+        Cypress: 'readonly',
       },
     },
     plugins: {

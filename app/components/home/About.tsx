@@ -81,7 +81,7 @@ const About = () => {
       ref={sectionRef}
       id="quienes-somos"
       style={{ y: springY, opacity: springOpacity, scale: springScale }}
-      className="relative py-8 overflow-hidden bg-gradient-to-br from-white via-gray-50/50 to-white"
+      className="relative py-16 md:py-20 overflow-hidden bg-gradient-to-br from-white via-gray-50/50 to-white"
     >
       {/* Background Elements */}
       <div className="absolute inset-0">
@@ -96,9 +96,9 @@ const About = () => {
         />
       </div>
 
-      <div className="container mx-auto px-6 relative z-10">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl relative z-10">
         {/* Header */}
-        <div className="text-center mb-12">
+        <div className="text-center mb-12 md:mb-16">
           <FadeIn delay={0.1}>
             <motion.div
               whileHover={{ scale: 1.05 }}
@@ -126,15 +126,15 @@ const About = () => {
           </FadeIn>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 max-w-7xl mx-auto items-center">
-          {/* Video Container */}
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 lg:gap-10 items-start">
+          {/* Video Container - 2 columns on desktop */}
           <motion.div
             ref={videoRef}
             style={{ y: videoY }}
-            className="relative order-2 lg:order-1"
+            className="relative order-2 lg:order-1 lg:col-span-2"
           >
             <motion.div
-              className="relative aspect-video bg-gradient-to-br from-azul-celeste via-azul-petroleo to-rojo-brillante rounded-3xl overflow-hidden shadow-2xl group"
+              className="relative aspect-video bg-gradient-to-br from-azul-celeste via-azul-petroleo to-rojo-brillante rounded-2xl overflow-hidden shadow-2xl group lg:sticky lg:top-24"
               whileHover={{ scale: 1.02 }}
               transition={{ duration: 0.15 }}
               role="region"
@@ -146,7 +146,7 @@ const About = () => {
                 controls={true}
                 width="100%"
                 height="100%"
-                style={{ borderRadius: '1.5rem', overflow: 'hidden' }}
+                style={{ borderRadius: '1rem', overflow: 'hidden' }}
                 config={{
                   youtube: {
                     color: 'white'
@@ -160,11 +160,11 @@ const About = () => {
             </motion.div>
           </motion.div>
 
-          {/* Content */}
-          <div className="space-y-8 order-1 lg:order-2">
+          {/* Content - 3 columns on desktop */}
+          <div className="space-y-8 order-1 lg:order-2 lg:col-span-3">
             <FadeIn delay={0.4}>
               <motion.h3
-                className="text-3xl md:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-azul-petroleo via-azul-celeste to-rojo-brillante bg-clip-text text-transparent leading-tight"
+                className="text-2xl md:text-3xl lg:text-4xl font-bold bg-gradient-to-r from-azul-petroleo via-azul-celeste to-rojo-brillante bg-clip-text text-transparent leading-tight"
                 whileHover={{ scale: 1.02 }}
                 transition={{ duration: 0.15 }}
               >
@@ -174,16 +174,16 @@ const About = () => {
 
             <FadeIn delay={0.5}>
               <div className="space-y-6 text-gray-700">
-                <p className="text-lg md:text-xl leading-relaxed">
+                <p className="text-base md:text-lg leading-relaxed">
                   En esta sección, se explica a través de un corto video el valor agregado que ofrece <strong className="text-azul-petroleo font-semibold">ESPeak</strong> en comparación con otros institutos que ofrecen solamente el aprendizaje del idioma inglés. Se explica muy bien la articulación del inglés general junto con el inglés específico o con énfasis en distintos perfiles profesionales.
                 </p>
 
-                <div className="bg-azul-petroleo/5 p-6 rounded-2xl border-l-4 border-azul-petroleo">
-                  <h4 className="text-xl font-bold text-azul-petroleo mb-3 flex items-center gap-2">
-                    <MessageCircle className="w-6 h-6" />
+                <div className="bg-azul-petroleo/5 p-5 md:p-6 rounded-2xl border-l-4 border-azul-petroleo">
+                  <h4 className="text-lg md:text-xl font-bold text-azul-petroleo mb-3 flex items-center gap-2">
+                    <MessageCircle className="w-5 h-5 md:w-6 md:h-6" />
                     ¿Preguntas? ¿Inquietudes?
                   </h4>
-                  <p className="text-base leading-relaxed mb-4">
+                  <p className="text-sm md:text-base leading-relaxed mb-4">
                     Contactate con nosotros y agenda tu cita para poder aclarar todo lo relacionado con nuestra metodología.
                   </p>
                   <motion.a
@@ -192,10 +192,10 @@ const About = () => {
                     rel="noopener noreferrer"
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    className="inline-flex items-center gap-3 bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-full font-semibold transition-colors duration-300 shadow-lg hover:shadow-xl"
+                    className="inline-flex items-center gap-3 bg-green-500 hover:bg-green-600 text-white px-5 md:px-6 py-2.5 md:py-3 rounded-full font-semibold transition-colors duration-300 shadow-lg hover:shadow-xl text-sm md:text-base"
                     aria-label="Contactar por WhatsApp para consultas sobre metodología ESPeak"
                   >
-                    <MessageCircle className="w-5 h-5" />
+                    <MessageCircle className="w-4 h-4 md:w-5 md:h-5" />
                     Contactar por WhatsApp
                   </motion.a>
                 </div>
@@ -205,7 +205,7 @@ const About = () => {
 
             {/* Stats Grid */}
             <FadeIn delay={0.6}>
-              <div ref={statsRef} className="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-12">
+              <div ref={statsRef} className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-8">
                 {stats.map((stat, index) => (
                   <motion.div
                     key={stat.value}
@@ -218,15 +218,15 @@ const About = () => {
                       scale: 1.05,
                       boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.15)"
                     }}
-                    className="bg-white/80 backdrop-blur-sm p-6 rounded-2xl border border-gray-100 shadow-lg hover:shadow-xl transition-all duration-300 group cursor-pointer"
+                    className="bg-white/80 backdrop-blur-sm p-5 rounded-2xl border border-gray-100 shadow-lg hover:shadow-xl transition-all duration-300 group cursor-pointer"
                   >
                     <motion.div
-                      className="flex items-center gap-3 mb-3"
+                      className="flex items-center gap-2 mb-2"
                       whileHover={{ x: 5 }}
                     >
-                      <stat.icon className={`w-6 h-6 ${stat.color}`} />
+                      <stat.icon className={`w-5 h-5 ${stat.color}`} />
                       <motion.div
-                        className="text-3xl font-bold text-azul-petroleo group-hover:text-rojo-brillante transition-colors"
+                        className="text-2xl md:text-3xl font-bold text-azul-petroleo group-hover:text-rojo-brillante transition-colors"
                         initial={{ scale: 0 }}
                         animate={isStatsInView ? { scale: 1 } : { scale: 0 }}
                         transition={{ delay: 0.8 + index * 0.2, duration: 0.5, type: "spring" }}
@@ -234,10 +234,10 @@ const About = () => {
                         {stat.value}
                       </motion.div>
                     </motion.div>
-                    <div className="font-semibold text-gray-800 mb-1">
+                    <div className="font-semibold text-gray-800 mb-1 text-sm">
                       {stat.label}
                     </div>
-                    <div className="text-sm text-gray-600">
+                    <div className="text-xs text-gray-600">
                       {stat.detail}
                     </div>
                   </motion.div>
@@ -246,22 +246,22 @@ const About = () => {
             </FadeIn>
 
             <FadeIn delay={1.0}>
-              <div className="flex justify-center mt-16">
+              <div className="flex justify-center lg:justify-start mt-8">
                 <motion.div
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
                   <Button
                     onClick={() => window.location.href = '#contacto'}
-                    className="px-12 py-6 text-xl font-bold shadow-2xl hover:shadow-3xl hover:shadow-rojo-brillante/30 transition-all duration-300 group bg-gradient-to-r from-azul-petroleo to-azul-celeste hover:from-azul-celeste hover:to-rojo-brillante"
+                    className="px-8 md:px-10 py-4 md:py-5 text-base md:text-lg font-bold shadow-2xl hover:shadow-3xl hover:shadow-rojo-brillante/30 transition-all duration-300 group bg-gradient-to-r from-azul-petroleo to-azul-celeste hover:from-azul-celeste hover:to-rojo-brillante"
                   >
-                    <span className="flex items-center gap-4">
+                    <span className="flex items-center gap-3">
                       Empieza hoy
                       <motion.div
                         whileHover={{ x: 8 }}
                         transition={{ duration: 0.3 }}
                       >
-                        <ArrowRight className="w-7 h-7" />
+                        <ArrowRight className="w-5 h-5" />
                       </motion.div>
                     </span>
                   </Button>

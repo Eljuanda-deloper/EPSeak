@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
-import { BookOpen, Clock, ArrowRight, Loader } from 'lucide-react'
+import { BookOpen, Clock, ArrowRight, Loader, Users, TrendingUp, Award, Star, CheckCircle, Zap } from 'lucide-react'
 
 interface Module {
   id: string
@@ -65,111 +65,157 @@ export default function CareerModulesClient({ careerSlug }: CareerModulesClientP
     )
   }
 
-  if (error) {
+  if (error || !modules || modules.length === 0) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-center">
-          <h1 className="text-2xl font-bold text-gray-600 mb-2">Módulos no disponibles</h1>
-          <p className="text-gray-500">Los módulos para esta carrera no están disponibles aún</p>
+      <div className="relative py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-white via-slate-50 to-slate-100 min-h-screen flex items-center justify-center">
+        {/* Background decorative elements */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <div className="absolute -top-40 -right-40 w-80 h-80 bg-blue-100 rounded-full blur-3xl opacity-40"></div>
+          <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-cyan-100 rounded-full blur-3xl opacity-40"></div>
         </div>
-      </div>
-    )
-  }
 
-  if (!modules || modules.length === 0) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-center">
-          <h1 className="text-2xl font-bold text-gray-600 mb-2">Módulos no disponibles</h1>
-          <p className="text-gray-500">Los módulos para esta carrera no están disponibles aún</p>
-        </div>
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5 }}
+          className="relative z-10 text-center max-w-md"
+        >
+          <motion.div
+            animate={{ y: [0, -10, 0] }}
+            transition={{ duration: 3, repeat: Infinity }}
+            className="mb-6"
+          >
+            <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-blue-100 to-cyan-100 flex items-center justify-center mx-auto">
+              <BookOpen className="w-10 h-10 text-blue-600" />
+            </div>
+          </motion.div>
+          <h2 className="text-3xl font-bold text-gray-900 mb-3">Módulos en Preparación</h2>
+          <p className="text-gray-600 text-lg mb-8">Los módulos para esta carrera estarán disponibles próximamente. Estamos preparando contenido de alta calidad.</p>
+          <motion.div
+            animate={{ scale: [1, 1.05, 1] }}
+            transition={{ duration: 2, repeat: Infinity }}
+            className="inline-block px-6 py-3 bg-blue-50 border border-blue-200 rounded-xl"
+          >
+            <p className="text-sm font-semibold text-blue-600">Próximas semanas</p>
+          </motion.div>
+        </motion.div>
       </div>
     )
   }
 
   return (
-    <div className="bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-6xl mx-auto">
+    <div className="relative py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-white via-slate-50 to-slate-100">
+      {/* Background decorative elements */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute -top-40 -right-40 w-80 h-80 bg-blue-100 rounded-full blur-3xl opacity-40"></div>
+        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-cyan-100 rounded-full blur-3xl opacity-40"></div>
+      </div>
+
+      <div className="relative z-10 max-w-7xl mx-auto">
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="mb-12"
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+          className="text-center mb-16"
         >
-          <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
-            Learning Modules
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-50 border border-blue-200 mb-6">
+            <div className="w-2 h-2 rounded-full bg-blue-600"></div>
+            <span className="text-sm font-semibold text-blue-600">Plan de Estudios</span>
+          </div>
+          <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4">
+            Módulos de Aprendizaje
           </h2>
-          <p className="text-lg text-gray-600">
-            {modules.length} modules • {modules.reduce((acc, m) => acc + m.total_lessons, 0)} lessons
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            {modules.length} módulos estructurados • {modules.reduce((acc, m) => acc + m.total_lessons, 0)} lecciones totales
           </p>
         </motion.div>
 
         {/* Modules Grid */}
-        {modules.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {modules.map((module, index) => (
-              <motion.div
-                key={module.id}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1 }}
-              >
-                <Link href={`/careers/${careerSlug}/modules/${module.id}`}>
-                  <div className="h-full bg-white rounded-lg shadow-lg hover:shadow-xl transition-shadow overflow-hidden group cursor-pointer">
-                    {/* Card Header */}
-                    <div className="bg-gradient-to-r from-blue-600 to-indigo-600 p-6">
-                      <div className="flex items-start justify-between">
-                        <BookOpen className="w-8 h-8 text-white opacity-80" />
-                        <span className="text-sm font-semibold text-white bg-white/20 px-3 py-1 rounded-full">
-                          Module {module.order_index + 1}
-                        </span>
-                      </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {modules.map((module, index) => (
+            <motion.div
+              key={module.id}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              viewport={{ once: true }}
+              className="group"
+            >
+              <Link href={`/careers/${careerSlug}/modules/${module.id}`}>
+                <div className="h-full bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden border border-gray-100 hover:border-blue-200 hover:-translate-y-2">
+                  {/* Card Header with gradient */}
+                  <div className="relative h-32 bg-gradient-to-br from-blue-600 via-blue-500 to-cyan-600 overflow-hidden">
+                    {/* Decorative pattern */}
+                    <div className="absolute inset-0 opacity-20">
+                      <div className="absolute top-2 right-2 w-16 h-16 bg-white rounded-full opacity-20"></div>
+                      <div className="absolute bottom-0 left-0 w-24 h-24 bg-white rounded-full opacity-10"></div>
                     </div>
 
-                    {/* Card Content */}
-                    <div className="p-6">
-                      <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-blue-600 transition">
-                        {module.title}
-                      </h3>
-
-                      {module.description && (
-                        <p className="text-gray-600 text-sm mb-4 line-clamp-2">
-                          {module.description}
-                        </p>
-                      )}
-
-                      {/* Module Info */}
-                      <div className="flex items-center gap-4 text-sm text-gray-500 border-t pt-4">
-                        <div className="flex items-center gap-1">
-                          <Clock className="w-4 h-4" />
-                          <span>{module.estimated_hours}h</span>
-                        </div>
-                        <div className="flex items-center gap-1">
-                          <BookOpen className="w-4 h-4" />
-                          <span>{module.total_lessons} lessons</span>
-                        </div>
+                    <div className="relative h-full flex items-start justify-between p-6">
+                      <div className="w-12 h-12 rounded-xl bg-white/20 backdrop-blur-sm flex items-center justify-center border border-white/30 group-hover:scale-110 transition-transform">
+                        <BookOpen className="w-6 h-6 text-white" />
                       </div>
-                    </div>
-
-                    {/* Hover Action */}
-                    <div className="px-6 pb-6">
-                      <button className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg transition flex items-center justify-center gap-2 group">
-                        <span>Start Learning</span>
-                        <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition" />
-                      </button>
+                      <motion.span
+                        animate={{ rotate: [0, 5, -5, 0] }}
+                        transition={{ duration: 3, repeat: Infinity }}
+                        className="text-3xl font-bold text-white opacity-80"
+                      >
+                        {module.order_index + 1}
+                      </motion.span>
                     </div>
                   </div>
-                </Link>
-              </motion.div>
-            ))}
-          </div>
-        ) : (
-          <div className="text-center py-12">
-            <BookOpen className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-            <h2 className="text-2xl font-bold text-gray-900 mb-2">No modules available</h2>
-            <p className="text-gray-600">Check back soon for new content.</p>
-          </div>
-        )}
+
+                  {/* Card Content */}
+                  <div className="p-6">
+                    <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-blue-600 transition line-clamp-2">
+                      {module.title}
+                    </h3>
+
+                    {module.description && (
+                      <p className="text-gray-600 text-sm mb-6 line-clamp-3 leading-relaxed">
+                        {module.description}
+                      </p>
+                    )}
+
+                    {/* Module Stats */}
+                    <div className="space-y-3 border-t border-gray-100 pt-6">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-2">
+                          <div className="w-8 h-8 rounded-lg bg-blue-50 flex items-center justify-center">
+                            <Clock className="w-4 h-4 text-blue-600" />
+                          </div>
+                          <span className="text-sm text-gray-600">Duración</span>
+                        </div>
+                        <span className="font-semibold text-gray-900">{module.estimated_hours}h</span>
+                      </div>
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-2">
+                          <div className="w-8 h-8 rounded-lg bg-cyan-50 flex items-center justify-center">
+                            <BookOpen className="w-4 h-4 text-cyan-600" />
+                          </div>
+                          <span className="text-sm text-gray-600">Lecciones</span>
+                        </div>
+                        <span className="font-semibold text-gray-900">{module.total_lessons}</span>
+                      </div>
+                    </div>
+
+                    {/* Action Button */}
+                    <motion.button
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                      className="w-full mt-6 bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white font-semibold py-3 px-4 rounded-xl transition-all duration-300 flex items-center justify-center gap-2 group/btn"
+                    >
+                      <span>Comenzar</span>
+                      <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-1 transition" />
+                    </motion.button>
+                  </div>
+                </div>
+              </Link>
+            </motion.div>
+          ))}
+        </div>
       </div>
     </div>
   )

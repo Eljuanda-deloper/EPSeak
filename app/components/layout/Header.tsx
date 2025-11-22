@@ -1,323 +1,248 @@
-"use client";
+'use client';
 
-
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
+import { ArrowRight, Menu, X } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
 import { usePathname } from 'next/navigation';
-import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
-import { Menu, X } from 'lucide-react';
-import Button from '../shared/Button';
-// Removed Logo import - using string path instead
+import { useAuth } from '@/app/contexts/AuthContext';
 
-const Header = () => {
-  const pathname = usePathname();
-  
-  // Todos los hooks DEBEN estar aquí, antes de cualquier condicional
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+const menuItems = [
+  { name: 'Inicio', href: '/#inicio' },
+  { name: 'Quiénes somos', href: '/#quienes-somos' },
+  { name: 'Testimonios', href: '/#testimonios' },
+  { name: 'Contacto', href: '/#contacto' },
+];
+
+export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
-  const [activeSection, setActiveSection] = useState('inicio');
-  const { scrollY } = useScroll();
-  const headerOpacity = useTransform(scrollY, [0, 100], [0.95, 1]);
-  const headerBlur = useTransform(scrollY, [0, 100], [0, 8]);
+  const [menuState, setMenuState] = useState(false);
+  const pathname = usePathname();
+  const { user, signOut, loading } = useAuth();
 
-  // Validar si estamos en dashboard (pero sin hacer early return aún)
-  const isInDashboard = pathname.startsWith('/dashboard');
+  // Si estamos en dashboard, no renderizar nada
+  if (pathname.startsWith('/dashboard')) {
+    return null;
+  }
 
-  // useEffect SIEMPRE se debe ejecutar, incluso si no se usa
   useEffect(() => {
-    // Si estamos en dashboard, no hacer nada
-    if (isInDashboard) {
-      return;
-    }
-
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-
-      // Detect active section
-      const sections = ['inicio', 'quienes-somos', 'testimonios', 'contacto'];
-      const current = sections.find(section => {
-        const element = document.getElementById(section);
-        if (element) {
-          const rect = element.getBoundingClientRect();
-          return rect.top <= 100 && rect.bottom >= 100;
-        }
-        return false;
-      });
-      if (current) setActiveSection(current);
+      setIsScrolled(window.scrollY > 40);
     };
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [isInDashboard]);
+  }, []);
 
-  // Mostrar nav links en la página de inicio, páginas de auth y páginas de carreras
-  const isHomePage = pathname === '/' || pathname === '/#' || pathname.startsWith('/#');
-  const isAuthPage = pathname.startsWith('/auth');
-  const isCareerPage = pathname.startsWith('/careers');
-  const navLinks = (isHomePage || isAuthPage || isCareerPage) ? [
-    { name: 'Inicio', href: isCareerPage ? '/' : '/#inicio' },
-    { name: 'Quiénes somos', href: isCareerPage ? '/#quienes-somos' : '/#quienes-somos' },
-    { name: 'Testimonios', href: isCareerPage ? '/#testimonios' : '/#testimonios' },
-    { name: 'Contacto', href: isCareerPage ? '/#contacto' : '/#contacto' },
-  ] : [];
-
-  // Si estamos en dashboard, no renderizar nada
-  if (isInDashboard) {
-    return null;
-  }
-
-  const menuVariants = {
-    closed: {
-      opacity: 0,
-      scale: 0.95,
-      transition: {
-        duration: 0.2,
-        ease: [0.4, 0, 0.2, 1]
-      }
-    },
-    open: {
-      opacity: 1,
-      scale: 1,
-      transition: {
-        duration: 0.3,
-        ease: [0.4, 0, 0.2, 1]
+  const handleMenuItemClick = (href: string) => {
+    setMenuState(false);
+    if (pathname === '/') {
+      const sectionId = href.split('#')[1];
+      const element = document.getElementById(sectionId);
+      if (element) {
+        const headerOffset = 80;
+        const elementPosition = element.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth'
+        });
       }
     }
   };
 
-  const itemVariants = {
-    closed: { x: -20, opacity: 0 },
-    open: { x: 0, opacity: 1 }
-  };
-
   return (
-    <motion.header
-      style={{
-        backdropFilter: `blur(${headerBlur}px)`,
-        backgroundColor: headerOpacity,
-        position: 'fixed'
-      }}
-      className={`
-        top-0 w-full z-50 transition-all duration-300
-        ${isAuthPage 
-          ? 'bg-white shadow-sm border-b border-gray-100/50'
-          : isScrolled
-          ? 'bg-white/95 shadow-sm border-b border-gray-100/50'
-          : 'bg-transparent'
-        }
-      `}
-    >
-      <nav className="max-w-[1200px] mx-auto px-4 lg:px-6">
-        <div className="flex justify-between items-center h-16 lg:h-20">
-          {/* Logo */}
-          <motion.div
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            className="flex items-center gap-3"
-          >
-            <Link href="/" className="flex items-center gap-2 text-azul-petroleo group">
-              <motion.div
-                whileHover={{ rotate: [0, -10, 10, 0] }}
-                transition={{ duration: 0.5 }}
-              >
-                <Image
-                  src="/logoESPeak.png"
-                  alt="ESPeak logo"
-                  width={280}
-                  height={70}
-                  className="h-16 w-auto md:h-20 transition-all duration-300 group-hover:brightness-110"
-                  priority
-                  suppressHydrationWarning={true}
-                />
-              </motion.div>
-            </Link>
-          </motion.div>
-
-          {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center space-x-1">
-            {navLinks.map((link, index) => (
-              <motion.div
-                key={link.name}
-                initial={{ opacity: 0, y: -20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1, duration: 0.5 }}
-              >
-                <Link
-                  href={link.href}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    const sectionId = link.href.replace('/#', '');
-                    
-                    // Si no estamos en home, navegar a home con el hash
-                    if (!isHomePage) {
-                      // Navegar a home primero, luego el browser hará scroll al hash
-                      window.location.href = `/${sectionId ? '#' + sectionId : ''}`;
-                      return;
-                    }
-                    
-                    // Si estamos en home, hacer scroll
-                    const element = document.getElementById(sectionId);
-                    if (element) {
-                      const headerOffset = 80;
-                      const elementPosition = element.getBoundingClientRect().top;
-                      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-                      window.scrollTo({
-                        top: offsetPosition,
-                        behavior: 'smooth'
-                      });
-                    }
-                  }}
-                  className={`
-                    relative px-3 py-1.5 rounded-full text-sm font-medium transition-all duration-300
-                    hover:bg-azul-petroleo/5 hover:text-azul-petroleo hover:scale-105
-                    ${activeSection === link.href.slice(1)
-                      ? 'text-azul-petroleo bg-azul-petroleo/10'
-                      : 'text-gray-700'
-                    }
-                  `}
-                >
-                  {link.name}
-                  {activeSection === link.href.slice(1) && (
-                    <motion.div
-                      layoutId="activeTab"
-                      className="absolute inset-0 bg-azul-petroleo/10 rounded-full -z-10"
-                      transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
-                    />
-                  )}
-                </Link>
-              </motion.div>
-            ))}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.5, duration: 0.5 }}
-              className="ml-4 flex items-center gap-3"
+    <header className="sticky top-0 z-50 w-full bg-white/80 dark:bg-slate-950/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-800">
+      <nav
+        className={cn(
+          'mx-auto max-w-6xl px-6 transition-all duration-300 lg:px-12',
+          isScrolled &&
+            'bg-white/50 dark:bg-slate-900/50 max-w-4xl rounded-2xl border border-slate-200 dark:border-slate-700 backdrop-blur-lg lg:px-5 mt-2 mb-2 lg:mx-2'
+        )}
+      >
+        <div className="relative flex flex-wrap items-center justify-between gap-6 py-3 lg:gap-0 lg:py-4">
+          <div className="flex w-full justify-between lg:w-auto">
+            <Link
+              href="/"
+              aria-label="home"
+              className="flex items-center space-x-2"
             >
-              <Link href="/auth/login">
-                <Button
-                  variant="secondary"
-                  className="!bg-white !text-azul-petroleo border border-azul-petroleo/20 hover:!bg-azul-petroleo/5 !shadow-lg hover:!shadow-xl hover:!shadow-azul-petroleo/20 hover:!translate-y-0"
-                >
-                  Iniciar Sesión
-                </Button>
-              </Link>
-              <Link href="/auth/register">
-                <Button
-                  className="!shadow-lg hover:!shadow-xl hover:!shadow-rojo-brillante/20"
-                >
-                  Registrarse
-                </Button>
-              </Link>
-            </motion.div>
+              <Logo />
+            </Link>
+
+            <button
+              onClick={() => setMenuState(!menuState)}
+              aria-label={menuState ? 'Cerrar menú' : 'Abrir menú'}
+              className="relative z-20 -m-2.5 -mr-4 block cursor-pointer p-2.5 lg:hidden"
+            >
+              <Menu
+                className={cn(
+                  'group-data-[state=active]:scale-0 group-data-[state=active]:opacity-0 m-auto size-6 duration-200 transition-all',
+                  menuState && 'scale-0 opacity-0'
+                )}
+              />
+              <X
+                className={cn(
+                  'group-data-[state=active]:rotate-0 group-data-[state=active]:scale-100 group-data-[state=active]:opacity-100 absolute inset-0 m-auto size-6 -rotate-180 scale-0 opacity-0 duration-200 transition-all',
+                  menuState && 'rotate-0 scale-100 opacity-100'
+                )}
+              />
+            </button>
           </div>
 
-          {/* Mobile Menu Button */}
-          <motion.button
-            whileTap={{ scale: 0.95 }}
-            className="lg:hidden p-2 rounded-full hover:bg-gray-100 transition-colors duration-200"
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-          >
-            <motion.div
-              animate={{ rotate: isMenuOpen ? 180 : 0 }}
-              transition={{ duration: 0.3 }}
-            >
-              {isMenuOpen ? (
-                <X className="w-6 h-6 text-azul-petroleo" />
-              ) : (
-                <Menu className="w-6 h-6 text-azul-petroleo" />
-              )}
-            </motion.div>
-          </motion.button>
-        </div>
-
-        {/* Mobile Navigation */}
-        <AnimatePresence>
-          {isMenuOpen && (
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.95 }}
-              transition={{
-                duration: 0.2,
-                ease: [0.4, 0, 0.2, 1]
-              }}
-              className="lg:hidden absolute top-full left-0 right-0 bg-white/95 backdrop-blur-xl border-t border-gray-100 shadow-xl"
-            >
-              <div className="px-6 py-6 space-y-2">
-                {navLinks.map((link, index) => (
-                  <motion.div
-                    key={link.name}
-                    variants={itemVariants}
-                    transition={{ delay: index * 0.1 }}
+          <div className="absolute inset-0 m-auto hidden size-fit lg:block">
+            <ul className="flex gap-8 text-sm">
+              {menuItems.map((item, index) => (
+                <li key={index}>
+                  <Link
+                    href={item.href}
+                    onClick={() => handleMenuItemClick(item.href)}
+                    className="text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white block duration-150"
                   >
+                    <span>{item.name}</span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="bg-white dark:bg-slate-900 group-data-[state=active]:block lg:group-data-[state=active]:flex mb-6 hidden w-full flex-wrap items-center justify-end space-y-8 rounded-3xl border border-slate-200 dark:border-slate-700 p-6 shadow-2xl shadow-zinc-300/20 dark:shadow-none md:flex-nowrap lg:m-0 lg:flex lg:w-fit lg:gap-6 lg:space-y-0 lg:border-transparent lg:bg-transparent lg:p-0 lg:shadow-none dark:shadow-none dark:lg:bg-transparent">
+            <div className="lg:hidden">
+              <ul className="space-y-6 text-base">
+                {menuItems.map((item, index) => (
+                  <li key={index}>
                     <Link
-                      href={link.href}
-                      onClick={(e) => {
-                        e.preventDefault();
-                        const sectionId = link.href.replace('/#', '');
-                        
-                        setIsMenuOpen(false);
-                        
-                        // Si no estamos en home, navegar a home con el hash
-                        if (!isHomePage) {
-                          window.location.href = `/${sectionId ? '#' + sectionId : ''}`;
-                          return;
-                        }
-                        
-                        // Si estamos en home, hacer scroll
-                        const element = document.getElementById(sectionId);
-                        if (element) {
-                          const headerOffset = 80;
-                          const elementPosition = element.getBoundingClientRect().top;
-                          const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-                          window.scrollTo({
-                            top: offsetPosition,
-                            behavior: 'smooth'
-                          });
-                        }
-                      }}
-                      className={`
-                        block px-4 py-3 rounded-xl text-base font-medium transition-all duration-300
-                        hover:bg-azul-petroleo/5 hover:text-azul-petroleo hover:translate-x-2
-                        ${activeSection === link.href.slice(1)
-                          ? 'text-azul-petroleo bg-azul-petroleo/10'
-                          : 'text-gray-700'
-                        }
-                      `}
+                      href={item.href}
+                      onClick={() => handleMenuItemClick(item.href)}
+                      className="text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white block duration-150"
                     >
-                      {link.name}
+                      <span>{item.name}</span>
                     </Link>
-                  </motion.div>
+                  </li>
                 ))}
-                <motion.div
-                  variants={itemVariants}
-                  transition={{ delay: 0.5 }}
-                  className="pt-4 border-t border-gray-100 space-y-3"
-                >
-                  <Link href="/auth/login" onClick={() => setIsMenuOpen(false)}>
-                    <Button
-                      variant="secondary"
-                      className="w-full !bg-white !text-azul-petroleo border border-azul-petroleo/20 hover:!bg-azul-petroleo/5 !shadow-lg hover:!shadow-xl hover:!shadow-azul-petroleo/20 hover:!translate-y-0"
-                    >
-                      Iniciar Sesión
-                    </Button>
-                  </Link>
-                  <Link href="/auth/register" onClick={() => setIsMenuOpen(false)}>
-                    <Button
-                      className="w-full !shadow-lg hover:!shadow-xl hover:!shadow-rojo-brillante/20"
-                    >
-                      Registrarse
-                    </Button>
-                  </Link>
-                </motion.div>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
+              </ul>
+            </div>
+
+            <div className="flex w-full flex-col space-y-3 sm:flex-row sm:gap-3 sm:space-y-0 md:w-fit">
+              {loading ? (
+                <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-epseak-blue"></div>
+              ) : user ? (
+                <>
+                  <Button
+                    asChild
+                    variant="outline"
+                    size="sm"
+                    className={cn(isScrolled && 'lg:hidden')}
+                  >
+                    <Link href="/dashboard">
+                      <span>Dashboard</span>
+                    </Link>
+                  </Button>
+
+                  <Button
+                    asChild
+                    size="sm"
+                    className={cn(
+                      'bg-epseak-blue hover:bg-blue-700 text-white',
+                      isScrolled && 'lg:hidden'
+                    )}
+                  >
+                    <button onClick={() => signOut()}>
+                      <span>Cerrar Sesión</span>
+                    </button>
+                  </Button>
+
+                  <Button
+                    asChild
+                    size="sm"
+                    className={cn(
+                      'bg-epseak-blue hover:bg-blue-700 text-white',
+                      isScrolled ? 'lg:inline-flex' : 'hidden'
+                    )}
+                  >
+                    <Link href="/dashboard">
+                      <span>Dashboard</span>
+                    </Link>
+                  </Button>
+                </>
+              ) : (
+                <>
+                  <Button
+                    asChild
+                    variant="outline"
+                    size="sm"
+                    className={cn(isScrolled && 'lg:hidden')}
+                  >
+                    <Link href="/auth/login">
+                      <span>Iniciar sesión</span>
+                    </Link>
+                  </Button>
+
+                  <Button
+                    asChild
+                    size="sm"
+                    className={cn(
+                      'bg-epseak-blue hover:bg-blue-700 text-white',
+                      isScrolled && 'lg:hidden'
+                    )}
+                  >
+                    <Link href="/auth/register">
+                      <span>Registrarse</span>
+                    </Link>
+                  </Button>
+
+                  <Button
+                    asChild
+                    size="sm"
+                    className={cn(
+                      'bg-epseak-blue hover:bg-blue-700 text-white',
+                      isScrolled ? 'lg:inline-flex' : 'hidden'
+                    )}
+                  >
+                    <Link href="/auth/register">
+                      <span>Comenzar</span>
+                    </Link>
+                  </Button>
+                </>
+              )}
+            </div>
+          </div>
+        </div>
       </nav>
-    </motion.header>
+    </header>
+  );
+}
+
+const Logo = ({ className }: { className?: string }) => {
+  return (
+    <svg
+      viewBox="0 0 78 18"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={cn('h-6 w-auto', className)}
+    >
+      <path
+        d="M3 0H5V18H3V0ZM13 0H15V18H13V0ZM18 3V5H0V3H18ZM0 15V13H18V15H0Z"
+        fill="url(#logo-gradient)"
+      />
+      <path
+        d="M27.06 7.054V12.239C27.06 12.5903 27.1393 12.8453 27.298 13.004C27.468 13.1513 27.7513 13.225 28.148 13.225H29.338V14.84H27.808C26.9353 14.84 26.2667 14.636 25.802 14.228C25.3373 13.82 25.105 13.157 25.105 12.239V7.054H24V5.473H25.105V3.144H27.06V5.473H29.338V7.054H27.06ZM30.4782 10.114C30.4782 9.17333 30.6709 8.34033 31.0562 7.615C31.4529 6.88967 31.9855 6.32867 32.6542 5.932C33.3342 5.524 34.0822 5.32 34.8982 5.32C35.6349 5.32 36.2752 5.46733 36.8192 5.762C37.3745 6.04533 37.8165 6.40233 38.1452 6.833V5.473H40.1002V14.84H38.1452V13.446C37.8165 13.888 37.3689 14.2563 36.8022 14.551C36.2355 14.8457 35.5895 14.993 34.8642 14.993C34.0595 14.993 33.3229 14.789 32.6542 14.381C31.9855 13.9617 31.4529 13.3837 31.0562 12.647C30.6709 11.899 30.4782 11.0547 30.4782 10.114ZM38.1452 10.148C38.1452 9.502 38.0092 8.941 37.7372 8.465C37.4765 7.989 37.1309 7.62633 36.7002 7.377C36.2695 7.12767 35.8049 7.003 35.3062 7.003C34.8075 7.003 34.3429 7.12767 33.9122 7.377C33.4815 7.615 33.1302 7.972 32.8582 8.448C32.5975 8.91267 32.4672 9.468 32.4672 10.114C32.4672 10.76 32.5975 11.3267 32.8582 11.814C33.1302 12.3013 33.4815 12.6753 33.9122 12.936C34.3542 13.1853 34.8189 13.31 35.3062 13.31C35.8049 13.31 36.2695 13.1853 36.7002 12.936C37.1309 12.6867 37.4765 12.324 37.7372 11.848C38.0092 11.3607 38.1452 10.794 38.1452 10.148ZM43.6317 4.232C43.2803 4.232 42.9857 4.113 42.7477 3.875C42.5097 3.637 42.3907 3.34233 42.3907 2.991C42.3907 2.63967 42.5097 2.345 42.7477 2.107C42.9857 1.869 43.2803 1.75 43.6317 1.75C43.9717 1.75 44.2607 1.869 44.4987 2.107C44.7367 2.345 44.8557 2.63967 44.8557 2.991C44.8557 3.34233 44.7367 3.637 44.4987 3.875C44.2607 4.113 43.9717 4.232 43.6317 4.232ZM44.5837 5.473V14.84H42.6457V5.473H44.5837ZM49.0661 2.26V14.84H47.1281V2.26H49.0661ZM50.9645 10.114C50.9645 9.17333 51.1572 8.34033 51.5425 7.615C51.9392 6.88967 52.4719 6.32867 53.1405 5.932C53.8205 5.524 54.5685 5.32 55.3845 5.32C56.1212 5.32 56.7615 5.46733 57.3055 5.762C57.8609 6.04533 58.3029 6.40233 58.6315 6.833V5.473H60.5865V14.84H58.6315V13.446C58.3029 13.888 57.8552 14.2563 57.2885 14.551C56.7219 14.8457 56.0759 14.993 55.3505 14.993C54.5459 14.993 53.8092 14.789 53.1405 14.381C52.4719 13.9617 51.9392 13.3837 51.5425 12.647C51.1572 11.899 50.9645 11.0547 50.9645 10.114ZM58.6315 10.148C58.6315 9.502 58.4955 8.941 58.2235 8.465C57.9629 7.989 57.6172 7.62633 57.1865 7.377C56.7559 7.12767 56.2912 7.003 55.7925 7.003C55.2939 7.003 54.8292 7.12767 54.3985 7.377C53.9679 7.615 53.6165 7.972 53.3445 8.448C53.0839 8.91267 52.9535 9.468 52.9535 10.114C52.9535 10.76 53.0839 11.3267 53.3445 11.814C53.6165 12.3013 53.9679 12.6753 54.3985 12.936C54.8405 13.1853 55.3052 13.31 55.7925 13.31C56.2912 13.31 56.7559 13.1853 57.1865 12.936C57.6172 12.6867 57.9629 12.324 58.2235 11.848C58.4955 11.3607 58.6315 10.794 58.6315 10.148ZM65.07 6.833C65.3533 6.357 65.7273 5.98867 66.192 5.728C66.668 5.456 67.229 5.32 67.875 5.32V7.326H67.382C66.6227 7.326 66.0447 7.51867 65.648 7.904C65.2627 8.28933 65.07 8.958 65.07 9.91V14.84H63.132V5.473H65.07V6.833ZM73.3624 10.165L77.6804 14.84H75.0624L71.5944 10.811V14.84H69.6564V2.26H71.5944V9.57L74.9944 5.473H77.6804L73.3624 10.165Z"
+        fill="currentColor"
+      />
+      <defs>
+        <linearGradient
+          id="logo-gradient"
+          x1="10"
+          y1="0"
+          x2="10"
+          y2="20"
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop stopColor="#0066cc" />
+          <stop offset="1" stopColor="#6f42c1" />
+        </linearGradient>
+      </defs>
+    </svg>
   );
 };
-
-export default Header;

@@ -3,6 +3,7 @@
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
 import { useRef } from 'react';
 import { Star, Users, Award, Quote, ArrowUpRight } from 'lucide-react';
+import { TestimonialsSection } from '@/components/blocks/testimonials-with-marquee';
 
 interface Testimonial {
   name: string;
@@ -299,93 +300,161 @@ const Testimonials = () => {
           </motion.p>
         </motion.div>
 
-        {/* Stats Grid */}
+        {/* Enhanced Stats Section with Bento Grid Style */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.4, delay: 0.2 }}
-          className="grid gap-6 sm:grid-cols-3 mb-20"
+          className="mb-20"
         >
-          {stats.map(({ value, label, descriptor, icon: Icon, color }, index) => (
-            <motion.div
-              key={label}
-              initial={{ opacity: 0, scale: 0.8, y: 20 }}
-              whileInView={{ opacity: 1, scale: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.15, delay: 0.3 + index * 0.1 }}
-              whileHover={{
-                y: -8,
-                scale: 1.05,
-                boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.15)"
-              }}
-              className="group relative overflow-hidden rounded-3xl border border-white/30 bg-white/90 px-8 py-10 text-center shadow-xl backdrop-blur-xl hover:shadow-2xl transition-all duration-500"
-            >
-              {/* Animated background */}
+          {/* Stats Grid */}
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {stats.map(({ value, label, descriptor, icon: Icon, color }, index) => (
               <motion.div
-                className="absolute inset-0 bg-gradient-to-br from-white/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                initial={{ scale: 0 }}
-                whileInView={{ scale: 1 }}
-                transition={{ delay: 0.5 + index * 0.1, duration: 0.15 }}
-              />
-
-              <div className="relative">
-                <motion.div
-                  whileHover={{ scale: 1.1, rotate: 5 }}
-                  transition={{ duration: 0.15 }}
-                  className="flex justify-center mb-4"
-                >
-                  <Icon className={`w-12 h-12 ${color}`} />
-                </motion.div>
-
-                <motion.p
-                  className="text-4xl md:text-5xl font-bold text-azul-petroleo mb-3 group-hover:text-azul-celeste transition-colors duration-300"
-                  whileHover={{ scale: 1.05 }}
-                >
-                  {value}
-                </motion.p>
-
-                <motion.p
-                  className="text-sm uppercase tracking-wider text-azul-celeste font-semibold mb-2"
-                  whileHover={{ x: 2 }}
-                >
-                  {label}
-                </motion.p>
-
-                <motion.p
-                  className="text-sm text-azul-petroleo/70 leading-relaxed"
-                  whileHover={{ y: -1 }}
-                >
-                  {descriptor}
-                </motion.p>
-              </div>
-
-              {/* Hover effect border */}
-              <motion.div
-                className="absolute inset-0 rounded-3xl bg-gradient-to-r from-azul-celeste/20 to-rojo-brillante/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
-                style={{
-                  padding: '2px',
-                  backgroundClip: 'padding-box'
+                key={label}
+                initial={{ opacity: 0, scale: 0.8, y: 20 }}
+                whileInView={{ opacity: 1, scale: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.15, delay: 0.3 + index * 0.1 }}
+                whileHover={{
+                  y: -12,
+                  scale: 1.02,
+                  boxShadow: "0 40px 80px -20px rgba(10, 78, 90, 0.2)"
                 }}
+                className={`group relative overflow-hidden rounded-2xl border border-white/40 bg-gradient-to-br ${
+                  index === 0
+                    ? 'from-blue-50/80 to-cyan-50/40'
+                    : index === 1
+                    ? 'from-amber-50/80 to-orange-50/40'
+                    : 'from-green-50/80 to-emerald-50/40'
+                } p-8 shadow-xl backdrop-blur-xl hover:shadow-2xl transition-all duration-500 before:absolute before:inset-0 before:bg-gradient-to-br before:from-white/20 before:to-transparent before:opacity-0 group-hover:before:opacity-100 before:transition-opacity before:duration-500`}
               >
-                <div className="h-full w-full rounded-3xl bg-white/95" />
+                {/* Animated background gradient */}
+                <motion.div
+                  className={`absolute -inset-full ${
+                    index === 0
+                      ? 'bg-gradient-to-r from-blue-400/0 via-blue-400/10 to-cyan-400/0'
+                      : index === 1
+                      ? 'bg-gradient-to-r from-amber-400/0 via-amber-400/10 to-orange-400/0'
+                      : 'bg-gradient-to-r from-green-400/0 via-green-400/10 to-emerald-400/0'
+                  }`}
+                  animate={{ x: ['0%', '100%', '0%'] }}
+                  transition={{ duration: 8, repeat: Infinity, ease: 'linear' }}
+                />
+
+                <div className="relative z-10">
+                  {/* Icon with animation */}
+                  <motion.div
+                    whileHover={{ scale: 1.15, rotate: 8 }}
+                    transition={{ duration: 0.2, type: 'spring', stiffness: 300 }}
+                    className={`inline-flex items-center justify-center w-16 h-16 rounded-xl ${
+                      index === 0
+                        ? 'bg-blue-100/80'
+                        : index === 1
+                        ? 'bg-amber-100/80'
+                        : 'bg-green-100/80'
+                    } mb-6 group-hover:scale-110 transition-transform duration-300`}
+                  >
+                    <Icon className={`w-8 h-8 ${color}`} />
+                  </motion.div>
+
+                  {/* Main value with counter animation */}
+                  <motion.div
+                    className="mb-3"
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    transition={{ delay: 0.5 + index * 0.1 }}
+                  >
+                    <div className={`text-5xl md:text-6xl font-bold bg-gradient-to-r ${
+                      index === 0
+                        ? 'from-blue-600 to-cyan-600'
+                        : index === 1
+                        ? 'from-amber-600 to-orange-600'
+                        : 'from-green-600 to-emerald-600'
+                    } bg-clip-text text-transparent`}>
+                      {value}
+                    </div>
+                  </motion.div>
+
+                  {/* Label */}
+                  <motion.h3
+                    className={`text-lg font-bold mb-2 ${
+                      index === 0
+                        ? 'text-blue-900'
+                        : index === 1
+                        ? 'text-amber-900'
+                        : 'text-green-900'
+                    } group-hover:scale-105 transition-transform duration-300 origin-left`}
+                    whileHover={{ x: 4 }}
+                  >
+                    {label}
+                  </motion.h3>
+
+                  {/* Descriptor */}
+                  <motion.p
+                    className="text-sm leading-relaxed text-gray-600 group-hover:text-gray-700 transition-colors duration-300"
+                    whileHover={{ y: -2 }}
+                  >
+                    {descriptor}
+                  </motion.p>
+
+                  {/* Decorative line */}
+                  <motion.div
+                    className={`h-1 w-0 mt-4 rounded-full ${
+                      index === 0
+                        ? 'bg-gradient-to-r from-blue-400 to-cyan-400'
+                        : index === 1
+                        ? 'bg-gradient-to-r from-amber-400 to-orange-400'
+                        : 'bg-gradient-to-r from-green-400 to-emerald-400'
+                    }`}
+                    whileInView={{ width: '2rem' }}
+                    transition={{ delay: 0.7 + index * 0.1, duration: 0.5 }}
+                    viewport={{ once: true }}
+                  />
+                </div>
+
+                {/* Corner accent */}
+                <div className="absolute top-0 right-0 w-32 h-32 rounded-full opacity-0 group-hover:opacity-5 transition-opacity duration-500"
+                  style={{
+                    background: index === 0 
+                      ? 'radial-gradient(circle, #0369a1, transparent)'
+                      : index === 1
+                      ? 'radial-gradient(circle, #b45309, transparent)'
+                      : 'radial-gradient(circle, #059669, transparent)'
+                  }}
+                />
               </motion.div>
-            </motion.div>
-          ))}
+            ))}
+          </div>
         </motion.div>
 
-        {/* Testimonials Grid */}
-        <motion.div
-          className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 mb-20"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.15, delay: 0.4 }}
-        >
-          {testimonials.map((testimonial) => (
-            <TestimonialCard key={testimonial.name} {...testimonial} />
-          ))}
-        </motion.div>
+        {/* Testimonials Grid with Marquee */}
+        <TestimonialsSection
+          title="Testimonios de nuestros estudiantes"
+          description="Historias reales de profesionales que transformaron su carrera"
+          testimonials={testimonials.map((testimonial, index) => {
+            const avatarImages = [
+              'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&h=150&fit=crop&crop=face',
+              'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face',
+              'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&h=150&fit=crop&crop=face',
+              'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=150&h=150&fit=crop&crop=face',
+              'https://images.unsplash.com/photo-1507214159519-1a373571b636?w=150&h=150&fit=crop&crop=face',
+              'https://images.unsplash.com/photo-1506336584489-27f5c0dd7e61?w=150&h=150&fit=crop&crop=face',
+              'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&crop=face',
+              'https://images.unsplash.com/photo-1524666666564-c68968c77e8e?w=150&h=150&fit=crop&crop=face',
+            ]
+            return {
+              author: {
+                name: testimonial.name,
+                handle: testimonial.role,
+                avatar: avatarImages[index % avatarImages.length]
+              },
+              text: testimonial.quote.replace(/^"(.*)"$/, '$1'),
+            }
+          })}
+          className="bg-white/50 backdrop-blur-sm rounded-3xl mb-20"
+        />
 
         {/* CTA Section */}
         <motion.div

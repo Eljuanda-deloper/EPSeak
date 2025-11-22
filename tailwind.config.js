@@ -13,6 +13,11 @@ module.exports = {
         'rojo-brillante': 'var(--rojo-brillante)',
         'blanco': 'var(--blanco)',
         'gris-suave': 'var(--gris-suave)',
+        // Colores corporativos para componentes modernos
+        'epseak-blue': '#0066cc',
+        'epseak-purple': '#6f42c1',
+        'epseak-cyan': '#00d4ff',
+        'epseak-dark': '#1a1a1a',
       },
       fontFamily: {
         'poppins': ['var(--font-poppins)', 'sans-serif'],
@@ -23,6 +28,12 @@ module.exports = {
         'bounce-subtle': 'bounceSubtle 2s infinite',
         'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
         'float': 'float 6s ease-in-out infinite',
+        // Animaciones para HeroSection y componentes
+        'blur-in': 'blurIn 0.6s ease-out',
+        'scale-in': 'scaleIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)',
+        'slide-down': 'slideDown 0.4s ease-out',
+        'fade-in-up': 'fadeInUp 0.6s ease-out',
+        'shake': 'shake 0.5s ease-in-out',
       },
       keyframes: {
         fadeIn: {
@@ -40,6 +51,28 @@ module.exports = {
         float: {
           '0%, 100%': { transform: 'translateY(0px)' },
           '50%': { transform: 'translateY(-10px)' },
+        },
+        // Keyframes para HeroSection
+        blurIn: {
+          '0%': { opacity: '0', filter: 'blur(12px)' },
+          '100%': { opacity: '1', filter: 'blur(0px)' },
+        },
+        scaleIn: {
+          '0%': { opacity: '0', transform: 'scale(0.95)' },
+          '100%': { opacity: '1', transform: 'scale(1)' },
+        },
+        slideDown: {
+          '0%': { opacity: '0', transform: 'translateY(-20px)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' },
+        },
+        fadeInUp: {
+          '0%': { opacity: '0', transform: 'translateY(20px)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' },
+        },
+        shake: {
+          '0%, 100%': { transform: 'translateX(0)' },
+          '25%': { transform: 'translateX(-5px)' },
+          '75%': { transform: 'translateX(5px)' },
         },
       },
       transitionProperty: {

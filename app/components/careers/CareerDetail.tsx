@@ -23,7 +23,7 @@ import {
   UserCheck,
   TrendingUp
 } from 'lucide-react';
-import Button from '../shared/Button';
+import { TestimonialsSection } from '@/components/blocks/testimonials-with-marquee';
 
 interface Career {
   id: string;
@@ -151,32 +151,7 @@ const CareerDetail = ({ career }: CareerDetailProps) => {
             </p>
           </motion.div>
 
-          {/* Key Stats Cards */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12"
-          >
-            {[
-              { icon: Clock, label: "Duración", value: career.duration },
-              { icon: Target, label: "Nivel", value: career.level },
-              { icon: BookOpen, label: "Módulos", value: career.modules.toString() },
-              { icon: Award, label: "Certificación", value: "Internacional" }
-            ].map((stat, index) => (
-              <motion.div
-                key={stat.label}
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.5, delay: 0.3 + index * 0.1 }}
-                className="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20 hover:bg-white/15 transition-all duration-300"
-              >
-                <stat.icon className="w-8 h-8 text-azul-celeste mx-auto mb-3" />
-                <div className="text-white font-semibold text-sm mb-1">{stat.label}</div>
-                <div className="text-white/90 text-lg">{stat.value}</div>
-              </motion.div>
-            ))}
-          </motion.div>
+
 
           {/* CTA Buttons */}
           <motion.div
@@ -185,22 +160,18 @@ const CareerDetail = ({ career }: CareerDetailProps) => {
             transition={{ duration: 0.8, delay: 0.4 }}
             className="flex flex-col sm:flex-row gap-4 justify-center"
           >
-            <Button className="px-8 py-4 text-lg font-semibold shadow-2xl">
-              <span className="flex items-center gap-2">
-                Comenzar Programa
-                <ArrowRight className="w-5 h-5" />
-              </span>
-            </Button>
-            <Button
-              variant="secondary"
-              className="px-8 py-4 text-lg border-white/30 hover:bg-white/10 text-white"
+            <button style={{ color: '#FFFFFF', backgroundColor: '#E0312D' }} className="inline-flex items-center justify-center gap-2 px-8 py-4 text-lg font-semibold rounded-full shadow-2xl hover:shadow-lg transition-all duration-300 hover:-translate-y-1 active:scale-95 hover:bg-red-600">
+              Comenzar Programa
+              <ArrowRight className="w-5 h-5" />
+            </button>
+            <button
+              style={{ color: '#FFFFFF', borderColor: 'rgba(255,255,255,0.3)' }}
+              className="inline-flex items-center justify-center gap-2 px-8 py-4 text-lg font-semibold rounded-full border-2 hover:bg-white/10 transition-all duration-300 hover:-translate-y-1"
               onClick={() => scrollToSection('curriculum')}
             >
-              <span className="flex items-center gap-2">
-                <BookOpen className="w-5 h-5" />
-                Ver Curriculum
-              </span>
-            </Button>
+              <BookOpen className="w-5 h-5" />
+              Ver Curriculum
+            </button>
           </motion.div>
         </div>
 
@@ -228,48 +199,51 @@ const CareerDetail = ({ career }: CareerDetailProps) => {
 
       {/* Overview Section */}
       <section id="overview" className="py-24 bg-white">
-        <div className="max-w-7xl mx-auto px-6">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="text-center mb-20"
-          >
-            <div className="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-gradient-to-r from-azul-celeste/10 to-azul-petroleo/10 border border-azul-celeste/20 mb-8">
-              <Target className="w-6 h-6 text-azul-celeste" />
-              <span className="text-azul-petroleo font-semibold text-sm uppercase tracking-wide">Programa Especializado</span>
-            </div>
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="grid md:grid-cols-2 gap-16 items-start">
+            {/* Left Column - Text */}
+            <motion.div
+              initial={{ opacity: 0, x: -40 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8 }}
+              viewport={{ once: true }}
+            >
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6 leading-tight">
+                ¿Qué aprenderás?
+              </h2>
+              <p className="text-lg text-gray-600 mb-12 leading-relaxed">
+                Desarrolla las competencias que necesitas para destacar en un entorno profesional internacional.
+              </p>
+            </motion.div>
 
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6 leading-tight">
-              ¿Qué aprenderás?
-            </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-              Desarrolla las competencias especializadas que te posicionarán como líder en tu campo profesional
-            </p>
-          </motion.div>
-
-          {/* Career Image */}
-          {/* Removed - Image is now in hero section */}
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {career.features.map((feature, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                viewport={{ once: true }}
-                className="group bg-white rounded-xl p-8 shadow-sm border border-gray-100 hover:shadow-lg hover:border-azul-celeste/30 transition-all duration-300"
-              >
-                <div className="w-12 h-12 bg-gradient-to-br from-azul-celeste to-azul-petroleo rounded-lg flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                  <CheckCircle className="w-6 h-6 text-white" />
-                </div>
-                <h3 className="text-lg font-semibold text-gray-900 leading-tight">
-                  {feature}
-                </h3>
-              </motion.div>
-            ))}
+            {/* Right Column - Features List */}
+            <motion.div
+              initial={{ opacity: 0, x: 40 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8 }}
+              viewport={{ once: true }}
+              className="space-y-4"
+            >
+              {career.features.map((feature, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 1 }}
+                  transition={{ duration: 0.5, delay: index * 0.08 }}
+                  viewport={{ once: true }}
+                  className="flex items-start gap-4"
+                >
+                  <div className="flex-shrink-0 pt-1">
+                    <div className="w-5 h-5 rounded-full border-2 border-azul-petroleo flex items-center justify-center">
+                      <div className="w-2 h-2 rounded-full bg-azul-petroleo" />
+                    </div>
+                  </div>
+                  <span className="text-gray-700 text-base leading-relaxed">
+                    {feature}
+                  </span>
+                </motion.div>
+              ))}
+            </motion.div>
           </div>
 
           {/* Pricing Card */}
@@ -278,14 +252,26 @@ const CareerDetail = ({ career }: CareerDetailProps) => {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.3 }}
             viewport={{ once: true }}
-            className="mt-20 max-w-md mx-auto"
+            className="mt-20 max-w-sm mx-auto"
           >
-            <div className="bg-gradient-to-br from-azul-petroleo to-azul-celeste rounded-2xl p-8 text-center text-white shadow-xl">
-              <div className="text-4xl font-bold mb-2">{career.price}</div>
-              <div className="text-white/90 mb-6">Programa completo</div>
-              <Button className="w-full bg-white text-azul-petroleo hover:bg-gray-50 font-semibold">
-                Inscribirme Ahora
-              </Button>
+            <div className="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100">
+              {/* Header with red accent */}
+              <div className="bg-gradient-to-r from-rojo-brillante to-red-600 px-12 pt-12 pb-8">
+                <div className="text-white text-center">
+                  <div className="text-sm font-medium text-red-100 mb-3">Precio Especial</div>
+                  <div className="text-5xl font-bold text-white">$249</div>
+                </div>
+              </div>
+
+              {/* Body */}
+              <div className="px-12 py-8">
+                <div className="text-gray-600 text-center text-sm mb-8">
+                  Acceso completo al programa de {career.modules} módulos
+                </div>
+                <button className="w-full bg-rojo-brillante text-white hover:bg-red-600 font-semibold py-3 px-6 rounded-lg transition-all duration-300 hover:shadow-lg active:scale-95">
+                  Inscribirme Ahora
+                </button>
+              </div>
             </div>
           </motion.div>
         </div>
@@ -356,129 +342,104 @@ const CareerDetail = ({ career }: CareerDetailProps) => {
               viewport={{ once: true }}
               className="text-center mt-16"
             >
-              <Button
-                variant="secondary"
+              <button
                 onClick={() => setShowAllCurriculum(!showAllCurriculum)}
-                className="px-8 py-3 border-gray-300 text-gray-700 hover:bg-gray-50"
+                className="px-8 py-3 border border-gray-300 text-gray-700 bg-white rounded-lg hover:bg-gray-50 transition-all duration-300 font-semibold"
               >
                 {showAllCurriculum ? 'Ver menos módulos' : `Ver todos los módulos (${career.curriculum.length})`}
-              </Button>
+              </button>
             </motion.div>
           )}
         </div>
       </section>
 
-      {/* Testimonials Section */}
-      <section className="py-24 bg-white">
-        <div className="max-w-6xl mx-auto px-6">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="text-center mb-20"
-          >
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-              Historias de Éxito
-            </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-              Profesionales como tú que transformaron sus carreras con nuestros programas
-            </p>
-          </motion.div>
-
-          <div className="grid md:grid-cols-2 gap-8">
-            {career.testimonials.map((testimonial, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.2 }}
-                viewport={{ once: true }}
-                className="bg-white rounded-xl p-8 shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300"
-              >
-                {/* Rating stars */}
-                <div className="flex items-center gap-1 mb-6">
-                  {[...Array(testimonial.rating)].map((_, i) => (
-                    <Star key={i} className="w-5 h-5 text-yellow-400 fill-current" />
-                  ))}
-                </div>
-
-                {/* Testimonial content */}
-                <blockquote className="text-gray-700 text-lg mb-8 leading-relaxed">
-                  "{testimonial.content}"
-                </blockquote>
-
-                {/* Author info */}
-                <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 bg-gradient-to-br from-azul-petroleo to-azul-celeste rounded-full flex items-center justify-center text-white font-semibold">
-                    {testimonial.name.charAt(0)}
-                  </div>
-                  <div>
-                    <div className="font-semibold text-gray-900">{testimonial.name}</div>
-                    <div className="text-gray-600 text-sm">{testimonial.role}</div>
-                    <div className="text-gray-500 text-sm">{testimonial.company}</div>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* Testimonials Section with Marquee */}
+      <TestimonialsSection
+        title="Lo que dicen nuestros estudiantes"
+        description="Historias reales de profesionales que transformaron su carrera"
+        testimonials={career.testimonials.map((testimonial, index) => {
+          const avatarImages = [
+            'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&h=150&fit=crop&crop=face',
+            'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face',
+            'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&h=150&fit=crop&crop=face',
+            'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=150&h=150&fit=crop&crop=face',
+            'https://images.unsplash.com/photo-1507214159519-1a373571b636?w=150&h=150&fit=crop&crop=face',
+            'https://images.unsplash.com/photo-1506336584489-27f5c0dd7e61?w=150&h=150&fit=crop&crop=face',
+            'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&crop=face',
+            'https://images.unsplash.com/photo-1524666666564-c68968c77e8e?w=150&h=150&fit=crop&crop=face',
+            'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face',
+            'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&h=150&fit=crop&crop=face',
+          ]
+          return {
+            author: {
+              name: testimonial.name,
+              handle: testimonial.role,
+              avatar: avatarImages[index % avatarImages.length]
+            },
+            text: testimonial.content,
+          }
+        })}
+        className="bg-white"
+      />
 
       {/* FAQ Section */}
-      <section className="py-24 bg-gray-50">
-        <div className="max-w-4xl mx-auto px-6">
+      <section className="py-24 bg-gradient-to-b from-gray-50 to-white">
+        <div className="max-w-3xl mx-auto px-6">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
-            className="text-center mb-20"
+            className="text-center mb-16"
           >
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
               Preguntas Frecuentes
             </h2>
-            <p className="text-xl text-gray-600 leading-relaxed">
+            <p className="text-lg text-gray-600">
               Resolvemos tus dudas sobre el programa
             </p>
           </motion.div>
 
-          <div className="space-y-4">
+          <div className="space-y-3">
             {career.faq.map((faq, index) => (
               <motion.div
                 key={index}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 10 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
+                transition={{ duration: 0.5, delay: index * 0.08 }}
                 viewport={{ once: true }}
-                className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-shadow duration-300"
+                className="group"
               >
                 <button
                   onClick={() => toggleFaq(index)}
-                  className="w-full px-8 py-6 text-left flex items-center justify-between hover:bg-gray-50 transition-colors group"
+                  className="w-full px-6 py-5 text-left flex items-center justify-between bg-white border border-gray-200 rounded-xl hover:border-azul-petroleo/50 transition-all duration-300 hover:shadow-md"
                 >
-                  <h3 className="text-lg font-semibold text-gray-900 group-hover:text-azul-petroleo transition-colors pr-4">
+                  <h3 className="text-base font-semibold text-gray-900 pr-4 group-hover:text-azul-petroleo transition-colors">
                     {faq.question}
                   </h3>
-                  <div className="flex-shrink-0">
+                  <div className="flex-shrink-0 text-azul-petroleo group-hover:text-azul-celeste transition-colors">
                     {expandedFaq === index ? (
-                      <ChevronUp className="w-5 h-5 text-azul-celeste" />
+                      <ChevronUp className="w-5 h-5" />
                     ) : (
-                      <ChevronDown className="w-5 h-5 text-gray-400 group-hover:text-azul-celeste transition-colors" />
+                      <ChevronDown className="w-5 h-5" />
                     )}
                   </div>
                 </button>
+
+                {/* Answer */}
                 {expandedFaq === index && (
                   <motion.div
-                    initial={{ height: 0, opacity: 0 }}
-                    animate={{ height: 'auto', opacity: 1 }}
-                    exit={{ height: 0, opacity: 0 }}
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: 'auto' }}
+                    exit={{ opacity: 0, height: 0 }}
                     transition={{ duration: 0.3 }}
-                    className="px-8 pb-6 border-t border-gray-100"
+                    className="overflow-hidden"
                   >
-                    <p className="text-gray-600 leading-relaxed pt-4">
-                      {faq.answer}
-                    </p>
+                    <div className="px-6 py-4 bg-gradient-to-br from-azul-celeste/5 to-azul-petroleo/5 border-l-4 border-azul-petroleo">
+                      <p className="text-gray-700 leading-relaxed">
+                        {faq.answer}
+                      </p>
+                    </div>
                   </motion.div>
                 )}
               </motion.div>
@@ -495,58 +456,74 @@ const CareerDetail = ({ career }: CareerDetailProps) => {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
-            className="bg-white/10 backdrop-blur-sm rounded-3xl p-12 border border-white/20"
+            className="bg-white/10 backdrop-blur-md rounded-3xl p-12 md:p-16 border border-white/20 hover:border-white/40 transition-all duration-300"
           >
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6">
               ¿Listo para transformar tu carrera?
             </h2>
-            <p className="text-xl text-white/90 mb-10 max-w-3xl mx-auto leading-relaxed">
+            <p className="text-lg md:text-xl text-white/90 mb-12 max-w-3xl mx-auto leading-relaxed">
               Únete a miles de profesionales que ya dominan el inglés en sus campos especializados
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-              <Button className="px-10 py-4 text-lg font-semibold shadow-2xl bg-white text-azul-petroleo hover:bg-gray-50">
-                <span className="flex items-center gap-2">
-                  Comenzar Programa
-                  <Zap className="w-5 h-5" />
-                </span>
-              </Button>
-              <Button variant="secondary" className="px-10 py-4 text-lg border-white/40 text-white hover:bg-white/10 backdrop-blur-sm">
-                <span className="flex items-center gap-2">
-                  <Heart className="w-5 h-5" />
-                  Consulta Gratuita
-                </span>
-              </Button>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
+              <button style={{ color: '#FFFFFF', backgroundColor: '#E0312D' }} className="inline-flex items-center justify-center gap-2 px-10 py-4 text-lg font-semibold rounded-full shadow-2xl hover:shadow-lg transition-all duration-300 hover:-translate-y-1 active:scale-95 hover:bg-red-600">
+                Comenzar Programa
+                <Zap className="w-5 h-5" />
+              </button>
+              <button style={{ color: '#FFFFFF', borderColor: 'rgba(255,255,255,0.4)' }} className="inline-flex items-center justify-center gap-2 px-10 py-4 text-lg font-semibold rounded-full border-2 hover:bg-white/15 transition-all duration-300 hover:-translate-y-1 backdrop-blur-sm">
+                <Heart className="w-5 h-5" />
+                Consulta Gratuita
+              </button>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-white/90">
-              <div className="flex flex-col items-center gap-3">
-                <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center">
-                  <Shield className="w-6 h-6" />
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0 }}
+                viewport={{ once: true }}
+                className="flex flex-col items-center gap-4 p-6 bg-white/5 rounded-2xl border border-white/10 hover:bg-white/10 transition-all duration-300"
+              >
+                <div className="w-14 h-14 bg-white/20 rounded-full flex items-center justify-center">
+                  <Shield className="w-7 h-7 text-white" />
                 </div>
                 <div className="text-center">
-                  <div className="font-semibold mb-1">Garantía de satisfacción</div>
+                  <div className="font-semibold text-white mb-1">Garantía de satisfacción</div>
                   <div className="text-sm text-white/70">30 días de devolución</div>
                 </div>
-              </div>
-              <div className="flex flex-col items-center gap-3">
-                <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center">
-                  <Globe className="w-6 h-6" />
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.1 }}
+                viewport={{ once: true }}
+                className="flex flex-col items-center gap-4 p-6 bg-white/5 rounded-2xl border border-white/10 hover:bg-white/10 transition-all duration-300"
+              >
+                <div className="w-14 h-14 bg-white/20 rounded-full flex items-center justify-center">
+                  <Globe className="w-7 h-7 text-white" />
                 </div>
                 <div className="text-center">
-                  <div className="font-semibold mb-1">Acceso global</div>
+                  <div className="font-semibold text-white mb-1">Acceso global</div>
                   <div className="text-sm text-white/70">Aprende desde cualquier lugar</div>
                 </div>
-              </div>
-              <div className="flex flex-col items-center gap-3">
-                <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center">
-                  <Award className="w-6 h-6" />
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                viewport={{ once: true }}
+                className="flex flex-col items-center gap-4 p-6 bg-white/5 rounded-2xl border border-white/10 hover:bg-white/10 transition-all duration-300"
+              >
+                <div className="w-14 h-14 bg-white/20 rounded-full flex items-center justify-center">
+                  <Award className="w-7 h-7 text-white" />
                 </div>
                 <div className="text-center">
-                  <div className="font-semibold mb-1">Certificación reconocida</div>
+                  <div className="font-semibold text-white mb-1">Certificación reconocida</div>
                   <div className="text-sm text-white/70">Valorada internacionalmente</div>
                 </div>
-              </div>
+              </motion.div>
             </div>
           </motion.div>
         </div>

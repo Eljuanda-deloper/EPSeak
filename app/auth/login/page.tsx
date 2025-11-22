@@ -1,34 +1,7 @@
 'use client'
 
-import { useEffect } from 'react'
-import { useRouter, useSearchParams } from 'next/navigation'
-import LoginForm from '@/app/components/auth/LoginForm'
+import { Component } from '@/components/ui/sign-in-card-2'
 
 export default function LoginPage() {
-  const router = useRouter()
-  const searchParams = useSearchParams()
-
-  return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full space-y-8">
-        <div className="text-center">
-          <h2 className="mt-6 text-3xl font-bold text-gray-900">
-            Iniciar sesión
-          </h2>
-          <p className="mt-2 text-sm text-gray-600">
-            Accede a tu cuenta de ESPeak
-          </p>
-        </div>
-        <LoginForm />
-        <div className="text-center">
-          <p className="text-sm text-gray-600">
-            ¿No tienes cuenta?{' '}
-            <a href="/auth/register" className="font-medium text-blue-600 hover:text-blue-500">
-              Regístrate aquí
-            </a>
-          </p>
-        </div>
-      </div>
-    </div>
-  )
+  return <Component />
 }

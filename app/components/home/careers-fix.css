@@ -1,0 +1,11 @@
+/* Prevent animated WebP from playing */
+.career-image-container img[src*="Tech English Professional"] {
+  animation: none !important;
+  -webkit-animation: none !important;
+}
+
+/* Force static display for all career images */
+.career-image-static {
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+}

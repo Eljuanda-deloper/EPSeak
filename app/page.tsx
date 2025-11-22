@@ -2,7 +2,7 @@
 
 import { motion, AnimatePresence } from 'framer-motion';
 import { useEffect, useState } from 'react';
-import Hero from './components/home/Hero';
+import { HeroSection } from '@/components/blocks/hero-section-1';
 import About from './components/home/About';
 import Careers from './components/home/Careers';
 import Testimonials from './components/home/Testimonials';
@@ -11,7 +11,13 @@ import WhatsAppFloat from './components/shared/WhatsAppFloat';
 
 const pageVariants = {
   initial: { opacity: 0, y: 20 },
-  in: { opacity: 1, y: 0 },
+  in: {
+    opacity: 1,
+    y: 0,
+    transitionEnd: {
+      transform: "none"
+    }
+  },
   out: { opacity: 0, y: -20 }
 };
 
@@ -85,11 +91,24 @@ export default function Home() {
         className="min-h-screen flex flex-col"
       >
         <main className="flex-grow">
-          <Hero />
-          <Careers />
-          <About />
-          <Testimonials />
-          <Contact />
+          {/* ========== HERO SECTION ========== */}
+          <section id="inicio">
+            <HeroSection />
+          </section>
+
+          {/* ========== EXISTING SECTIONS ========== */}
+          <section id="carreras">
+            <Careers />
+          </section>
+          <section id="quienes-somos">
+            <About />
+          </section>
+          <section id="testimonios">
+            <Testimonials />
+          </section>
+          <section id="contacto">
+            <Contact />
+          </section>
           <WhatsAppFloat />
         </main>
       </motion.div>
