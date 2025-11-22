@@ -35,13 +35,13 @@ export default function HeaderNew() {
   }, []);
 
   return (
-    <header className="fixed top-0 z-[100] w-full bg-white">
+    <header className="fixed top-0 z-[100] w-full bg-transparent">
       <nav className="w-full px-2">
         <div
           className={cn(
             'mx-auto mt-2 max-w-6xl px-4 sm:px-6 transition-all duration-300 lg:px-8',
             shouldBeScrolled &&
-            'bg-white/10 dark:bg-black/20 max-w-5xl rounded-2xl border border-white/20 dark:border-white/10 backdrop-blur-xl shadow-sm'
+            'bg-white/95 backdrop-blur-xl backdrop-saturate-150 max-w-5xl rounded-2xl border border-white/40 shadow-lg'
           )}
         >
           <div className="flex items-center justify-between w-full h-16">
