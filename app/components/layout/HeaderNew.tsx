@@ -35,19 +35,14 @@ export default function HeaderNew() {
   }, []);
 
   return (
-    <header className="fixed top-0 z-[100] w-full bg-transparent">
+    <header className="fixed top-0 z-[100] w-full">
       <nav className="w-full px-2">
         <div
           className={cn(
             'mx-auto mt-2 max-w-6xl px-4 sm:px-6 transition-all duration-300 lg:px-8',
             shouldBeScrolled &&
-            'max-w-5xl rounded-2xl border border-white/40 shadow-lg'
+            'bg-white/98 max-w-5xl rounded-2xl border border-slate-200/60 shadow-lg'
           )}
-          style={shouldBeScrolled ? {
-            backgroundColor: 'rgba(255, 255, 255, 0.95)',
-            backdropFilter: 'blur(20px) saturate(150%)',
-            WebkitBackdropFilter: 'blur(20px) saturate(150%)',
-          } : undefined}
         >
           <div className="flex items-center justify-between w-full h-16">
             {/* Left Section: Logo */}

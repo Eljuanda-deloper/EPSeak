@@ -252,26 +252,53 @@ const CareerDetail = ({ career }: CareerDetailProps) => {
 
             {/* Right: Features Grid */}
             <div className="lg:col-span-7 grid sm:grid-cols-2 gap-4 sm:gap-6">
-              {career.features.map((feature, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.1 }}
-                  viewport={{ once: true }}
-                  className="group p-6 sm:p-8 bg-white rounded-2xl sm:rounded-3xl border border-azul-celeste/10 shadow-sm hover:shadow-xl hover:border-azul-celeste/30 transition-all duration-300"
-                >
-                  <div className="w-10 h-10 sm:w-12 sm:h-12 bg-azul-petroleo/5 rounded-xl sm:rounded-2xl flex items-center justify-center mb-4 sm:mb-6 group-hover:scale-110 group-hover:bg-azul-petroleo/10 transition-all duration-300">
-                    <div className="w-2 h-2 bg-azul-petroleo rounded-full" />
-                  </div>
-                  <h3 className="text-base sm:text-lg font-bold text-slate-900 mb-2 sm:mb-3 group-hover:text-azul-petroleo transition-colors">
-                    {feature}
-                  </h3>
-                  <p className="text-slate-500 text-sm leading-relaxed">
-                    Domina esta habilidad clave y aplícala directamente en tu entorno laboral desde el primer día.
-                  </p>
-                </motion.div>
-              ))}
+              {career.features.slice(0, 4).map((feature, index) => {
+                // Define unique icons and descriptions for each feature
+                const featureDetails = [
+                  {
+                    icon: <Award className="w-5 h-5 sm:w-6 sm:h-6 text-azul-petroleo" />,
+                    description: "Vocabulario técnico esencial y comunicación efectiva en contextos profesionales reales."
+                  },
+                  {
+                    icon: <Zap className="w-5 h-5 sm:w-6 sm:h-6 text-azul-petroleo" />,
+                    description: "Aprende a documentar, presentar y comunicarte con precisión en tu campo especializado."
+                  },
+                  {
+                    icon: <Globe className="w-5 h-5 sm:w-6 sm:h-6 text-azul-petroleo" />,
+                    description: "Desarrolla confianza para interactuar con equipos internacionales y clientes globales."
+                  },
+                  {
+                    icon: <Shield className="w-5 h-5 sm:w-6 sm:h-6 text-azul-petroleo" />,
+                    description: "Comprende estándares internacionales y mejores prácticas de tu industria en inglés."
+                  }
+                ];
+
+                return (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ delay: index * 0.1 }}
+                    viewport={{ once: true }}
+                    className="group relative p-6 sm:p-8 bg-gradient-to-br from-white to-azul-celeste/5 rounded-2xl sm:rounded-3xl border border-azul-celeste/20 shadow-sm hover:shadow-2xl hover:border-azul-celeste/40 transition-all duration-300 overflow-hidden"
+                  >
+                    {/* Gradient overlay on hover */}
+                    <div className="absolute inset-0 bg-gradient-to-br from-azul-petroleo/0 to-azul-celeste/0 group-hover:from-azul-petroleo/5 group-hover:to-azul-celeste/10 transition-all duration-300 rounded-2xl sm:rounded-3xl" />
+
+                    <div className="relative z-10">
+                      <div className="w-12 h-12 sm:w-14 sm:h-14 bg-azul-petroleo/10 rounded-2xl flex items-center justify-center mb-4 sm:mb-6 group-hover:scale-110 group-hover:bg-azul-petroleo/20 transition-all duration-300">
+                        {featureDetails[index]?.icon}
+                      </div>
+                      <h3 className="text-base sm:text-lg font-bold text-slate-900 mb-3 group-hover:text-azul-petroleo transition-colors leading-tight">
+                        {feature}
+                      </h3>
+                      <p className="text-slate-600 text-sm leading-relaxed">
+                        {featureDetails[index]?.description}
+                      </p>
+                    </div>
+                  </motion.div>
+                );
+              })}
             </div>
           </div>
         </div>
