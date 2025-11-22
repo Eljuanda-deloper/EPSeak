@@ -41,8 +41,13 @@ export default function HeaderNew() {
           className={cn(
             'mx-auto mt-2 max-w-6xl px-4 sm:px-6 transition-all duration-300 lg:px-8',
             shouldBeScrolled &&
-            'bg-white/95 backdrop-blur-xl backdrop-saturate-150 max-w-5xl rounded-2xl border border-white/40 shadow-lg'
+            'max-w-5xl rounded-2xl border border-white/40 shadow-lg'
           )}
+          style={shouldBeScrolled ? {
+            backgroundColor: 'rgba(255, 255, 255, 0.95)',
+            backdropFilter: 'blur(20px) saturate(150%)',
+            WebkitBackdropFilter: 'blur(20px) saturate(150%)',
+          } : undefined}
         >
           <div className="flex items-center justify-between w-full h-16">
             {/* Left Section: Logo */}

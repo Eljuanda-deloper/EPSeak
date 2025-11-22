@@ -32,8 +32,14 @@ const config: Config = {
           '100%': { transform: 'translateX(-100%)' },
         },
       },
+      backdropBlur: {
+        xs: '2px',
+      },
     },
   },
   plugins: [],
+  future: {
+    hoverOnlyWhenSupported: true,
+  },
 }
 export default config
