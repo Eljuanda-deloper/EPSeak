@@ -3,6 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { usePathname } from 'next/navigation';
 import { Menu, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
@@ -15,8 +16,15 @@ const menuItems = [
 ];
 
 export default function HeaderNew() {
+  const pathname = usePathname();
   const [menuState, setMenuState] = React.useState(false);
   const [isScrolled, setIsScrolled] = React.useState(false);
+
+  // Detectar si estamos en una página de carrera
+  const isCareerPage = pathname?.startsWith('/careers/');
+
+  // En páginas de carreras, el header siempre está "scrolled" (sólido)
+  const shouldBeScrolled = isCareerPage || isScrolled;
 
   React.useEffect(() => {
     const handleScroll = () => {
@@ -32,7 +40,7 @@ export default function HeaderNew() {
         <div
           className={cn(
             'mx-auto mt-2 max-w-6xl px-6 transition-all duration-300 lg:px-12',
-            isScrolled &&
+            shouldBeScrolled &&
             'bg-white/50 dark:bg-slate-900/50 max-w-4xl rounded-2xl border border-slate-200 backdrop-blur-lg lg:px-5'
           )}
         >
@@ -80,7 +88,7 @@ export default function HeaderNew() {
                 size="sm"
                 className={cn(
                   'rounded-lg shadow-md hover:shadow-lg transition-all duration-300 hover:scale-105',
-                  !isScrolled && 'hidden'
+                  !shouldBeScrolled && 'hidden'
                 )}
               >
                 <Link href="/auth/login">

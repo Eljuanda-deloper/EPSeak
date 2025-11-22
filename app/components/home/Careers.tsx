@@ -201,30 +201,30 @@ const Careers = () => {
   const progressPercentage = maxIndex > 0 ? (currentIndex / maxIndex) * 100 : 0;
 
   return (
-    <section id="careers" className="py-20 bg-gradient-to-br from-azul-petroleo via-azul-celeste to-white relative overflow-hidden">
+    <section id="careers" className="py-12 sm:py-16 md:py-20 bg-gradient-to-br from-azul-petroleo via-azul-celeste to-white relative overflow-hidden">
       {/* Background decorative elements */}
       <div className="absolute inset-0 opacity-10">
         <div className="absolute top-20 left-10 w-72 h-72 bg-white rounded-full blur-3xl"></div>
         <div className="absolute bottom-20 right-10 w-96 h-96 bg-white rounded-full blur-3xl"></div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-6 relative z-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className="text-center mb-12 sm:mb-16"
         >
           <div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full mb-6">
             <Sparkles className="w-4 h-4 text-white" />
             <span className="text-white text-sm font-medium">Programas Especializados</span>
           </div>
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4 sm:mb-6">
             Carreras Profesionales
           </h2>
-          <p className="text-lg text-white/90 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-base sm:text-lg text-white/90 max-w-3xl mx-auto leading-relaxed px-4 sm:px-0">
             Elige el programa que se adapte a tu profesión y domina el inglés especializado
             para trabajar en cualquier parte del mundo
           </p>
@@ -235,7 +235,7 @@ const Careers = () => {
           {/* Cards Container */}
           <div className="overflow-hidden">
             <motion.div
-              className="flex gap-6"
+              className="flex gap-3 sm:gap-4 md:gap-6"
               animate={{
                 x: `-${currentIndex * (100 / cardsPerView)}%`,
               }}
@@ -249,15 +249,15 @@ const Careers = () => {
                 <motion.div
                   key={career.id}
                   className="flex-shrink-0"
-                  style={{ width: `calc(${100 / cardsPerView}% - ${(cardsPerView - 1) * 24 / cardsPerView}px)` }}
+                  style={{ width: `calc(${100 / cardsPerView}% - ${(cardsPerView - 1) * (cardsPerView === 1 ? 0 : cardsPerView === 2 ? 16 : 18) / cardsPerView}px)` }}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
                   viewport={{ once: true }}
                 >
-                  <div className="group bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-500 h-full flex flex-col">
+                  <div className="group bg-white rounded-xl sm:rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-500 h-full flex flex-col">
                     {/* Image Section */}
-                    <div className="relative h-56 overflow-hidden bg-gradient-to-br from-azul-petroleo to-azul-celeste">
+                    <div className="relative h-40 sm:h-48 md:h-56 overflow-hidden bg-gradient-to-br from-azul-petroleo to-azul-celeste">
                       <div
                         className="absolute inset-0 cursor-pointer"
                         style={{
@@ -276,30 +276,30 @@ const Careers = () => {
                         onClick={() => window.location.href = `/careers/${career.slug}`}
                       />
                       {/* Gradient Overlay */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent pointer-events-none"></div>
 
                       {/* Icon Badge */}
-                      <div className="absolute top-4 right-4 w-14 h-14 bg-white/95 backdrop-blur-sm rounded-2xl flex items-center justify-center text-3xl shadow-lg transform group-hover:scale-110 transition-transform duration-300">
+                      <div className="absolute top-2 right-2 sm:top-4 sm:right-4 w-10 h-10 sm:w-14 sm:h-14 bg-white/95 backdrop-blur-sm rounded-xl sm:rounded-2xl flex items-center justify-center text-2xl sm:text-3xl shadow-lg transform group-hover:scale-110 transition-transform duration-300 pointer-events-none">
                         {career.icon}
                       </div>
 
                       {/* Target Role Badge */}
-                      <div className="absolute bottom-4 left-4 bg-white/95 backdrop-blur-sm px-4 py-2 rounded-full">
+                      <div className="absolute bottom-2 left-2 sm:bottom-4 sm:left-4 bg-white/95 backdrop-blur-sm px-2 py-1 sm:px-4 sm:py-2 rounded-full pointer-events-none">
                         <span className="text-xs font-semibold text-azul-petroleo">{career.targetRole}</span>
                       </div>
                     </div>
 
                     {/* Content Section */}
-                    <div className="p-6 flex flex-col flex-grow">
-                      <h3 className="text-xl font-bold text-azul-petroleo mb-3 line-clamp-2 min-h-[3.5rem]">
+                    <div className="p-4 sm:p-6 flex flex-col flex-grow">
+                      <h3 className="text-lg sm:text-xl font-bold text-azul-petroleo mb-2 sm:mb-3 line-clamp-2 min-h-[2.5rem] sm:min-h-[3.5rem]">
                         {career.title}
                       </h3>
-                      <p className="text-gray-600 text-sm mb-6 leading-relaxed line-clamp-3 flex-grow">
+                      <p className="text-gray-600 text-xs sm:text-sm mb-4 sm:mb-6 leading-relaxed line-clamp-3 flex-grow">
                         {career.description}
                       </p>
 
                       {/* Features */}
-                      <div className="space-y-2 mb-6">
+                      <div className="space-y-1 sm:space-y-2 mb-4 sm:mb-6">
                         <div className="flex items-center gap-2">
                           <div className="w-1.5 h-1.5 bg-azul-celeste rounded-full"></div>
                           <span className="text-gray-700 text-xs">Módulos especializados</span>
@@ -335,28 +335,28 @@ const Careers = () => {
           <button
             onClick={goToPrevious}
             disabled={currentIndex === 0}
-            className={`absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 w-14 h-14 bg-white rounded-full shadow-2xl flex items-center justify-center transition-all duration-300 z-20 ${currentIndex === 0
+            className={`absolute left-0 top-1/2 -translate-y-1/2 -translate-x-2 sm:-translate-x-4 w-10 h-10 sm:w-14 sm:h-14 bg-white rounded-full shadow-2xl flex items-center justify-center transition-all duration-300 z-20 ${currentIndex === 0
               ? 'opacity-50 cursor-not-allowed'
               : 'hover:scale-110 hover:shadow-xl cursor-pointer'
               }`}
           >
-            <ChevronLeft className="w-7 h-7 text-azul-petroleo" />
+            <ChevronLeft className="w-5 h-5 sm:w-7 sm:h-7 text-azul-petroleo" />
           </button>
 
           <button
             onClick={goToNext}
             disabled={currentIndex >= maxIndex}
-            className={`absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 w-14 h-14 bg-white rounded-full shadow-2xl flex items-center justify-center transition-all duration-300 z-20 ${currentIndex >= maxIndex
+            className={`absolute right-0 top-1/2 -translate-y-1/2 translate-x-2 sm:translate-x-4 w-10 h-10 sm:w-14 sm:h-14 bg-white rounded-full shadow-2xl flex items-center justify-center transition-all duration-300 z-20 ${currentIndex >= maxIndex
               ? 'opacity-50 cursor-not-allowed'
               : 'hover:scale-110 hover:shadow-xl cursor-pointer'
               }`}
           >
-            <ChevronRight className="w-7 h-7 text-azul-petroleo" />
+            <ChevronRight className="w-5 h-5 sm:w-7 sm:h-7 text-azul-petroleo" />
           </button>
         </div>
 
         {/* Progress Bar */}
-        <div className="mt-12 max-w-md mx-auto">
+        <div className="mt-8 sm:mt-12 max-w-md mx-auto px-4 sm:px-0">
           <div className="flex items-center gap-4">
             <span className="text-white/80 text-sm font-medium">
               {currentIndex + 1} / {maxIndex + 1}
