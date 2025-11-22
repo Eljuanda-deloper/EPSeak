@@ -1,12 +1,37 @@
 {
-	"inputs": [],
-	"servers": {
-		"mcpAceternityui": {
-			"command": "npx",
-			"args": [
-				"aceternityui-mcp"
-			],
-			"type": "stdio"
-		}
-	}
+  "servers": {
+    "mcpContext7": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "-y",
+        "@upstash/context7-mcp"
+      ]
+  
+    },
+    "supabase": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@supabase/mcp-server-supabase@0.5.5",
+        "--access-token",
+        "sbp_ac1dd066fe706a7226e09cc7c9486c6ef2ccd8ee"
+      ]
+    },
+    
+ 
+  
+    "@21st-dev/magic": {
+      "command": "cmd",
+      "args": [
+        "/c",
+        "npx",
+        "-y",
+        "@21st-dev/magic@latest",
+        "API_KEY=\"4ff27b52904b100571815a55204fcf4f33ff4a0b15578edc899f3b97115de52f\""
+      ]
+    } 
+
+  
+}
 }

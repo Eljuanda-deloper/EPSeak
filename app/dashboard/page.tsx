@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import { useAuth } from '@/app/contexts/AuthContext'
 import { useRouter } from 'next/navigation'
 import ProgressTracker from '@/app/components/dashboard/ProgressTracker'
+import { ProgressChart } from '@/app/components/dashboard/ProgressChart'
 import { useModules } from '@/app/hooks/useModules'
 import { useStudentStats } from '@/app/hooks/useStudentStats'
 import { useCareers } from '@/app/hooks/useCareers'
@@ -44,6 +45,17 @@ export default function DashboardPage() {
       value: (stats?.completedLessons || 0).toString(),
       color: 'from-[#7CC4E0] to-[#0A4E5A]'
     }
+  ]
+
+  // Sample progress data for the chart
+  const weeklyProgressData = [
+    { date: 'Lun', lessonsCompleted: 2, studyTime: 45, accuracy: 85 },
+    { date: 'Mar', lessonsCompleted: 3, studyTime: 60, accuracy: 88 },
+    { date: 'Mié', lessonsCompleted: 1, studyTime: 30, accuracy: 82 },
+    { date: 'Jue', lessonsCompleted: 4, studyTime: 75, accuracy: 90 },
+    { date: 'Vie', lessonsCompleted: 2, studyTime: 50, accuracy: 87 },
+    { date: 'Sáb', lessonsCompleted: 3, studyTime: 65, accuracy: 89 },
+    { date: 'Dom', lessonsCompleted: 1, studyTime: 25, accuracy: 84 },
   ]
 
   return (
@@ -186,6 +198,13 @@ export default function DashboardPage() {
       <ProgressTracker
         modules={modules.filter(m => ['english', 'automation'].includes(m.area_of_interest))}
         onModuleClick={handleModuleClick}
+      />
+
+      {/* Progress Chart */}
+      <ProgressChart
+        data={weeklyProgressData}
+        title="Progreso Semanal"
+        metric="lessonsCompleted"
       />
 
       {/* Quick Stats */}
