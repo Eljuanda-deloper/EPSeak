@@ -9,6 +9,9 @@ export const metadata: Metadata = {
   title: "ESPeak - English for Specific Purpose | Aprende inglés profesional",
   description: "Domina el inglés para tu profesión y trabaja en cualquier parte del mundo con ESPeak",
   keywords: "inglés profesional, ESP, English for Specific Purposes, inglés técnico, inglés médico, inglés negocios",
+  icons: {
+    icon: "/logoEspeak.png",
+  },
 };
 
 type RootLayoutProps = {
